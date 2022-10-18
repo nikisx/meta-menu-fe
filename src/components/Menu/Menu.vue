@@ -4,6 +4,7 @@
         <h3 @click="addCategory = true" style="cursor: pointer;">+ Add category</h3>
         <div v-show="addCategory">
             <input type="text">
+            
         </div>
   </section>
 </template>
