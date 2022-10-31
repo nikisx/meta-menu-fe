@@ -1,11 +1,18 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+  <nav-bar></nav-bar>
   <router-view />
 </template>
-
+<script>
+import NavBar from './components/Navigation/NavBar.vue'
+export default({
+ components: {
+  NavBar,
+ },
+  created(){
+    this.$store.dispatch('setCurrentUser');
+  }
+})
+</script>
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

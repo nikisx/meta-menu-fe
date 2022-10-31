@@ -108,6 +108,11 @@ export default {
   props: {
     msg: String,
   },
+  computed:{
+    user(){
+      return this.$store.state.user;
+    }
+  },
 };
 </script>
 
