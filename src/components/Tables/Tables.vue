@@ -5,7 +5,10 @@
           <section style="width: 500px; margin: 0 auto; text-align: left; border-right: 2px solid black; border-left: 2px solid black; border-top: 2px solid black">
               <div v-for="(table, index) in tables" style="border-bottom: 2px solid black" :key="index">
                   <span style="margin-right: 22px;">{{index + 1}}</span> 
-                  <span style="margin-right: 100px;">{{table.number}}</span>
+                  <span v-if="currentTable.id != table.id" style="margin-right: 100px;">{{table.number}}</span>
+                  <input v-if="currentTable.id == table.id" type="text" v-model="tableNumber">
+                  <font-awesome-icon v-if="currentTable.id == table.id" @click="currentTable = {}; table.number = tableNumber; tableNumber = null" class="edit-table-name" icon="fa-solid fa-check" />
+                  <font-awesome-icon @click="currentTable = table;tableNumber = table.number" class="edit-table-name" icon="fa-solid fa-pen-to-square" />
                   <a @click="downloadQrImage(table)" href="#">download qr code</a>
               </div>
           </section>
@@ -23,6 +26,8 @@
          return {
            isAddTablesOpen: false,
            tables:[],
+           currentTable: {},
+           tableNumber: null,
          };
        },
        computed:{
@@ -75,5 +80,13 @@
   </script>
   
   <style>
-  
+    .edit-table-name{
+        cursor: pointer;
+        margin-right: 20px;
+        padding: 2px;
+        border-radius: 4px;
+    }
+    .edit-table-name:hover{
+        background: gainsboro;
+    }
   </style>
