@@ -9,7 +9,7 @@
         </div>
         <section style="width: 500px; margin: 0 auto; text-align: left;">
             <div v-for="(category, index) in categories" style="margin-bottom: 10px;" :key="index">
-                {{category.name}} <font-awesome-icon @click="isOpenFoodItemModal = true; currentCategory = category" style="cursor: pointer;" icon="fa-solid fa-plus" />
+                {{category.name}} <font-awesome-icon class="edit-table-name" @click="isOpenFoodItemModal = true; currentCategory = category" style="cursor: pointer;" icon="fa-solid fa-plus" />
                 <ul style="padding-right: 15px;">
                     <li v-for="(food, i) in category.items" :key="i">{{food.name}}</li>
                 </ul>

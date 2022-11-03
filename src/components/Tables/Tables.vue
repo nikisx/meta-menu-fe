@@ -7,7 +7,7 @@
                   <span style="margin-right: 22px;">{{index + 1}}</span> 
                   <span v-if="currentTable.id != table.id" style="margin-right: 100px;">{{table.number}}</span>
                   <input v-if="currentTable.id == table.id" type="text" v-model="tableNumber">
-                  <font-awesome-icon v-if="currentTable.id == table.id" @click="currentTable = {}; table.number = tableNumber; tableNumber = null" class="edit-table-name" icon="fa-solid fa-check" />
+                  <font-awesome-icon v-if="currentTable.id == table.id" @click="editTable(table)" class="edit-table-name" icon="fa-solid fa-check" />
                   <font-awesome-icon @click="currentTable = table;tableNumber = table.number" class="edit-table-name" icon="fa-solid fa-pen-to-square" />
                   <a @click="downloadQrImage(table)" href="#">download qr code</a>
               </div>
@@ -42,6 +42,21 @@
         CreateTablesModal,
      },
      methods:{
+        editTable(table){
+            this.currentTable = {};
+            let obj = {
+                id: table.id,
+                number: this.tableNumber,
+            };
+
+            post('/tables/edit', obj)
+            .then(response => {
+                if(response.data.success){
+                    this.tableNumber = null;
+                    this.getAllTables();
+                }
+            })
+        },
         getAllTables(){
           get('/tables/get-all')
           .then(response => {
@@ -51,6 +66,11 @@
             })
          },
          downloadQrImage(table){
+            if(!table.number){
+                alert("Please enter number for table!");
+                return;
+            }
+
             get(`/tables/download-qr?id=${table.id}`)
           .then(response => {
             debugger;
