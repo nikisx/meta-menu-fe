@@ -1,6 +1,7 @@
 <template>
     <section style="text-align: center;">
-          <h1>{{user.userName}} menu</h1>
+          <h1>menu</h1>
+          <button @click="createOrder">Order</button>
           <section style="width: 500px; margin: 0 auto; text-align: left;">
               <div v-for="(category, index) in categories" style="margin-bottom: 10px;" :key="index">
                   {{category.name}} 
@@ -21,9 +22,7 @@
          };
        },
        computed:{
-       user(){
-         return this.$store.state.user;
-       }
+       
      },
      created(){
       this.getAllCategories();
@@ -32,6 +31,14 @@
       
      },
      methods:{
+        createOrder(){
+            post('/orders/create', {userId: this.$route.params.userId, tableId: this.$route.params.tableId})
+            .then(response => {
+                if(response.data.success){
+              
+            }
+            })
+        },
          getAllCategories(){
           get('/foodcategory/get-all?userId='+this.$route.params.userId)
           .then(response => {

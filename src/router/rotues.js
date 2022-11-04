@@ -1,9 +1,10 @@
 import HomeView from "../views/HomeView.vue";
 import Register from "../components/Authentication/Register.vue";
-import Login from "../components/Authentication/Login.vue"
-import Menu from "../components/Menu/Menu.vue"
-import Tables from "../components/Tables/Tables.vue"
-import TableMenu from "../components/Menu/TableMenu.vue"
+import Login from "../components/Authentication/Login.vue";
+import Menu from "../components/Menu/Menu.vue";
+import Tables from "../components/Tables/Tables.vue";
+import TableMenu from "../components/Menu/TableMenu.vue";
+import Orders from "../components/Orders/Orders.vue"
 
 export default [
     {
@@ -44,5 +45,10 @@ export default [
       path: "/menu/:userId/:tableId",
       name: "menu",
       component: TableMenu,
+    },
+    {
+      path: "/orders",
+      name: "orders",
+      component: Orders,
     },
   ];
