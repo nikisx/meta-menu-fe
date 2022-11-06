@@ -1,7 +1,7 @@
 <template>
     <section style="text-align: center;">
           <h1>menu</h1>
-          <button @click="isCartVisible = true">Order</button>
+          <button @click="isCartVisible = true">Cart</button>
           <section style="width: 500px; margin: 0 auto; text-align: left;">
               <div v-for="(category, index) in categories" style="margin-bottom: 10px;" :key="index">
                   {{category.name}} 
@@ -14,7 +14,7 @@
                   </ul>
               </div>
           </section>
-          <cart :cart="cart" @close="isCartVisible = false" :visible="isCartVisible" :cartItmes="cartItmes"></cart>
+          <cart :cart="cart" @close="isCartVisible = false" @setOrder="createOrder" :visible="isCartVisible" :cartItmes="cartItmes"></cart>
     </section>
   </template>
   
@@ -52,7 +52,15 @@
             
         },
         createOrder(){
-            post('/orders/create', {userId: this.$route.params.userId, tableId: this.$route.params.tableId})
+            this.cartItmes.forEach(item => item.quantity = this.cart[item.id])
+
+            let obj ={
+                userId: this.$route.params.userId, 
+                tableId: this.$route.params.tableId,
+                items: this.cartItmes,
+            }
+
+            post('/orders/create', obj)
             .then(response => {
                 if(response.data.success){
               

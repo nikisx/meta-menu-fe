@@ -1,9 +1,11 @@
 <template>
     <slider :active="visible" @close="$emit('close')" >
         <section style="margin-top: 30px;">
+            <h2>Cart</h2>
             <div v-for="(food, i) in cartItmes" :key="i">
                 {{food.name}} - <span>{{cart[food.id]}}</span>
             </div>
+            <button @click="$emit('setOrder')">Set order</button>
         </section>
     </slider>
 </template>
