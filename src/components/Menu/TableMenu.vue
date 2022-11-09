@@ -7,7 +7,7 @@
                   {{category.name}} 
                   <ul style="padding-right: 15px;">
                       <li v-for="(food, i) in category.items" :key="i">{{food.name}} 
-                        <font-awesome-icon  class="edit-table-name" style="cursor: pointer; margin-right: 8px;" icon="fa-solid fa-minus" />
+                        <font-awesome-icon @click="removeFromCart(food.id)" class="edit-table-name" style="cursor: pointer; margin-right: 8px;" icon="fa-solid fa-minus" />
                         <span style="margin-right: 8px;">{{cart[food.id]}}</span>
                         <font-awesome-icon @click="addToCart(food)" class="edit-table-name" style="cursor: pointer;" icon="fa-solid fa-plus" />
                     </li>
@@ -41,6 +41,18 @@
         Cart,
      },
      methods:{
+        removeFromCart(itemId){
+            if(!this.cart[itemId]){
+                return;
+            }
+
+            if(this.cart[itemId] > 1){
+                this.cart[itemId] -= 1;
+            }
+            else{
+                delete this.cart[itemId];
+            }
+        },
         addToCart(item){
             if(this.cart[item.id]){
                 this.cart[item.id] += 1;
@@ -60,10 +72,13 @@
                 items: this.cartItmes,
             }
 
+
+
             post('/orders/create', obj)
             .then(response => {
                 if(response.data.success){
-              
+              this.cartItmes = [];
+              this.cart = {};
             }
             })
         },
