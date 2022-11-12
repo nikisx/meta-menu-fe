@@ -18,7 +18,6 @@
   
   <script>
   import {post, get} from '../../request.js';
-  import axios from 'axios';
   import CreateTablesModal from '../Tables/CreateTablesModa.vue';
   
   export default {
@@ -73,8 +72,6 @@
 
             get(`/tables/download-qr?id=${table.id}`)
           .then(response => {
-            debugger;
-                console.log(response)
                     let arr = this.base64ToArrayBuffer(response.data);
                     const url = window.URL.createObjectURL(new Blob([arr], {type: "image/png"}));
                     const link = document.createElement('a');
