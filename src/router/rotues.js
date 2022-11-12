@@ -4,7 +4,8 @@ import Login from "../components/Authentication/Login.vue";
 import Menu from "../components/Menu/Menu.vue";
 import Tables from "../components/Tables/Tables.vue";
 import TableMenu from "../components/Menu/TableMenu.vue";
-import Orders from "../components/Orders/Orders.vue"
+import Orders from "../components/Orders/Orders.vue";
+import Users from '../components/AdminPanel/Users.vue';
 
 export default [
     {
@@ -50,5 +51,10 @@ export default [
       path: "/orders",
       name: "orders",
       component: Orders,
+    },
+    {
+      path: "/users",
+      name: "users",
+      component: Users,
     },
   ];
