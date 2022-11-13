@@ -11,7 +11,7 @@
                     {{user.username}}
                 </span>
             </div>
-            <select v-model="selected[user.id]" name="" id="">
+            <select @change="changeUserAccountType(user.id)" v-model="selected[user.id]" name="" id="">
                 <option :value="0">Free</option>
                 <option :value="1">Basic</option>
                 <option :value="2">Premium</option>
@@ -47,6 +47,21 @@ export default {
               }
             }
             })
+         },
+         changeUserAccountType(userId){
+
+            let type = this.selected[userId];
+
+            let obj = {
+              id: userId,
+              accountType: type,
+            }
+
+              post('/users/update-type', obj).then((response) => {
+                if(response.data.success){
+                  this.selected[userId] = type;
+                }
+              }).catch(e => {alert(e.message)})
          },
      }
 }

@@ -1,9 +1,9 @@
 <template>
-    <section style="text-align: center;">
-          <h1>menu</h1>
+    <section v-if="user.accountType" style="text-align: center;">
+          <h1>{{user.username}} menu</h1>
           <button @click="isCartVisible = true">Cart</button>
           <section style="width: 500px; margin: 0 auto; text-align: left;">
-              <div v-for="(category, index) in categories" style="margin-bottom: 10px;" :key="index">
+              <div v-for="(category, index) in user.categories" style="margin-bottom: 10px;" :key="index">
                   {{category.name}} 
                   <ul style="padding-right: 15px;">
                       <li v-for="(food, i) in category.items" :key="i">{{food.name}} 
@@ -16,11 +16,16 @@
           </section>
           <cart :cart="cart" @close="isCartVisible = false" @setOrder="createOrder" :visible="isCartVisible" :cartItmes="cartItmes"></cart>
     </section>
+    <section v-else-if="user.accountType == 0">
+        <h1>User not validated</h1>
+    </section>
+    <loader v-else></loader>
   </template>
   
   <script>
   import {post, get} from '../../request.js';  
   import Cart from '../Orders/CartSlider.vue';
+  import Loader from '../Shared/Loader.vue';
 
   export default {
       data() {
@@ -29,16 +34,18 @@
            cart:{},
            cartItmes: [],
            isCartVisible: false,
+           user:{},
          };
        },
        computed:{
        
      },
      created(){
-      this.getAllCategories();
+      this.getUserInfo();
      },
      components:{
         Cart,
+        Loader,
      },
      methods:{
         removeFromCart(itemId){
@@ -82,7 +89,15 @@
             }
             })
         },
-         getAllCategories(){
+        getUserInfo(){
+            get('/users/get-user-info?id='+this.$route.params.userId)
+            .then(response => {
+                if(response.data.success){
+                    this.user = response.data.data;
+            }
+            })
+        },
+        getAllCategories(){
           get('/foodcategory/get-all?userId='+this.$route.params.userId)
           .then(response => {
                 if(response.data.success){
