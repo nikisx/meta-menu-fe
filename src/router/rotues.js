@@ -6,6 +6,7 @@ import Tables from "../components/Tables/Tables.vue";
 import TableMenu from "../components/Menu/TableMenu.vue";
 import Orders from "../components/Orders/Orders.vue";
 import Users from '../components/AdminPanel/Users.vue';
+import AdminMenuForUser from '../components/AdminPanel/AdminMenuForUser.vue';
 
 export default [
     {
@@ -56,5 +57,10 @@ export default [
       path: "/users",
       name: "users",
       component: Users,
+    },
+    {
+      path: "/user-menu/:userId",
+      name: "user-menu",
+      component: AdminMenuForUser,
     },
   ];

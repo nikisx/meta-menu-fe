@@ -7,9 +7,9 @@
                 <span style="margin-right: 10px;">
                     {{user.email}}
                 </span>
-                <span>
+                <router-link :to="{name:'user-menu', params:{userId: user.id}}">
                     {{user.username}}
-                </span>
+                </router-link>
             </div>
             <select @change="changeUserAccountType(user.id)" v-model="selected[user.id]" name="" id="">
                 <option :value="0">Free</option>
