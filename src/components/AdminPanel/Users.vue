@@ -1,6 +1,7 @@
 <template>
   <section style="text-align: center">
     <h1>Users</h1>
+    <button style="margin-bottom: 10px;" @click="openDeleteModal = true">Delete orders</button>  
     <section style="width: 500px; margin: 0 auto; text-align: left; border-right: 2px solid black; border-left: 2px solid black; border-top: 2px solid black">
         <div v-for="(user, index) in users" style="border-bottom: 2px solid black;display: flex;padding: 8px;" :key="index">
             <div style="width: 400px;">
@@ -19,21 +20,27 @@
             </select>
         </div>
     </section>
+    <devil-modal v-show="openDeleteModal" @close="openDeleteModal=false" :item="{url:'/users/delete-orders'}" :visible="openDeleteModal"></devil-modal>
   </section>
 </template>
 
 <script>
 import {post, get} from '../../request.js';
+import DevilModal from '../Shared/DeleteModal.vue';
 
 export default {
     data() {
          return {
            users: [],
            selected:{},
+           openDeleteModal: false,
          };
        },
-    created(){
-      this.getAllUsers();
+       components:{
+        DevilModal,
+       },
+      created(){
+        this.getAllUsers();
      },
      methods:{
         getAllUsers(){
