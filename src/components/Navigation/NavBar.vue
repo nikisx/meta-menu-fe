@@ -7,6 +7,7 @@
         <router-link v-if="user" :to="{name:'menu-create', params:{name: user.username}}" >Menu |</router-link>
         <router-link v-if="user" :to="{name:'tables'}" >Tables |</router-link> 
         <router-link v-if="user" :to="{name:'orders'}" >Orders |</router-link> 
+        <router-link v-if="user" :to="{name:'statistics'}" >Statistics |</router-link> 
         <router-link v-if="userIsAdmin" :to="{name:'users'}" >Users |</router-link> 
         <p v-if="user">Hello {{user.username}} </p>
         <a v-if="user" @click="logout"  style="cursor: pointer;">Logout</a>
