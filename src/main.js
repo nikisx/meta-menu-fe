@@ -7,13 +7,16 @@ import VueAxios from "vue-axios";
 import { VueSignalR } from '@dreamonkey/vue-signalr';
 import { HubConnectionBuilder } from '@microsoft/signalr';
 import { library } from '@fortawesome/fontawesome-svg-core';
+import VueApexCharts from "vue3-apexcharts";
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faPenToSquare} from '@fortawesome/free-solid-svg-icons';
 import { faCheck} from '@fortawesome/free-solid-svg-icons';
 import { faMinus} from '@fortawesome/free-solid-svg-icons';
+import { faArrowUp} from '@fortawesome/free-solid-svg-icons';
+import { faArrowDown} from '@fortawesome/free-solid-svg-icons';
 
-library.add(faPlus, faPenToSquare, faCheck, faMinus);
+library.add(faPlus, faPenToSquare, faCheck, faMinus, faArrowUp, faArrowDown);
 
 const connection = new HubConnectionBuilder()
   .withUrl('https://localhost:44349/api/orderHub')
@@ -24,5 +27,6 @@ createApp(App)
 .use(router)
 .use(VueAxios, axios)
 .use(VueSignalR, { connection })
+.use(VueApexCharts)
 .component('font-awesome-icon', FontAwesomeIcon)
 .mount("#app");
