@@ -1,5 +1,5 @@
 <template>
-    <nav>
+    <nav v-if="$route.name != 'menu'">
         <router-link to="/">Home</router-link> |
         <router-link to="/about">About</router-link> |
         <router-link v-if="!user" to="/login">Login |</router-link>

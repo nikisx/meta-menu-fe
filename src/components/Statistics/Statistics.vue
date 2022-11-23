@@ -7,7 +7,7 @@
     <p v-else>
         Gathering data for current month orders
     </p>
-    <div id="chart" style="    max-width: 500px; margin: 0 auto;">
+    <div id="chart" style="max-width: 500px; margin: 0 auto;">
       <apexchart
         type="bar"
         height="150"

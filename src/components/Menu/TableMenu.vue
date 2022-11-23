@@ -37,8 +37,18 @@
            user:{},
          };
        },
-       computed:{
-       
+       props:{
+        currentUserId:{
+            type: String,
+            default: null,
+        },
+     },
+     computed:{
+        userId(){
+            let userId = this.currentUserId ? this.currentUserId : this.$route.params.userId;
+
+            return userId;
+        }
      },
      created(){
       this.getUserInfo();
@@ -74,7 +84,7 @@
             this.cartItmes.forEach(item => item.quantity = this.cart[item.id])
 
             let obj ={
-                userId: this.$route.params.userId, 
+                userId: this.userId, 
                 tableId: this.$route.params.tableId,
                 items: this.cartItmes,
             }
@@ -90,7 +100,7 @@
             })
         },
         getUserInfo(){
-            get('/users/get-user-info?id='+this.$route.params.userId)
+            get('/users/get-user-info?id='+this.userId)
             .then(response => {
                 if(response.data.success){
                     this.user = response.data.data;
@@ -98,7 +108,7 @@
             })
         },
         getAllCategories(){
-          get('/foodcategory/get-all?userId='+this.$route.params.userId)
+          get('/foodcategory/get-all?userId='+this.userId)
           .then(response => {
                 if(response.data.success){
               this.categories = response.data.data;

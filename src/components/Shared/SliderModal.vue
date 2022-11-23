@@ -58,6 +58,6 @@
     height: 100%;
     transition: 1s;
     top: 0;
-    z-index: 3;
+    z-index: 6;
 }
   </style>
