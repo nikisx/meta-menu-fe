@@ -1,6 +1,12 @@
 <template style="overflow-x: hidden">
   <nav-bar></nav-bar>
-  <router-view />
+  <router-view v-slot="{ Component, route }">
+    <transition name="page-slide" mode="out-in">
+      <div :key="route.name"> 
+        <component :is="Component" />
+      </div>
+    </transition>
+  </router-view>
 </template>
 <script>
 import NavBar from './components/Navigation/NavBar.vue'
@@ -15,6 +21,17 @@ export default({
 </script>
 <style>
  @import './assets/styles/device.min.css';
+
+.page-slide-enter-active,
+.page-slide-leave-active{
+  transition: 400ms ease all;
+}
+
+.page-slide-enter-from,
+.page-slide-leave-to{
+  opacity: 0;
+  transform: translateY(60px);
+}
 
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
