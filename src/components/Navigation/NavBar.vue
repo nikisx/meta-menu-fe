@@ -3,7 +3,7 @@
     <!-- <nav v-if="$route.name != 'menu'">
         <a v-if="user" @click="logout"  style="cursor: pointer;">Logout</a>
     </nav> -->
-    <nav v-if="$route.name != 'menu'" class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top">
+    <nav v-if="$route.name != 'menu'" :style="[ $route.name != 'home' ? 'background-color: #4633af' : '']" class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top">
         <!-- Text Logo - Use this if you don't have a graphic logo -->
         <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">Leno</a> -->
 

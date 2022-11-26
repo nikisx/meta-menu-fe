@@ -29,7 +29,7 @@
     <!-- end of header -->
 
     <!-- Features -->
-    <div id="features" class="tabs">
+    <div id="features" style="    padding-bottom: 45em;" class="tabs">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -41,24 +41,24 @@
 
                 <!-- Tabs Links -->
                 <ul class="nav nav-tabs" id="lenoTabs" role="tablist">
-                    <li class="nav-item">
-                        <a class="nav-link active" id="nav-tab-1" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="true"><i class="fas fa-cog"></i>CONFIGURING</a>
+                    <li style="cursor: pointer" class="nav-item">
+                        <a class="nav-link" :class="[selectedTab == 1 ? 'active' : '']" id="nav-tab-1" data-toggle="tab" @click="selectedTab = 1" role="tab" aria-controls="tab-1" aria-selected="true"><i class="fas fa-cog"></i>CONFIGURING</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="nav-tab-2" data-toggle="tab" href="#tab-2" role="tab" aria-controls="tab-2" aria-selected="false"><i class="fas fa-binoculars"></i>TRACKING</a>
+                    <li style="cursor: pointer" class="nav-item">
+                        <a class="nav-link" :class="[selectedTab == 2 ? 'active' : '']" id="nav-tab-2" data-toggle="tab" @click="selectedTab = 2" role="tab" aria-controls="tab-2" aria-selected="false"><i class="fas fa-binoculars"></i>TRACKING</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" id="nav-tab-3" data-toggle="tab" href="#tab-3" role="tab" aria-controls="tab-3" aria-selected="false"><i class="fas fa-search"></i>MONITORING</a>
+                    <li style="cursor: pointer" class="nav-item">
+                        <a class="nav-link" :class="[selectedTab == 3 ? 'active' : '']" id="nav-tab-3" data-toggle="tab" @click="selectedTab = 3" role="tab" aria-controls="tab-3" aria-selected="false"><i class="fas fa-search"></i>MONITORING</a>
                     </li>
                 </ul>
                 <!-- end of tabs links -->
 
 
                 <!-- Tabs Content-->
-                <div class="tab-content" id="lenoTabsContent">
+                <div class="tab-content" style="position: relative;" id="lenoTabsContent">
                     
                     <!-- Tab -->
-                    <div class="tab-pane fade show active" id="tab-1" role="tabpanel" aria-labelledby="tab-1">
+                    <div class=" fade" :class="[selectedTab == 1 ? 'word-shown' : 'word-hidden']" style="position: absolute; transition: 400ms ease all;"  id="tab-1" role="tabpanel" aria-labelledby="tab-1">
                         <div class="container">
                             <div class="row">
                                 
@@ -150,7 +150,7 @@
                     <!-- end of tab -->
 
                     <!-- Tab -->
-                    <div class="tab-pane fade" id="tab-2" role="tabpanel" aria-labelledby="tab-2">
+                    <div class=" fade" :class="[selectedTab == 2 ? 'word-shown' : 'word-hidden']" style="position: absolute; transition: 400ms ease all;"  id="tab-2" role="tabpanel" aria-labelledby="tab-2">
                         <div class="container">
                             <div class="row">
 
@@ -214,7 +214,7 @@
                     <!-- end of tab -->
 
                     <!-- Tab -->
-                    <div class="tab-pane fade" id="tab-3" role="tabpanel" aria-labelledby="tab-3">
+                    <div class="fade" :class="[selectedTab == 3 ? 'word-shown' : 'word-hidden']" style="position: absolute; transition: 400ms ease all;"  id="tab-3" role="tabpanel" aria-labelledby="tab-3">
                         <div class="container">
                             <div class="row">
 
@@ -284,6 +284,37 @@
         </div> <!-- end of container --> 
     </div> <!-- end of tabs -->
     <!-- end of features -->
+    
+    <!-- Video -->
+    <div id="preview" class="basic-1">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>PREVIEW</h2>
+                    <div class="p-heading p-large">Target the right customers for your business with the help of Leno's patented segmentation technology</div>
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+            <div class="row">
+                <div class="col-lg-12">
+
+                    <!-- Video Preview -->
+                    <div class="image-container">
+                        <div class="video-wrapper">
+                            <a class="popup-youtube" href="https://www.youtube.com/watch?v=fLCjQJCekTs" data-effect="fadeIn">
+                                <img class="img-fluid" src="../assets/styles/images/video-frame.jpg" alt="alternative">
+                                <span class="video-play-button">
+                                    <span></span>
+                                </span>
+                            </a>
+                        </div> <!-- end of video-wrapper -->
+                    </div> <!-- end of image-container -->
+                    <!-- end of video preview -->
+
+                </div> <!-- end of col -->
+            </div> <!-- end of row -->
+        </div> <!-- end of container -->
+    </div> <!-- end of basic-1 -->
+    <!-- end of video -->
   </div>
 </template>
 
@@ -295,7 +326,7 @@ export default {
   name: "HomeView",
   data () {
     return {
-      words: ["DESIGNERS", "MARKETERS", "DEVELOPERS" ],
+      selectedTab: 1,
       currentIndex: 0,
     }
   },

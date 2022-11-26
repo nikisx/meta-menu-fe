@@ -1,19 +1,21 @@
 <template>
-    <modal @close="$emit('close')" >
-        <form @submit.prevent="submit" class="">
-            <div class="container">
-            <h1>Create Item</h1>
-            <hr>
+        <transition  name="fade" appear>
+            <modal :visible="visible" @close="$emit('close')" >
+                <form @submit.prevent="submit" class="">
+                    <div class="container">
+                    <h1>Create Item</h1>
+                    <hr>
 
-            <label for="name"><b>Name</b></label>
-            <input type="text" v-model="name" placeholder="Name" name="text" id="Username" required>
-            <hr>
+                    <label for="name"><b>Name</b></label>
+                    <input type="text" v-model="name" placeholder="Name" name="text" id="Username" required>
+                    <hr>
 
-            <button type="button" @click="submit" class="registerbtn">{{editTrack ? 'Edit' : 'Create'}}</button>
-        </div>
-        
-        </form>
-    </modal>
+                    <button type="button" @click="submit" class="registerbtn">{{editTrack ? 'Edit' : 'Create'}}</button>
+                </div>
+                
+                </form>
+            </modal>
+        </transition>
 </template>
 
 <script>

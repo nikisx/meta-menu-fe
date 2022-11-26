@@ -1,8 +1,6 @@
 <template>
-    <transition name="modal-fade">
-  
     <div @click.prevent="close($event)" class="modal-backdrop">
-      <div class="modal">
+      <div class="modal-og">
        <span @click="close" style="color: red; cursor: pointer; position: fixed;
        width: 500px; background: white; border-radius: 10px;" id="close-modal">
          X Close</span>
@@ -17,12 +15,20 @@
         </slot>
       </div>
     </div>
-    </transition>
   </template>
   <script>
     
     export default {
-      props:['modalStyles'],
+      props:{
+        visible: {
+            type: Boolean,
+            default: false,
+        },
+        modalStyles: {
+            type: Object,
+            default: false,
+        },
+    },
       methods: {
         close(e) {
           if(e.target.classList.contains('modal-backdrop') || e.target.id == 'close-modal')
@@ -43,9 +49,9 @@
       display: flex;
       justify-content: center;
       align-items: center;
-          z-index: 5;
+      z-index: 5;
     }
-    .modal {
+    .modal-og {
       background: #FFFFFF;
       box-shadow: 2px 2px 20px 1px;
       overflow-x: auto;
@@ -100,6 +106,27 @@
     }
     .modal-fade-enter-active,
     .modal-fade-leave-active {
-      transition: opacity .5s ease;
+      transition: opacity .4s ease;
+    }
+
+    .fade-enter-active,
+    .fade-leave-active {
+      transition: opacity .4s linear;
+    }
+
+    .fade-enter,
+    .fade-leave-to {
+      opacity: 0;
+    }
+
+    .pop-enter-active,
+    .pop-leave-active {
+      transition: transform 0.4s cubic-bezier(0.5, 0, 0.5, 1), opacity 0.4s linear;
+    }
+
+    .pop-enter,
+    .pop-leave-to {
+      opacity: 0;
+      transform: scale(0.3) translateY(-50%);
     }
   </style>

@@ -70,10 +70,10 @@
     </div>
 
     <create-item-modal
+      v-show="isOpenFoodItemModal"
       :visible="isOpenFoodItemModal"
       :categoryId="currentCategory.id"
       @close="isOpenFoodItemModal = false"
-      v-show="isOpenFoodItemModal"
       :editItem="currentItem"
       @success="getAllCategories"
     ></create-item-modal>

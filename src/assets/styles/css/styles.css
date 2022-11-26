@@ -35,17 +35,17 @@ html {
 }
 
 body, p {
-	color: #f1f1f8; 
+	color: #2f2c3d; 
 	font: 400 0.875rem/1.375rem "Open Sans", sans-serif;
 }
 
 .p-large {
-	color: #f1f1f8;
+	color: #2f2c3d;
 	font: 400 1rem/1.5rem "Open Sans", sans-serif;
 }
 
 .p-small {
-	color: #f1f1f8;
+	color: #2f2c3d;
 	font: 400 0.75rem/1.25rem "Open Sans", sans-serif;
 }
 
@@ -63,32 +63,32 @@ body, p {
 }
 
 h1 {
-	color: #f1f1f8;
+	color: #2f2c3d;
 	font: 700 2.5rem/2.875rem "Montserrat", sans-serif;
 }
 
 h2 {
-	color: #f1f1f8;
+	color: #2f2c3d;
 	font: 700 2.25rem/2.75rem "Montserrat", sans-serif;
 }
 
 h3 {
-	color: #f1f1f8;
+	color: #2f2c3d;
 	font: 700 1.75rem/2.125rem "Montserrat", sans-serif;
 }
 
 h4 {
-	color: #f1f1f8;
+	color: #2f2c3d;
 	font: 700 1.375rem/1.75rem "Montserrat", sans-serif;
 }
 
 h5 {
-	color: #f1f1f8;
+	color: #2f2c3d;
 	font: 700 1.125rem/1.625rem "Montserrat", sans-serif;
 }
 
 h6 {
-	color: #f1f1f8;
+	color: #2f2c3d;
 	font: 700 1rem/1.5rem "Montserrat", sans-serif;
 }
 
@@ -764,6 +764,7 @@ input[type='checkbox'] {
 
 .header h1 {
 	margin-bottom: 1rem;
+	color: #f1f1f8;
 }
 
 .header #js-rotating {
@@ -772,6 +773,7 @@ input[type='checkbox'] {
 
 .header .p-large {
 	margin-bottom: 2rem;
+	color: #f1f1f8;
 }
 
 .header .btn-solid-lg {
@@ -847,16 +849,18 @@ input[type='checkbox'] {
 .tabs {
 	padding-top: 6.5rem;
 	padding-bottom: 4.25rem;
-	background-color: #2f2c3d;
+	color: #2f2c3d;
 }
 
 .tabs h2 {
 	margin-bottom: 1.125rem;
 	text-align: center;
+	color: #2f2c3d;
 }
 
 .tabs .p-heading {
 	margin-bottom: 3.125rem;
+	color: #2f2c3d;
 }
 
 .tabs .nav-tabs {
@@ -873,7 +877,7 @@ input[type='checkbox'] {
 	border: none;
 	border-bottom: 0.1875rem solid #f1f1f8;
 	border-radius: 0;
-	color: #f1f1f8;
+	color: #2f2c3d;
 	font: 700 1rem/1.75rem "Montserrat", sans-serif;
 	text-decoration: none;
 	transition: all 0.2s ease;
@@ -906,6 +910,7 @@ input[type='checkbox'] {
 
 .tabs .card-title {
 	margin-bottom: 0.5rem;
+	color: #2f2c3d;
 }
 
 .tabs .card .card-icon {
@@ -1001,11 +1006,13 @@ input[type='checkbox'] {
 .basic-1 h2 {
 	margin-bottom: 1.125rem;
 	text-align: center;
+	color: #f1f1f8;
 }
 
 .basic-1 .p-heading {
 	margin-bottom: 4rem;
 	text-align: center;
+	color: #f1f1f8;
 }
 
 .basic-1 .image-container img {

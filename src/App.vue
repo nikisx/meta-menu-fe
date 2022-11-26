@@ -2,7 +2,7 @@
   <nav-bar></nav-bar>
   <router-view v-slot="{ Component, route }">
     <transition name="page-slide" mode="out-in">
-      <div :key="route.name"> 
+      <div :style="[route.name != 'home' ? 'margin-top: 135px;' : '']" :key="route.name"> 
         <component :is="Component" />
       </div>
     </transition>
