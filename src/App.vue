@@ -9,18 +9,29 @@
   </router-view>
 </template>
 <script>
-import NavBar from './components/Navigation/NavBar.vue'
+import NavBar from './components/Navigation/NavBar.vue';
+import { loadScript } from "vue-plugin-load-script";
+
+
 export default({
  components: {
   NavBar,
  },
   created(){
     this.$store.dispatch('setCurrentUser');
-  }
+  },
+  mounted(){
+  
+  },
 })
 </script>
 <style>
  @import './assets/styles/device.min.css';
+ @import './assets/styles/css/bootstrap.css';
+ @import './assets/styles/css/swiper.css';
+ @import './assets/styles/css/magnific-popup.css';
+ @import './assets/styles/css/styles.css';
+ @import './assets/styles/css/fontawesome-all.css';
 
 .page-slide-enter-active,
 .page-slide-leave-active{

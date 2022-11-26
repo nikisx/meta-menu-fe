@@ -8,6 +8,7 @@ import { VueSignalR } from '@dreamonkey/vue-signalr';
 import { HubConnectionBuilder } from '@microsoft/signalr';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import VueApexCharts from "vue3-apexcharts";
+import LoadScript from "vue-plugin-load-script";
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faPenToSquare} from '@fortawesome/free-solid-svg-icons';
@@ -22,11 +23,13 @@ const connection = new HubConnectionBuilder()
   .withUrl('https://localhost:44349/api/orderHub')
   .build();
 
+  
 createApp(App)
 .use(store)
 .use(router)
 .use(VueAxios, axios)
 .use(VueSignalR, { connection })
 .use(VueApexCharts)
+.use(LoadScript)
 .component('font-awesome-icon', FontAwesomeIcon)
 .mount("#app");
