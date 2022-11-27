@@ -1,5 +1,5 @@
 <template>
-    <modal @close="$emit('close')" >
+    <modal :visible="visible" @close="$emit('close')" >
         <form @submit.prevent="submit" class="">
             <div class="container">
             <h1>Add Tables</h1>

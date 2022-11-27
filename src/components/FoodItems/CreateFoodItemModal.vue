@@ -1,5 +1,5 @@
 <template>
-        <transition  name="fade" appear>
+      
             <modal :visible="visible" @close="$emit('close')" >
                 <form @submit.prevent="submit" class="">
                     <div class="container">
@@ -15,7 +15,7 @@
                 
                 </form>
             </modal>
-        </transition>
+        
 </template>
 
 <script>

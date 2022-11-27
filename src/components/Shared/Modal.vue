@@ -1,6 +1,8 @@
 <template>
+    <transition  name="fade" appear>
     <div @click.prevent="close($event)" class="modal-backdrop">
-      <div class="modal-og">
+      <transition  name="drop-in" >
+      <div v-show="visible" class="modal-og" >
        <span @click="close" style="color: red; cursor: pointer; position: fixed;
        width: 500px; background: white; border-radius: 10px;" id="close-modal">
          X Close</span>
@@ -14,7 +16,9 @@
         <slot name="footer">
         </slot>
       </div>
+    </transition>
     </div>
+  </transition>
   </template>
   <script>
     
@@ -111,10 +115,10 @@
 
     .fade-enter-active,
     .fade-leave-active {
-      transition: opacity .4s linear;
+      transition: opacity .2s linear;
     }
 
-    .fade-enter,
+    .fade-enter-from,
     .fade-leave-to {
       opacity: 0;
     }
@@ -129,4 +133,16 @@
       opacity: 0;
       transform: scale(0.3) translateY(-50%);
     }
+
+    .drop-in-enter-active,
+    .drop-in-leave-active{
+      transition: all 0.3s ease-out;
+    }
+
+    .drop-in-enter-from,
+    .drop-in-leave-to{
+      opacity: 0;
+      transform: translateY(-50%);
+    }
+
   </style>

@@ -9,7 +9,7 @@
                   <span v-if="order.items.length > 2"> and other</span>
               </div>
           </section>
-          <order-modal :visible="isOrderModalVisible" v-if="isOrderModalVisible" :order="currentOrder" @close="isOrderModalVisible = false"></order-modal>
+          <order-modal :visible="isOrderModalVisible" v-show="isOrderModalVisible" :order="currentOrder" @close="isOrderModalVisible = false"></order-modal>
     </section>
   </template>
   

@@ -1,10 +1,12 @@
 <template>
-    <modal @close="$emit('close')" >
-        <h2>{{order.tableNumber}}</h2>
+    <modal :visible="visible" @close="$emit('close')" >
+        <section v-if="order">
+            <h2>{{order.tableNumber}}</h2>
         <div v-for="(item, index) in order.items" style="margin-bottom: 10px; display: flex; align-items: center;
-    justify-content: center;" :key="index">
+        justify-content: center;" :key="index">
               <b>{{item.name}}</b> - <p>{{item.quantity}}</p>
         </div>
+        </section>
     </modal>
 </template>
 
