@@ -22,7 +22,6 @@ library.add(faPlus, faPenToSquare, faCheck, faMinus, faArrowUp, faArrowDown);
 const connection = new HubConnectionBuilder()
   .withUrl('https://localhost:44349/api/orderHub')
   .build();
-
   
 createApp(App)
 .use(store)

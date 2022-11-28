@@ -1,9 +1,11 @@
 import { createStore } from "vuex";
 import { get } from "../request";
 
-export default createStore({
+
+const store =createStore({
   state: {
     user: null,
+    isLoading: true,
   },
   getters: {
     getCurrentUser(state){
@@ -13,7 +15,10 @@ export default createStore({
   mutations: {
     setUser(state, user){
       state.user = user;
-    }
+    },
+    setLoader(state,loading){
+      state.isLoading = loading;
+    },
   },
   actions: {
     setCurrentUser(){
@@ -21,8 +26,16 @@ export default createStore({
       .then((response) => {
         this.commit("setUser", response.data);
       })
-    }
+    },
+    setLoadingFalse(){
+      this.commit("setLoader", false);
+    },
+    setLoadingTrue(){
+      this.commit("setLoader", true);
+    },
   },
   modules: {
   }
 })
+
+export default store;

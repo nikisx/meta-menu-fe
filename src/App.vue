@@ -2,8 +2,10 @@
   <nav-bar></nav-bar>
   <router-view v-slot="{ Component, route }">
     <transition name="page-slide" mode="out-in">
-      <div :style="[route.name != 'home' ? 'margin-top: 135px;' : '']" :key="route.name"> 
+      <div :style="[route.name != 'home' ? 'margin-top: 135px;' : '', 'min-height: 105vh;display: flex;flex-direction: column;']" 
+      :key="route.name"> 
         <component :is="Component" />
+        <footer-vue></footer-vue>
       </div>
     </transition>
   </router-view>
@@ -11,17 +13,30 @@
 <script>
 import NavBar from './components/Navigation/NavBar.vue';
 import { loadScript } from "vue-plugin-load-script";
-
+import Loader from './components/Shared/Loader.vue';
+import FooterVue from './components/Shared/Footer.vue';
 
 export default({
+  data() {
+         return {
+
+         };
+       },
  components: {
   NavBar,
+  Loader,
+  FooterVue,
+ },
+ computed: {
+  isLoading() {
+        return this.$store.state.isLoading;
+    },
  },
   created(){
     this.$store.dispatch('setCurrentUser');
   },
   mounted(){
-  
+    this.$store.dispatch('setLoadingFalse');
   },
 })
 </script>
@@ -50,6 +65,7 @@ export default({
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  
 }
 
 nav {
