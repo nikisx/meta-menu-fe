@@ -53,7 +53,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 5;
+      z-index: 1100;
     }
     .modal-og {
       background: #FFFFFF;

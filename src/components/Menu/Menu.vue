@@ -6,9 +6,15 @@
         <h3 @click="addCategory = true" style="cursor: pointer">
           + Add category
         </h3>
-        <div v-show="addCategory">
-          <input v-model="categoryName" type="text" />
-          <button
+        <div :class="[addCategory ? 'expanded' : 'collapsed']">
+          <div class="form-group" style="    display: flex; gap: 10px;">
+            <input type="text" v-model="categoryName" class="form-control-input" style="width: 300px" id="cname" required>
+            <label class="label-control" for="cname" >Name</label>
+            <div class="help-block with-errors"></div>
+
+           <div style="    gap: 10px;display: flex;">
+            <button
+            class="btn btn-outline-success"
             @click="
               createCategory();
               categoryName = null;
@@ -17,7 +23,9 @@
           >
             Add
           </button>
-          <button @click="addCategory = false">Cancel</button>
+          <button class="btn btn-outline-danger" @click="addCategory = false">Cancel</button>
+           </div>
+          </div>
         </div>
         <section style="width: 500px; margin: 0 auto; text-align: left">
           <div
@@ -109,6 +117,7 @@ export default {
     TableMenu,
   },
   methods: {
+
     getAllCategories() {
       get("/foodcategory/get-all").then((response) => {
         if (response.data.success) {
@@ -135,4 +144,23 @@ export default {
 </script>
 
 <style>
+.expand-transition {
+  transition: all 0.5s ease;
+}
+/* .expand-enter defines the starting state for entering */
+/* .expand-leave defines the ending state for leaving */
+.expand-enter, .expand-leave {
+  height: 0;
+  opacity: 0;
+}
+.expanded{
+  opacity: 1;
+  height: 65px;
+    transition: 0.3s ease-out;
+}
+.collapsed{
+  opacity: 0;
+    height: 0;
+    transition: 0.3s ease-out;
+}
 </style>
