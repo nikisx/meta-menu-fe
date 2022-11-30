@@ -7,12 +7,14 @@
           + Add category
         </h3>
         <div :class="[addCategory ? 'expanded' : 'collapsed']">
-          <div class="form-group" style="    display: flex; gap: 10px;">
-            <input type="text" v-model="categoryName" class="form-control-input" style="width: 300px" id="cname" required>
-            <label class="label-control" for="cname" >Name</label>
-            <div class="help-block with-errors"></div>
-
-           <div style="    gap: 10px;display: flex;">
+          <div class="form-group" style="display: flex; gap: 10px;align-items: start;">
+            <div>
+              <input type="text" v-model="categoryName" class="form-control-input" style="width: 300px" id="cname" required>
+              <label class="label-control" style="font-size: 10px;" for="cname" >Ще се добави отдолу</label>
+              <div class="help-block with-errors"></div>
+              <!-- <p style="font-size: 10px;">(Ще се добави отдолу)</p> -->
+            </div>
+           <div style="gap: 10px;display: flex;">
             <button
             class="btn btn-outline-success"
             @click="
@@ -27,27 +29,30 @@
            </div>
           </div>
         </div>
-        <section style="width: 500px; margin: 0 auto; text-align: left">
+        <section class="menu-create-wrapper">
           <div
             v-for="(category, index) in categories"
             style="margin-bottom: 10px"
-            :key="index"
-          >
-            {{ category.name }}
+            :key="index">
+          <b style="font-size: 10px">Категория</b>
+          <div>
+            <input class="category-name" type="text" :value="category.name" />
             <font-awesome-icon
               class="edit-table-name"
               @click="
                 isOpenFoodItemModal = true;
                 currentCategory = category;
               "
-              style="cursor: pointer"
+              style="cursor: pointer;margin-right: 9px;margin-left: 12px;font-size: 20px;"
               icon="fa-solid fa-plus"
             />
-            <ul style="padding-right: 15px">
-              <li v-for="(food, i) in category.items" :key="i">
-                {{ food.name }}
+            <font-awesome-icon title="Скрий от менюто" style="cursor: pointer;font-size: 20px;" icon="fa-solid fa-eye" />
+            <ul style="list-style: none; padding: 5px;">
+              <li v-for="(food, i) in category.items" style="cursor: pointer; border-top: 1px solid #CCC;padding: 10px 0;display: flex;justify-content: space-between;align-items: center;" :key="i">
+                <span class="food-name">{{ food.name }} </span> <font-awesome-icon title="Скрий от менюто" icon="fa-solid fa-eye" />
               </li>
             </ul>
+          </div>
           </div>
         </section>
       </div>
@@ -117,7 +122,6 @@ export default {
     TableMenu,
   },
   methods: {
-
     getAllCategories() {
       get("/foodcategory/get-all").then((response) => {
         if (response.data.success) {
@@ -162,5 +166,30 @@ export default {
   opacity: 0;
     height: 0;
     transition: 0.3s ease-out;
+    visibility: hidden;
+}
+.category-name{
+  background-color: rgb(248, 246, 242);
+    color: rgb(113, 109, 102);
+    border-color: rgb(248, 246, 242);
+    transition: color 0.2s ease 0s, background-color 0.2s ease 0s;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    width: 400px;
+}
+.menu-create-wrapper{
+  width: 500px;
+    margin: 0px auto;
+    text-align: left;
+    border: 0.5px solid #CCC;
+    padding: 13px;
+    border-radius: 10px;
+}
+.food-name{
+  font-weight: bold;
+}
+.food-name:hover{
+  color:#00c9db;
 }
 </style>
