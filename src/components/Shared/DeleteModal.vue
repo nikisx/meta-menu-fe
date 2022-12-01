@@ -1,5 +1,5 @@
 <template>
-    <modal @close="$emit('close')" v-if="item">
+    <modal :visible="visible" @close="$emit('close')" v-if="item">
         <section style="margin: 110px auto; margin-top: 160px">
             <h1>Are you sure you want to delete this {{item.name}}</h1>
             <div style="display: flex; justify-content: space-around;">

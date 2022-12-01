@@ -3,7 +3,7 @@
           <h1>{{user.username}} menu</h1>
           <button @click="isCartVisible = true">Cart</button>
           <section style="width: 500px; margin: 0 auto; text-align: left;">
-              <div v-for="(category, index) in user.categories" style="margin-bottom: 10px;" :key="index">
+              <div v-for="(category, index) in user.categories.filter(x => !x.isHidden)" style="margin-bottom: 10px;" :key="index">
                   {{category.name}} 
                   <ul style="padding-right: 15px;">
                       <li v-for="(food, i) in category.items" :key="i">{{food.name}} 

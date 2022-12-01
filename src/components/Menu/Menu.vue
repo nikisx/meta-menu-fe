@@ -35,8 +35,8 @@
             style="margin-bottom: 10px"
             :key="index">
           <b style="font-size: 10px">Категория</b>
-          <div>
-            <input class="category-name" type="text" :value="category.name" />
+          <div :class="[category.isHidden ? 'hidden' : '']">
+            <input :disabled="category.isHidden" class="category-name" @input="editCategoryName($event, category.id)" type="text" :value="category.name" />
             <font-awesome-icon
               class="edit-table-name"
               @click="
@@ -46,7 +46,13 @@
               style="cursor: pointer;margin-right: 9px;margin-left: 12px;font-size: 20px;"
               icon="fa-solid fa-plus"
             />
-            <font-awesome-icon title="Скрий от менюто" style="cursor: pointer;font-size: 20px;" icon="fa-solid fa-eye" />
+            <font-awesome-icon v-if="!category.isHidden"
+             @click="editHideCategory(category.id, true)" 
+             class="edit-table-name" title="Скрий от менюто" style="cursor: pointer;font-size: 20px; margin-right: 0;" icon="fa-solid fa-eye" />
+             <font-awesome-icon v-else
+             @click="editHideCategory(category.id, false)" 
+             class="edit-table-name" title="Скрий от менюто" style="cursor: pointer;font-size: 20px; margin-right: 0;" icon="fa-solid fa-eye-slash" />
+
             <ul style="list-style: none; padding: 5px;">
               <li v-for="(food, i) in category.items" style="cursor: pointer; border-top: 1px solid #CCC;padding: 10px 0;display: flex;justify-content: space-between;align-items: center;" :key="i">
                 <span class="food-name">{{ food.name }} </span> <font-awesome-icon title="Скрий от менюто" icon="fa-solid fa-eye" />
@@ -107,6 +113,7 @@ export default {
       isOpenFoodItemModal: false,
       currentItem: null,
       currentCategory: {},
+      debounce: null,
     };
   },
   computed: {
@@ -122,15 +129,40 @@ export default {
     TableMenu,
   },
   methods: {
+    editHideCategory(categoryId, hide){
+      post("/foodcategory/edit-hide", { isHidden: hide, id: categoryId, name: '' }).then(
+          (response) => {
+            if (response.data.success) {
+              this.getAllCategories();
+              this.updateIframe();
+            }
+        });
+    },
+    updateIframe(){
+      let phoneFrame = document.getElementById("menu-preview");
+          if(phoneFrame){
+            phoneFrame.contentWindow.location.reload();
+          }
+    },
+    editCategoryName(event, categoryId){
+      clearTimeout(this.debounce)
+      this.debounce = setTimeout(() => {
+        let newName = event.target.value;
+
+        post("/foodcategory/edit", { name: newName, id: categoryId }).then(
+          (response) => {
+            if (response.data.success) {
+              this.getAllCategories();
+              this.updateIframe();
+            }
+        });
+      }, 600)
+    },
     getAllCategories() {
       get("/foodcategory/get-all").then((response) => {
         if (response.data.success) {
           this.categories = response.data.data;
-          let phoneFrame = document.getElementById("menu-preview");
-          if(phoneFrame){
-            phoneFrame.contentWindow.location.reload();
-          }
-          
+          this.updateIframe();
         }
       });
     },
@@ -158,15 +190,13 @@ export default {
   opacity: 0;
 }
 .expanded{
-  opacity: 1;
   height: 65px;
-    transition: 0.3s ease-out;
+    transition: 0.1s ease-out;
 }
 .collapsed{
-  opacity: 0;
-    height: 0;
-    transition: 0.3s ease-out;
-    visibility: hidden;
+  height: 0;
+    transition: .2s ease-out;
+    overflow: hidden;
 }
 .category-name{
   background-color: rgb(248, 246, 242);
@@ -191,5 +221,9 @@ export default {
 }
 .food-name:hover{
   color:#00c9db;
+}
+.hidden{
+  background: #f0f0f0;
+    border-radius: 10px;
 }
 </style>
