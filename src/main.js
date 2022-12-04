@@ -18,8 +18,10 @@ import { faArrowUp} from '@fortawesome/free-solid-svg-icons';
 import { faArrowDown} from '@fortawesome/free-solid-svg-icons';
 import { faEye} from '@fortawesome/free-solid-svg-icons';
 import { faEyeSlash} from '@fortawesome/free-solid-svg-icons';
+import { faXmark} from '@fortawesome/free-solid-svg-icons';
+import { faUpload} from '@fortawesome/free-solid-svg-icons';
 
-library.add(faPlus, faPenToSquare, faCheck, faMinus, faArrowUp, faArrowDown,faEye, faEyeSlash);
+library.add(faPlus, faPenToSquare, faCheck, faMinus, faArrowUp, faArrowDown,faEye, faEyeSlash,faXmark,faUpload);
 
 const connection = new HubConnectionBuilder()
   .withUrl('https://localhost:44349/api/orderHub')

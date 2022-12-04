@@ -4,7 +4,7 @@
     <div style="display: flex; justify-content: space-evenly">
       <div>
         <h3 @click="addCategory = true" style="cursor: pointer">
-          + Add category
+          + Добави категория
         </h3>
         <div :class="[addCategory ? 'expanded' : 'collapsed']">
           <div class="form-group" style="display: flex; gap: 10px;align-items: start;">

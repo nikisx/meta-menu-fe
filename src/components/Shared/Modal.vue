@@ -1,18 +1,17 @@
 <template>
     <transition  name="fade" appear>
-    <div @click.prevent="close($event)" class="modal-backdrop">
+    <div @click="close($event)" class="modal-backdrop">
       <transition  name="drop-in" >
       <div v-show="visible" class="modal-og" >
-       <span @click="close" style="color: red; cursor: pointer; position: fixed;
-       width: 500px; background: white; border-radius: 10px;" id="close-modal">
-         X Close</span>
+       <div @click.stop="close" class="modal-close-button" id="close-modal">
+        <font-awesome-icon style="padding: 0 10px;" id="close-modal" icon="fa-solid fa-xmark" /></div>
         <slot name="header">
         </slot>
   
         <slot :style="modalStyles">
             
         </slot>
-  
+        
         <slot name="footer">
         </slot>
       </div>
@@ -35,7 +34,7 @@
     },
       methods: {
         close(e) {
-          if(e.target.classList.contains('modal-backdrop') || e.target.id == 'close-modal')
+          if(e.target.classList.contains('modal-backdrop') || e.target.id == 'close-modal' || e.target.parentElement.id == 'close-modal')
           this.$emit('close');
         },
       },
@@ -144,5 +143,15 @@
       opacity: 0;
       transform: translateY(-50%);
     }
-
+    .modal-close-button{
+    cursor: pointer;
+    background: white;
+    margin-left: auto;
+    font-size: 33px;
+    transition: .3s ease;
+    }
+    .modal-close-button:hover{
+      background: #f5365c;
+      color: white;
+    }
   </style>

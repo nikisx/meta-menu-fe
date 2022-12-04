@@ -10,6 +10,7 @@
                         <font-awesome-icon @click="removeFromCart(food.id)" class="edit-table-name" style="cursor: pointer; margin-right: 8px;" icon="fa-solid fa-minus" />
                         <span style="margin-right: 8px;">{{cart[food.id]}}</span>
                         <font-awesome-icon @click="addToCart(food)" class="edit-table-name" style="cursor: pointer;" icon="fa-solid fa-plus" />
+                        <img v-if="food.imageBytes" :src="'data:image/png;base64,'+ food.imageBytes" style="width: 200px;" alt="">
                     </li>
                   </ul>
               </div>

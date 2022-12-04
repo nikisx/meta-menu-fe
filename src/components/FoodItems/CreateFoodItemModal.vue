@@ -1,16 +1,41 @@
 <template>
-      
             <modal :visible="visible" @close="$emit('close')" >
-                <form @submit.prevent="submit" class="">
+                <form @submit.prevent="submit" class="form-group" enctype="multipart/form-data">
                     <div class="container">
-                    <h1>Create Item</h1>
+                    <h3>Добавяне на храна</h3>
                     <hr>
-
-                    <label for="name"><b>Name</b></label>
-                    <input type="text" v-model="name" placeholder="Name" name="text" id="Username" required>
+                    <div style="position: relative">
+                        <input type="text" v-model="name"  class="form-control-input form-input" id="cname" required>
+                        <label class="label-control" style="font-size: 10px;" for="cname" >Име</label>
+                        <div class="help-block with-errors"></div>
+                    
+                    </div>
+                    <div style="position: relative;margin-top: 10px;">
+                        <textarea type="text" v-model="description"  class="form-control-input form-input" id="cname">
+                        </textarea>
+                        <label class="label-control" style="font-size: 10px;" for="cname" >Опсиание</label>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div style="position: relative;margin-top: 10px;">
+                        <input type="text" v-model="alleregens"  class="form-control-input form-input" id="cname"/>
+                        <label class="label-control" style="font-size: 10px;" for="cname" >Алерегени</label>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div style="position: relative;margin-top: 10px;">
+                        <input type="number" step="0.1" v-model="price"  class="form-control-input form-input" id="cname"/>
+                        <label class="label-control" style="font-size: 10px;" for="cname" >Цена</label>
+                        <div class="help-block with-errors"></div>
+                    </div>
+                    <div style="position: relative;margin-top: 10px; display: flex; justify-content: space-between;">
+                        <label style="display: flex;align-items: center;gap: 10px;cursor: pointer;" for="file-upload" >
+                            <font-awesome-icon class="btn-solid-lg" style="font-size: 25px;padding: 4px 10px;cursor: pointer;" icon="fa-solid fa-upload" />
+                            <p style="font-weight: bold;">Качи снимка</p>
+                        </label>
+                        <img v-show="image" id="previewImage" style="    width: auto;height: 200px;" src="#" />
+                        <input type="file" style="display:none;" id="file-upload" @change="onFileChange"  />
+                    </div>
                     <hr>
-
-                    <button type="button" @click="submit" class="registerbtn">{{editTrack ? 'Edit' : 'Create'}}</button>
+                    <button type="button" @click="submit" class="registerbtn">{{editItem ? 'Edit' : 'Create'}}</button>
                 </div>
                 
                 </form>
@@ -26,6 +51,10 @@ export default {
       return {
         id:0,
         name: null,
+        description: null,
+        alleregens: null,
+        price: null,
+        image: null,
       };
     },
     props:{
@@ -40,7 +69,7 @@ export default {
         categoryId:{
             type: Number,
             default: null,
-        }
+        },
     },
     watch:{
       visible: function(){
@@ -56,6 +85,14 @@ export default {
         Modal,
     },
     methods:{
+        onFileChange(e) {
+            var files = e.target.files || e.dataTransfer.files;
+            if (!files.length)
+                return;
+           this.image = files[0];
+           let previewImage = document.getElementById('previewImage');
+           previewImage.src = URL.createObjectURL(files[0])
+        },
         resetData(){
             if(this.editItem)
             {
@@ -64,17 +101,26 @@ export default {
             }
             else{
                 this.name = null;
+                this.description = null;
+                this.alleregens = null;
+                this.price = null;
+                this.image = null;
             }
             
         },
         submit(){
-            let obj = {
-                id: this.id,
-                name: this.name,
-                categoryId: this.categoryId,
-            }
+            const formData = new FormData()
+
+            formData.append('image', this.image)
+            formData.append('id', this.id)
+            formData.append('name', this.name)
+            formData.append('categoryId', this.categoryId)
+            formData.append('description', this.description)
+            formData.append('allergens', this.alleregens)
+            formData.append('price', this.price)
+
             let url = this.editItem ? '/fooditem/edit' :'/fooditem/create';
-            post(url,obj)
+            post(url,formData)
             .then(res => {
                 if(res.data.success){
                     this.$emit('success');
@@ -88,4 +134,9 @@ export default {
 </script>
 
 <style>
+    .form-input{
+        background-color: rgb(248, 246, 242);
+        color: rgb(113, 109, 102);
+        border-color: rgb(248, 246, 242);
+    }
 </style>
