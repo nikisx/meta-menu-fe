@@ -2,28 +2,29 @@
             <modal :visible="visible" @close="$emit('close')" >
                 <form @submit.prevent="submit" class="form-group" enctype="multipart/form-data">
                     <div class="container">
-                    <h3>Добавяне на храна</h3>
+                    <h3 v-if="!editItem">Добавяне на храна</h3>
+                    <h3 v-else>Обновяване на {{editItem.name}}</h3>
                     <hr>
                     <div style="position: relative">
                         <input type="text" v-model="name"  class="form-control-input form-input" id="cname" required>
-                        <label class="label-control" style="font-size: 10px;" for="cname" >Име</label>
+                        <label class="label-control" style="font-size: 12px;" for="cname" >Име</label>
                         <div class="help-block with-errors"></div>
                     
                     </div>
                     <div style="position: relative;margin-top: 10px;">
                         <textarea type="text" v-model="description"  class="form-control-input form-input" id="cname">
                         </textarea>
-                        <label class="label-control" style="font-size: 10px;" for="cname" >Опсиание</label>
+                        <label class="label-control" style="font-size: 12px;" for="cname" >Опсиание</label>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div style="position: relative;margin-top: 10px;">
                         <input type="text" v-model="alleregens"  class="form-control-input form-input" id="cname"/>
-                        <label class="label-control" style="font-size: 10px;" for="cname" >Алерегени</label>
+                        <label class="label-control" style="font-size: 12px;" for="cname" >Алерегени</label>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div style="position: relative;margin-top: 10px;">
                         <input type="number" step="0.1" v-model="price"  class="form-control-input form-input" id="cname"/>
-                        <label class="label-control" style="font-size: 10px;" for="cname" >Цена</label>
+                        <label class="label-control" style="font-size: 12px;" for="cname" >Цена</label>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div style="position: relative;margin-top: 10px; display: flex; justify-content: space-between;">
@@ -31,11 +32,12 @@
                             <font-awesome-icon class="btn-solid-lg" style="font-size: 25px;padding: 4px 10px;cursor: pointer;" icon="fa-solid fa-upload" />
                             <p style="font-weight: bold;">Качи снимка</p>
                         </label>
-                        <img v-show="image" id="previewImage" style="    width: auto;height: 200px;" src="#" />
+                        <img v-show="image" id="previewImage" style="width: auto;height: 200px;" src="#" />
+                        <img v-if="!image && imageBytes" id="previewImage" style="width: auto;height: 200px;" :src="'data:image/png;base64,'+ imageBytes" />
                         <input type="file" style="display:none;" id="file-upload" @change="onFileChange"  />
                     </div>
                     <hr>
-                    <button type="button" @click="submit" class="registerbtn">{{editItem ? 'Edit' : 'Create'}}</button>
+                    <button type="button"  @click="submit" class="btn-solid-lg">{{editItem ? 'Обнови' : 'Добави'}}</button>
                 </div>
                 
                 </form>
@@ -55,6 +57,7 @@ export default {
         alleregens: null,
         price: null,
         image: null,
+        imageBytes: null,
       };
     },
     props:{
@@ -98,6 +101,11 @@ export default {
             {
                 this.id = this.editItem.id;
                 this.name = this.editItem.name;
+                this.description = this.editItem.description;
+                this.alleregens = this.editItem.alleregens;
+                this.price = this.editItem.price;
+                this.image = this.editItem.image;
+                this.imageBytes = this.editItem.imageBytes;
             }
             else{
                 this.name = null;
@@ -105,6 +113,7 @@ export default {
                 this.alleregens = null;
                 this.price = null;
                 this.image = null;
+                this.imageBytes = null;
             }
             
         },
@@ -118,6 +127,7 @@ export default {
             formData.append('description', this.description)
             formData.append('allergens', this.alleregens)
             formData.append('price', this.price)
+            formData.append('imageBytes', this.imageBytes)
 
             let url = this.editItem ? '/fooditem/edit' :'/fooditem/create';
             post(url,formData)

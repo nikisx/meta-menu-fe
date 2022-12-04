@@ -1,6 +1,6 @@
 <template>
   <section style="text-align: center">
-    <h1>Add items</h1>
+    <h1>Създай меню</h1>
     <div style="display: flex; justify-content: space-evenly">
       <div>
         <h3 @click="addCategory = true" style="cursor: pointer">
@@ -42,6 +42,7 @@
               @click="
                 isOpenFoodItemModal = true;
                 currentCategory = category;
+                currentItem = null;
               "
               style="cursor: pointer;margin-right: 9px;margin-left: 12px;font-size: 20px;"
               icon="fa-solid fa-plus"
@@ -51,11 +52,13 @@
              class="edit-table-name" title="Скрий от менюто" style="cursor: pointer;font-size: 20px; margin-right: 0;" icon="fa-solid fa-eye" />
              <font-awesome-icon v-else
              @click="editHideCategory(category.id, false)" 
-             class="edit-table-name" title="Скрий от менюто" style="cursor: pointer;font-size: 20px; margin-right: 0;" icon="fa-solid fa-eye-slash" />
+             class="edit-table-name" title="Покажи в менюто" style="cursor: pointer;font-size: 20px; margin-right: 0;" icon="fa-solid fa-eye-slash" />
 
             <ul style="list-style: none; padding: 5px;">
-              <li v-for="(food, i) in category.items" style="cursor: pointer; border-top: 1px solid #CCC;padding: 10px 0;display: flex;justify-content: space-between;align-items: center;" :key="i">
-                <span class="food-name">{{ food.name }} </span> <font-awesome-icon title="Скрий от менюто" icon="fa-solid fa-eye" />
+              <li v-for="(food, i) in category.items" :class="[food.isHidden ? 'hidden' : '']" style="border-radius: 0;cursor: pointer; border-top: 1px solid #CCC;padding: 10px 0;display: flex;justify-content: space-between;align-items: center;" :key="i">
+                <span @click="isOpenFoodItemModal = true; currentCategory = category;currentItem = food" class="food-name">{{ food.name }} </span> 
+                <font-awesome-icon v-if="!food.isHidden" @click="editHideItem(food.id, true)"  title="Скрий от менюто" class="edit-table-name" icon="fa-solid fa-eye" />
+                <font-awesome-icon v-else @click="editHideItem(food.id, false)"  title="Покажи в менюто" class="edit-table-name" icon="fa-solid fa-eye-slash" />
               </li>
             </ul>
           </div>
@@ -129,6 +132,15 @@ export default {
     TableMenu,
   },
   methods: {
+    editHideItem(id, hide){
+      post("/fooditem/edit-hide", { isHidden: hide, id: id, name: '' }).then(
+          (response) => {
+            if (response.data.success) {
+              this.getAllCategories();
+              this.updateIframe();
+            }
+        });
+    },
     editHideCategory(categoryId, hide){
       post("/foodcategory/edit-hide", { isHidden: hide, id: categoryId, name: '' }).then(
           (response) => {
