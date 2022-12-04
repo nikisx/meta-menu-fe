@@ -18,7 +18,7 @@
                         <div class="help-block with-errors"></div>
                     </div>
                     <div style="position: relative;margin-top: 10px;">
-                        <input type="text" v-model="alleregens"  class="form-control-input form-input" id="cname"/>
+                        <input type="text" v-model="allergens"  class="form-control-input form-input" id="cname"/>
                         <label class="label-control" style="font-size: 12px;" for="cname" >Алерегени</label>
                         <div class="help-block with-errors"></div>
                     </div>
@@ -54,7 +54,7 @@ export default {
         id:0,
         name: null,
         description: null,
-        alleregens: null,
+        allergens: null,
         price: null,
         image: null,
         imageBytes: null,
@@ -102,7 +102,7 @@ export default {
                 this.id = this.editItem.id;
                 this.name = this.editItem.name;
                 this.description = this.editItem.description;
-                this.alleregens = this.editItem.alleregens;
+                this.allergens = this.editItem.allergens;
                 this.price = this.editItem.price;
                 this.image = this.editItem.image;
                 this.imageBytes = this.editItem.imageBytes;
@@ -110,7 +110,7 @@ export default {
             else{
                 this.name = null;
                 this.description = null;
-                this.alleregens = null;
+                this.allergens = null;
                 this.price = null;
                 this.image = null;
                 this.imageBytes = null;
@@ -125,7 +125,7 @@ export default {
             formData.append('name', this.name)
             formData.append('categoryId', this.categoryId)
             formData.append('description', this.description)
-            formData.append('allergens', this.alleregens)
+            formData.append('allergens', this.allergens)
             formData.append('price', this.price)
             formData.append('imageBytes', this.imageBytes)
 

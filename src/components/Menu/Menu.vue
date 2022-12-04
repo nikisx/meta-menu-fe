@@ -47,6 +47,8 @@
               style="cursor: pointer;margin-right: 9px;margin-left: 12px;font-size: 20px;"
               icon="fa-solid fa-plus"
             />
+            <font-awesome-icon class="btn btn-outline-danger" @click="openDeleteModal(category.name, category.id, true)" style="margin-right: 8px;font-size: 13px;padding: 5px;cursor: pointer;margin-bottom: 10px;" icon="fa-solid fa-trash" />
+
             <font-awesome-icon v-if="!category.isHidden"
              @click="editHideCategory(category.id, true)" 
              class="edit-table-name" title="Скрий от менюто" style="cursor: pointer;font-size: 20px; margin-right: 0;" icon="fa-solid fa-eye" />
@@ -99,6 +101,7 @@
       :editItem="currentItem"
       @success="getAllCategories"
     ></create-item-modal>
+    <delete-modal v-show="showDeleteModal" @close="showDeleteModal=false" :item="currentDeleteItem" :visible="showDeleteModal"></delete-modal>
   </section>
 </template>
 
@@ -106,6 +109,7 @@
 import { post, get } from "../../request.js";
 import CreateItemModal from "../FoodItems/CreateFoodItemModal.vue";
 import TableMenu from "./TableMenu.vue";
+import DeleteModal from "./../Shared/DeleteModal.vue";
 
 export default {
   data() {
@@ -117,6 +121,8 @@ export default {
       currentItem: null,
       currentCategory: {},
       debounce: null,
+      currentDeleteItem: null,
+      showDeleteModal: false,
     };
   },
   computed: {
@@ -130,8 +136,19 @@ export default {
   components: {
     CreateItemModal,
     TableMenu,
+    DeleteModal,
   },
   methods: {
+    openDeleteModal(name, id, isCategory){
+      let item = {
+        id: id,
+        name: name,
+        url: isCategory ? '/foodcategory/delete' : '/fooditem/delete',
+      }
+
+      this.currentDeleteItem = item;
+      this.showDeleteModal = true;
+    },
     editHideItem(id, hide){
       post("/fooditem/edit-hide", { isHidden: hide, id: id, name: '' }).then(
           (response) => {
@@ -218,7 +235,7 @@ export default {
     border: none;
     padding: 10px 20px;
     border-radius: 10px;
-    width: 400px;
+    width: 361px;
 }
 .menu-create-wrapper{
   width: 500px;

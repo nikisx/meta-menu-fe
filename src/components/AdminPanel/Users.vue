@@ -20,13 +20,13 @@
             </select>
         </div>
     </section>
-    <devil-modal v-show="openDeleteModal" @close="openDeleteModal=false" :item="{url:'/users/delete-orders'}" :visible="openDeleteModal"></devil-modal>
+    <delete-modal v-show="openDeleteModal" @close="openDeleteModal=false" :item="{url:'/users/delete-orders'}" :visible="openDeleteModal"></delete-modal>
   </section>
 </template>
 
 <script>
 import {post, get} from '../../request.js';
-import DevilModal from '../Shared/DeleteModal.vue';
+import DeleteModal from '../Shared/DeleteModal.vue';
 
 export default {
     data() {
@@ -37,7 +37,7 @@ export default {
          };
        },
        components:{
-        DevilModal,
+        DeleteModal,
        },
       created(){
         this.getAllUsers();
