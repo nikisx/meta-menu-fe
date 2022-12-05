@@ -2,8 +2,8 @@
     <transition  name="fade" appear>
     <div @click="close($event)" class="modal-backdrop">
       <transition  name="drop-in" >
-      <div v-show="visible" class="modal-og" >
-       <div @click.stop="close" class="modal-close-button" id="close-modal">
+      <div v-show="visible" class="modal-og" :style="[isDelete ? {'background': 'linear-gradient(87deg,#f5365c,#f56036)!important'} : '']">
+       <div v-if="!isDelete" @click.stop="close" class="modal-close-button" id="close-modal">
         <font-awesome-icon style="padding: 0 10px;" id="close-modal" icon="fa-solid fa-xmark" /></div>
         <slot name="header">
         </slot>
@@ -24,6 +24,10 @@
     export default {
       props:{
         visible: {
+            type: Boolean,
+            default: false,
+        },
+        isDelete: {
             type: Boolean,
             default: false,
         },
