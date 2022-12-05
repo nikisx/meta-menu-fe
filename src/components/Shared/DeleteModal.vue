@@ -1,6 +1,6 @@
 <template>
     <modal :visible="visible" @close="$emit('close')" v-if="item">
-        <section style="margin: 110px auto; margin-top: 160px">
+        <section style="margin: 110px auto; margin-top: 160px;width: 500px;">
             <h1>Are you sure you want to delete this {{item.name}}</h1>
             <div style="display: flex; justify-content: space-around;">
                 <span class="btn-light-grey" @click="$emit('close')">Cancel</span>
@@ -35,6 +35,7 @@ export default {
         submit(){
             let obj = {
                 id: this.item?.id,
+                name: this.item?.name,
             }
             if(this.isFormData){
                 obj = this.item?.data;

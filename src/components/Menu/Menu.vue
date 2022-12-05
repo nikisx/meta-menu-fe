@@ -59,8 +59,11 @@
             <ul style="list-style: none; padding: 5px;">
               <li v-for="(food, i) in category.items" :class="[food.isHidden ? 'hidden' : '']" style="border-radius: 0;cursor: pointer; border-top: 1px solid #CCC;padding: 10px 0;display: flex;justify-content: space-between;align-items: center;" :key="i">
                 <span @click="isOpenFoodItemModal = true; currentCategory = category;currentItem = food" class="food-name">{{ food.name }} </span> 
-                <font-awesome-icon v-if="!food.isHidden" @click="editHideItem(food.id, true)"  title="Скрий от менюто" class="edit-table-name" icon="fa-solid fa-eye" />
-                <font-awesome-icon v-else @click="editHideItem(food.id, false)"  title="Покажи в менюто" class="edit-table-name" icon="fa-solid fa-eye-slash" />
+                <div>
+                  <font-awesome-icon class="btn btn-outline-danger" @click="openDeleteModal(food.name, food.id, false)" style="margin-right: 8px;padding: 5px;cursor: pointer;font-size: 11px;" icon="fa-solid fa-trash" />
+                  <font-awesome-icon v-if="!food.isHidden" @click="editHideItem(food.id, true)"  title="Скрий от менюто" class="edit-table-name" icon="fa-solid fa-eye" />
+                  <font-awesome-icon v-else @click="editHideItem(food.id, false)"  title="Покажи в менюто" class="edit-table-name" icon="fa-solid fa-eye-slash" />
+                </div>
               </li>
             </ul>
           </div>
@@ -101,7 +104,7 @@
       :editItem="currentItem"
       @success="getAllCategories"
     ></create-item-modal>
-    <delete-modal v-show="showDeleteModal" @close="showDeleteModal=false" :item="currentDeleteItem" :visible="showDeleteModal"></delete-modal>
+    <delete-modal v-show="showDeleteModal" @close="showDeleteModal=false" @success="getAllCategories" :item="currentDeleteItem" :visible="showDeleteModal"></delete-modal>
   </section>
 </template>
 
