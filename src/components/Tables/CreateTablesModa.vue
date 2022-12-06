@@ -1,15 +1,15 @@
 <template>
-    <modal :visible="visible" @close="$emit('close')" >
+    <modal :modalStyles="modalStyles" :visible="visible" @close="$emit('close')" >
         <form @submit.prevent="submit" class="">
             <div class="container">
-            <h1>Add Tables</h1>
+            <h3>Добавяне на маси</h3>
             <hr>
 
-            <label for="name"><b>Number of tables</b></label>
-            <input type="number" v-model="tableNumber" min="1" required>
+            <label for="name"><b>Брой на масите</b></label>
+            <input type="number" class="form-control-input form-input" style="padding-top: 1px;" v-model="tableNumber" min="1" required>
             <hr>
 
-            <button type="button" @click="submit" class="registerbtn">Add</button>
+            <button type="button"  @click="submit" class="btn-solid-lg">Добави</button>
         </div>
         
         </form>
@@ -29,6 +29,11 @@ export default {
         visible: {
             type: Boolean,
             default: false,
+        },
+    },
+    computed:{
+        modalStyles(){
+            return {'min-heigth': '305px'};
         },
     },
     watch:{

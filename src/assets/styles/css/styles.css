@@ -95,13 +95,10 @@ h6 {
 	font: 700 1rem/1.5rem "Montserrat", sans-serif;
 }
 
-a {
-	color: #f1f1f8;
-	text-decoration: underline;
-}
+
 
 a:hover {
-	color: #f1f1f8;
+	color: #00c9db;
 	text-decoration: underline;
 }
 

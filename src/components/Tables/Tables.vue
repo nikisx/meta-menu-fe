@@ -1,15 +1,24 @@
 <template>
     <section style="text-align: center;">
-          <h1>Add tables</h1>
-          <h3 @click="isAddTablesOpen = true" style="cursor: pointer;">+ Add tables</h3>
-          <section style="width: 500px; margin: 0 auto; text-align: left; border-right: 2px solid black; border-left: 2px solid black; border-top: 2px solid black">
-              <div v-for="(table, index) in tables" style="border-bottom: 2px solid black" :key="index">
-                  <span style="margin-right: 22px;">{{index + 1}}</span> 
-                  <span v-if="currentTable.id != table.id" style="margin-right: 100px;">{{table.number}}</span>
-                  <input v-if="currentTable.id == table.id" type="text" v-model="tableNumber">
-                  <font-awesome-icon v-if="currentTable.id == table.id" @click="editTable(table)" class="edit-table-name" icon="fa-solid fa-check" />
-                  <font-awesome-icon @click="currentTable = table;tableNumber = table.number" class="edit-table-name" icon="fa-solid fa-pen-to-square" />
-                  <a @click="downloadQrImage(table)" href="#">download qr code</a>
+          <h1>Добави маси</h1>
+          <button @click="isAddTablesOpen = true" class="btn-solid-lg" style="margin-bottom: 20px;">+ Добавяне на маси</button>
+          <section style="width: 500px; margin: 0 auto; text-align: left; border: 2px solid #CCC; border-bottom: none; border-radius: 10px;">
+              <div style="border-bottom: 2px solid #CCC;padding: 10px 20px;display: flex;align-items: center;">
+                <b style="width: 185px;">Номер на маса</b>
+                <b style="width:155px;">Редактиране</b>
+                <b>Изтегли QR код</b>
+              </div>
+              <div v-for="(table, index) in tables" style="border-bottom: 2px solid #CCC;padding: 10px 20px;display: flex;align-items: center;" :key="index">
+                  <div style="width: 223px;">
+                    <b v-if="currentTable.id != table.id" >{{table.number}}</b>
+                    <input v-if="currentTable.id == table.id" class="category-name" style="width: 162px;" type="text" v-model="tableNumber">
+                  </div>
+                  <div style="width: 162px;">
+                    <font-awesome-icon v-if="currentTable.id == table.id" @click="editTable(table)" style="font-size: 20px;" class="edit-table-name" icon="fa-solid fa-check" />
+                    <font-awesome-icon v-else @click="currentTable = table;tableNumber = table.number" style="font-size: 20px;" class="edit-table-name" icon="fa-solid fa-pen-to-square" />
+                  </div>
+                  <a v-if="!table.loader" @click="downloadQrImage(table)" href="#"><font-awesome-icon style="font-size: 20px; margin-top: 6px;" icon="fa-solid fa-qrcode" /></a>
+                  <small-loader v-if="table.loader" style="width: 20px;height: 20px;" ></small-loader>   
               </div>
           </section>
           <create-tables-modal :visible="isAddTablesOpen"  @close="isAddTablesOpen = false;" v-show="isAddTablesOpen" @success="getAllTables"></create-tables-modal>
@@ -19,6 +28,7 @@
   <script>
   import {post, get} from '../../request.js';
   import CreateTablesModal from '../Tables/CreateTablesModa.vue';
+  import SmallLoader from '../Shared/SmallLoader.vue';
   
   export default {
       data() {
@@ -39,6 +49,7 @@
      },
      components:{
         CreateTablesModal,
+        SmallLoader,
      },
      methods:{
         editTable(table){
@@ -70,6 +81,8 @@
                 return;
             }
 
+            table.loader = true;
+
             get(`/tables/download-qr?id=${table.id}`)
           .then(response => {
                     let arr = this.base64ToArrayBuffer(response.data);
@@ -79,6 +92,7 @@
                     link.setAttribute('download', 'qr-code-tabe-' + table.number);
                     document.body.appendChild(link);
                     link.click();
+                    table.loader = false;
             
             }).catch(e => {alert(e.message)})
          },

@@ -37,7 +37,12 @@
                         <input type="file" style="display:none;" id="file-upload" @change="onFileChange"  />
                     </div>
                     <hr>
-                    <button type="button"  @click="submit" class="btn-solid-lg">{{editItem ? 'Обнови' : 'Добави'}}</button>
+                    <button type="button" v-if="!isLoading" @click="submit" class="btn-solid-lg">
+                        <span>{{editItem ? 'Обнови' : 'Добави'}}</span>
+                    </button>
+                    <div v-else style="background: white;padding: 14px 47px;"  class="btn-solid-lg">
+                        <small-loader style="height: 20px;width: 20px;"></small-loader>
+                    </div>
                 </div>
                 
                 </form>
@@ -48,6 +53,8 @@
 <script>
 import {post, get} from '../../request'
 import Modal from '../Shared/Modal.vue';
+import SmallLoader from '../Shared/SmallLoader.vue';
+
 export default {
     data() {
       return {
@@ -60,6 +67,7 @@ export default {
         imageBytes: null,
         nameError: false,
         priceError: false,
+        isLoading: false,
       };
     },
     props:{
@@ -88,6 +96,7 @@ export default {
     },
     components:{
         Modal,
+        SmallLoader,
     },
     methods:{
         onFileChange(e) {
@@ -122,16 +131,20 @@ export default {
             
         },
         submit(){
+
+            this.isLoading = true;
             const formData = new FormData()
 
             if(!this.name){
              this.nameError = true;
+             this.isLoading = false;
              return;
             }
              
 
             if(!this.price){
              this.priceError = true;
+             this.isLoading = false;
              return;
             }
             
@@ -157,6 +170,7 @@ export default {
                     this.nameError = false;
                     this.$emit('success');
                     this.$emit('close');
+                    this.isLoading = false;
                 }
             })
             .catch(e => {alert(e.message)})

@@ -64,10 +64,11 @@
       overflow-x: auto;
       display: flex;
       flex-direction: column;
-      min-height: 500px;
+      min-height: max-content;
       min-width: 500px;
       border-radius: 15px;
       max-height: 700px;
+      padding-bottom: 30px;
     }
     .modal-header,
     .modal-footer {
