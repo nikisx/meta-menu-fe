@@ -7,8 +7,8 @@
                     <hr>
                     <div style="position: relative">
                         <input type="text" v-model="name"  class="form-control-input form-input" id="cname" required>
-                        <label class="label-control" style="font-size: 12px;" for="cname" >Име</label>
-                        <div class="help-block with-errors"></div>
+                        <label class="label-control" style="font-size: 12px;" for="cname" >Име <span style="color: red;">*</span></label>
+                        <b v-if="nameError" style="color: red;" class="help-block with-errors">Името е задължително</b>
                     
                     </div>
                     <div style="position: relative;margin-top: 10px;">
@@ -24,8 +24,8 @@
                     </div>
                     <div style="position: relative;margin-top: 10px;">
                         <input type="number" step="0.1" v-model="price"  class="form-control-input form-input" id="cname"/>
-                        <label class="label-control" style="font-size: 12px;" for="cname" >Цена</label>
-                        <div class="help-block with-errors"></div>
+                        <label class="label-control" style="font-size: 12px;" for="cname" >Цена  <span style="color: red;">*</span></label>
+                        <b v-if="priceError" style="color: red;" class="help-block with-errors">Цената е задължителна</b>
                     </div>
                     <div style="position: relative;margin-top: 10px; display: flex; justify-content: space-between;">
                         <label style="display: flex;align-items: center;gap: 10px;cursor: pointer;" for="file-upload" >
@@ -58,6 +58,8 @@ export default {
         price: null,
         image: null,
         imageBytes: null,
+        nameError: false,
+        priceError: false,
       };
     },
     props:{
@@ -97,6 +99,8 @@ export default {
            previewImage.src = URL.createObjectURL(files[0])
         },
         resetData(){
+            this.priceError = false;
+            this.nameError = false;
             if(this.editItem)
             {
                 this.id = this.editItem.id;
@@ -120,12 +124,28 @@ export default {
         submit(){
             const formData = new FormData()
 
+            if(!this.name){
+             this.nameError = true;
+             return;
+            }
+             
+
+            if(!this.price){
+             this.priceError = true;
+             return;
+            }
+            
+
             formData.append('image', this.image)
             formData.append('id', this.id)
             formData.append('name', this.name)
             formData.append('categoryId', this.categoryId)
-            formData.append('description', this.description)
+            if(this.description != null)
+             formData.append('description', this.description)
+
+            if(this.allergens != null)
             formData.append('allergens', this.allergens)
+
             formData.append('price', this.price)
             formData.append('imageBytes', this.imageBytes)
 
@@ -133,6 +153,8 @@ export default {
             post(url,formData)
             .then(res => {
                 if(res.data.success){
+                    this.priceError = false;
+                    this.nameError = false;
                     this.$emit('success');
                     this.$emit('close');
                 }
