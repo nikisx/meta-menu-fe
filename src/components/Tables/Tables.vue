@@ -9,19 +9,21 @@
                 <b>Изтегли QR код</b>
               </div>
               <div v-for="(table, index) in tables" style="border-bottom: 2px solid #CCC;padding: 10px 20px;display: flex;align-items: center;" :key="index">
-                  <div style="width: 223px;">
+                  <div style="width: 196px;">
                     <b v-if="currentTable.id != table.id" >{{table.number}}</b>
                     <input v-if="currentTable.id == table.id" class="category-name" style="width: 162px;" type="text" v-model="tableNumber">
                   </div>
-                  <div style="width: 162px;">
+                  <div style="width: 181px;">
                     <font-awesome-icon v-if="currentTable.id == table.id" @click="editTable(table)" style="font-size: 20px;" class="edit-table-name" icon="fa-solid fa-check" />
                     <font-awesome-icon v-else @click="currentTable = table;tableNumber = table.number" style="font-size: 20px;" class="edit-table-name" icon="fa-solid fa-pen-to-square" />
+                    <font-awesome-icon class="btn btn-outline-danger" @click="openDeleteModal(table)"  style="margin-right: 8px;font-size: 13px;padding: 5px;cursor: pointer;margin-bottom: 10px;" icon="fa-solid fa-trash" />
                   </div>
                   <a v-if="!table.loader" @click="downloadQrImage(table)" href="#"><font-awesome-icon style="font-size: 20px; margin-top: 6px;" icon="fa-solid fa-qrcode" /></a>
                   <small-loader v-if="table.loader" style="width: 20px;height: 20px;" ></small-loader>   
               </div>
           </section>
           <create-tables-modal :visible="isAddTablesOpen"  @close="isAddTablesOpen = false;" v-show="isAddTablesOpen" @success="getAllTables"></create-tables-modal>
+          <delete-modal v-show="showDeleteModal" @close="showDeleteModal=false" @success="getAllTables" :item="currentDeleteItem" :visible="showDeleteModal"></delete-modal>
     </section>
   </template>
   
@@ -29,6 +31,7 @@
   import {post, get} from '../../request.js';
   import CreateTablesModal from '../Tables/CreateTablesModa.vue';
   import SmallLoader from '../Shared/SmallLoader.vue';
+  import DeleteModal from '../Shared/DeleteModal.vue';
   
   export default {
       data() {
@@ -37,6 +40,8 @@
            tables:[],
            currentTable: {},
            tableNumber: null,
+           showDeleteModal: false,
+           currentDeleteItem: null,
          };
        },
        computed:{
@@ -50,9 +55,18 @@
      components:{
         CreateTablesModal,
         SmallLoader,
+        DeleteModal,
      },
      methods:{
-        editTable(table){
+      openDeleteModal(table){
+        this.showDeleteModal = true;
+        this.currentDeleteItem = {
+          id: table.id,
+          name: table.number ?? 'маса без номер',
+          url: '/tables/delete',
+        }
+      },
+      editTable(table){
             this.currentTable = {};
             let obj = {
                 id: table.id,
