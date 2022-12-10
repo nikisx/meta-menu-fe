@@ -1,12 +1,20 @@
 <template>
     <section style="text-align: center;">
-          <h1>Orders</h1>
+          <h1>Поръчки</h1>
           <section style="width: 500px; margin: 0 auto; text-align: left;">
               <div v-for="(order, index) in orders" @click="currentOrder = order ; isOrderModalVisible = true" 
-              style="margin-bottom: 20px; border: 1px solid #CCC; cursor: pointer; padding: 20px; border-radius: 10px;" :key="index">
-                  {{order.tableNumber}}  - 
-                  <span v-for="(item, i) in order.items.slice(0,2)" :key="i" style="margin-right: 10px"> {{item.name}} - {{item.quantity}}</span>
-                  <span v-if="order.items.length > 2"> and other</span>
+              class="order-row" :key="index">
+              <div>
+                <div>
+                  Номер на маса - <b>{{order.tableNumber}}</b>
+                 </div> 
+                  <p v-for="(item, i) in order.items.slice(0,2)" :key="i" style="margin-bottom: 0px; font-size: 12px;"> {{item.name}} - {{item.quantity}}бр.</p>
+                  <p v-if="order.items.length > 2" style="font-size: 12px;margin-bottom: 0;">и още {{order.items.length - 2}} продукта</p>
+              </div>
+              <div style="display: flex; flex-direction: column; position: relative;">
+                <b>{{order.time}} ч.</b>  
+                <b style="position: absolute;bottom: 0px;width: 80px;">{{order.price}} лв.</b>  
+              </div>
               </div>
           </section>
           <order-modal :visible="isOrderModalVisible" v-show="isOrderModalVisible" :order="currentOrder" @close="isOrderModalVisible = false"></order-modal>
@@ -61,5 +69,16 @@
   </script>
   
   <style>
-  
+    .order-row{
+      margin-bottom: 20px; 
+      border: 1px solid #CCC; 
+      cursor: pointer; 
+      padding: 20px; 
+      border-radius: 10px; 
+      display: flex; 
+      justify-content: space-between;
+    }
+    .order-row:hover{
+      background:#cccccc4a;
+    }
   </style>

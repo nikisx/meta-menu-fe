@@ -90,7 +90,7 @@
         </div>
         <div class="inner-shadow"></div>
         <div class="screen">
-           <iframe id="menu-preview" style="width: 390px; height: 810px;" src="http://localhost:8080/menu/26bd75a6-ba84-4e9f-abc1-45fd6f24591f/18" title="">
+           <iframe id="menu-preview" style="width: 390px; height: 810px;" :src="`http://localhost:8080/menu/${user.id}/18`" title="">
             </iframe>
         </div>
       </div>

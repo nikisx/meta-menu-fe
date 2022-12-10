@@ -7,6 +7,8 @@
               <b>{{item.name}}</b> - <p>{{item.quantity}}</p>
         </div>
         </section>
+
+        <button type="button"  @click="submit" style="margin: 0 auto;" class="btn-solid-lg-green">Обработена</button>
     </modal>
 </template>
 

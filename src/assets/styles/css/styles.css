@@ -154,6 +154,24 @@ a.white {
 	text-decoration: none;
 }
 
+.btn-solid-lg-green {
+	display: inline-block;
+	padding: 1.375rem 2.625rem 1.375rem 2.625rem;
+	border: 0.125rem solid #2dce89;
+	border-radius: 2rem;
+	background-color: #2dce89;
+	color: #fff;
+	font: 700 0.75rem/0 "Montserrat", sans-serif;
+	text-decoration: none;
+	transition: all 0.2s;
+}
+
+.btn-solid-lg-green:hover {
+	background-color: transparent;
+	color: #2dce89;
+	text-decoration: none;
+}
+
 .btn-solid-lg .fab {
 	margin-right: 0.5rem;
 	font-size: 1.25rem;
