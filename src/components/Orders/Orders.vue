@@ -17,7 +17,7 @@
               </div>
               </div>
           </section>
-          <order-modal :visible="isOrderModalVisible" v-show="isOrderModalVisible" :order="currentOrder" @close="isOrderModalVisible = false"></order-modal>
+          <order-modal :visible="isOrderModalVisible" v-show="isOrderModalVisible" @success="getAllOrders" :order="currentOrder" @close="isOrderModalVisible = false"></order-modal>
     </section>
   </template>
   
@@ -47,8 +47,18 @@
      },
      mounted(){
         this.signalr.on('NewOrderRecieved', (order) => {
+          console.log(order)
           if(order.userId === this.user.id){
-            this.orders.unshift(order);
+            if(this.orders.some(x => x.id == order.id)){
+              let orderSearched = this.orders.find(x => x.id == order.id);
+              var index = this.orders.indexOf(orderSearched);
+
+              this.orders[index] = order;
+            }
+            else{
+              this.orders.unshift(order);
+            }
+            
           }
     });
      },
