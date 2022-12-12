@@ -1,11 +1,21 @@
 <template>
     <modal :visible="visible" @close="$emit('close')" >
         <section v-if="order">
-            <h2>{{order.tableNumber}}</h2>
-        <div v-for="(item, index) in order.items" style="margin-bottom: 10px; display: flex; align-items: center;
-        justify-content: center;" :key="index">
-              <b>{{item.name}}</b> - <p>{{item.quantity}}</p>
-        </div>
+            <h3>Поръчка от маса {{order.tableNumber}}</h3>
+            <hr>
+            <h4 style="text-align: left;margin-left: 44px;">Продукти:</h4>
+            <section style="width: 80%;margin: 0 auto;">
+                <div v-for="(item, index) in order.items" style="margin-bottom: 10px; text-align: left;" :key="index">
+                        <b>{{item.name}}</b>
+                        <div style="display: flex; justify-content: space-between;">
+                            <p>{{item.quantity}} бр. X {{item.price}} лв.</p>
+                            <b>{{(item.quantity * item.price).toFixed(2)}}</b>
+                        </div>
+                </div>
+            </section>
+            <hr>
+            <h5 style="display: flex;justify-content: right;margin-right: 30px;margin-bottom: 10px;">Обща сума: {{order.price}} лв.</h5>
+       
         </section>
 
         <button v-if="!isLoading" type="button"  @click="submit" style="margin: 0 auto;" class="btn-solid-lg-green">Обработена</button>
