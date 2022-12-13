@@ -1,8 +1,8 @@
-<template style="overflow-x: hidden">
+<template >
   <nav-bar></nav-bar>
   <router-view v-slot="{ Component, route }">
     <transition name="page-slide" mode="out-in">
-      <div :style="[route.name != 'home' ? 'margin-top: 135px;' : '', 'min-height: 105vh;display: flex;flex-direction: column;']" 
+      <div :style="[route.name != 'home' && route.name != 'menu' ? 'margin-top: 135px;' : '', 'min-height: 105vh;display: flex;flex-direction: column;']" 
       :key="route.name"> 
         <component :is="Component" />
         <footer-vue></footer-vue>

@@ -1,7 +1,10 @@
 <template>
     <section v-if="user.accountType" style="text-align: center;">
-          <h1>{{user.username}} menu</h1>
-          <button @click="isCartVisible = true">Cart</button>
+        <div class="menu-header">
+            <h1 style="color: white;">{{user.username}} menu</h1>
+        </div>
+          
+          <button class="sticky-element" @click="isCartVisible = true">Cart</button>
           <section style="width: 500px; margin: 0 auto; text-align: left;">
               <div v-for="(category, index) in user.categories.filter(x => !x.isHidden)" style="margin-bottom: 10px;" :key="index">
                   {{category.name}} 
@@ -121,5 +124,22 @@
   </script>
   
   <style>
-  
+    .menu-header{
+        background-image: url('../../assets/images/dark.jpg'), linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.5));
+        width: auto;
+        margin: 0 auto;
+        max-width: 600px;
+        height: 171px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;   
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-blend-mode: overlay;
+    }
+    .sticky-element {
+        position: sticky;
+        top: 0;
+    }
   </style>
