@@ -1,7 +1,7 @@
 <template>
    <!-- Footer -->
    <div class="footer">
-        <div class="container">
+        <div v-if="$route.name != 'menu'" class="container">
             <div class="row">
                 <div class="col-md-4">
                     <div class="footer-col" >
@@ -61,6 +61,7 @@
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
         </div> <!-- end of container -->
+        <p style="color: white;">Powere by Meta Menu</p>
     </div> <!-- end of footer -->  
     <!-- end of footer -->
 </template>

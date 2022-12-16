@@ -1,10 +1,10 @@
 <template>
-    <section v-if="user.accountType" style="text-align: center;">
+    <section v-if="user.accountType" style="text-align: center;contain: paint; position: relative;margin-top: -35px;">
         <div class="menu-header">
             <h1 style="color: white;">{{user.username}} menu</h1>
         </div>
           
-          <button class="sticky-element" @click="isCartVisible = true">Cart</button>
+          <!-- <button class="sticky-element" @click="isCartVisible = true">Cart</button> -->
           <section style="width: 500px; margin: 0 auto; text-align: left;">
               <div v-for="(category, index) in user.categories.filter(x => !x.isHidden)" style="margin-bottom: 10px;" :key="index">
                   {{category.name}} 
@@ -140,6 +140,12 @@
     }
     .sticky-element {
         position: sticky;
-        top: 0;
+        left: 57%;
+        top: 90%;
+        width: 119px;
+        width: 58px;
+        background: #FF5733;
+        border-radius: 20px;
+        border: none;
     }
   </style>
