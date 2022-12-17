@@ -1,10 +1,13 @@
 <template>
-    <section v-if="user.accountType" style="text-align: center;contain: paint; position: relative;margin-top: -35px;">
+    <section v-if="user.accountType" style="text-align: center;contain: paint; position: relative;margin-bottom: 10px;">
         <div class="menu-header">
             <h1 style="color: white;">{{user.username}} menu</h1>
         </div>
           
-          <!-- <button class="sticky-element" @click="isCartVisible = true">Cart</button> -->
+          <button class="sticky-element" @click="isCartVisible = true">
+            <span v-if="cartItmes.length" class="cart-items-number">{{calculatedItemsCount}}</span>
+            <font-awesome-icon style="margin-left: -14px;" icon="fa-solid fa-cart-shopping" />
+          </button>
           <section style="width: 500px; margin: 0 auto; text-align: left;">
               <div v-for="(category, index) in user.categories.filter(x => !x.isHidden)" style="margin-bottom: 10px;" :key="index">
                   {{category.name}} 
@@ -52,7 +55,19 @@
             let userId = this.currentUserId ? this.currentUserId : this.$route.params.userId;
 
             return userId;
-        }
+        },
+        calculatedItemsCount(){
+            if(this.cartItmes.length){
+                let res = 0;
+                for (let index = 0; index < this.cartItmes.length; index++) {
+                    const element = this.cartItmes[index];
+                    
+                    res += this.cart[element.id];
+                }
+
+                return res;
+            }
+        },
      },
      created(){
       this.getUserInfo();
@@ -72,6 +87,7 @@
             }
             else{
                 delete this.cart[itemId];
+                this.cartItmes = this.cartItmes.filter(x => x.id != itemId);
             }
         },
         addToCart(item){
@@ -140,12 +156,25 @@
     }
     .sticky-element {
         position: sticky;
-        left: 57%;
+        left: 70%;
         top: 90%;
-        width: 119px;
-        width: 58px;
+        width: 46px;
         background: #FF5733;
-        border-radius: 20px;
+        border-radius: 34px;
         border: none;
+        color: white;
+        font-size: 23px;
+        padding: 16px 27px;
+    }
+    .cart-items-number{
+        background: white;
+        color: black;
+        font-size: 12px;
+        padding: 0px 7px;
+        border-radius: 10px;
+        position: absolute;
+        top: -9px;
+        right: -1px;
+        border: 0.5px solid;
     }
   </style>

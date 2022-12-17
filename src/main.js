@@ -23,8 +23,9 @@ import { faUpload} from '@fortawesome/free-solid-svg-icons';
 import { faTrash} from '@fortawesome/free-solid-svg-icons';
 import { faCircleExclamation} from '@fortawesome/free-solid-svg-icons';
 import { faQrcode} from '@fortawesome/free-solid-svg-icons';
+import { faCartShopping} from '@fortawesome/free-solid-svg-icons';
 
-library.add(faPlus, faPenToSquare, faCheck, faMinus, faArrowUp, faArrowDown,faEye, faEyeSlash,faXmark,faUpload,faTrash,faCircleExclamation, faQrcode);
+library.add(faPlus, faPenToSquare, faCheck, faMinus, faArrowUp, faArrowDown,faEye, faEyeSlash,faXmark,faUpload,faTrash,faCircleExclamation, faQrcode,faCartShopping);
 
 const connection = new HubConnectionBuilder()
   .withUrl('https://localhost:44349/api/orderHub')

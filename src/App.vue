@@ -4,7 +4,7 @@
     <transition name="page-slide" mode="out-in">
       <div :style="[route.name != 'home' && route.name != 'menu' ? 'margin-top: 135px;' : '', 'min-height: 105vh;display: flex;flex-direction: column;']" 
       :key="route.name"> 
-        <button v-if="route.name == 'menu'" class="sticky-element">Cart</button>
+        <!-- <button v-if="route.name == 'menu'" class="sticky-element"><font-awesome-icon style="margin-left: -14px;" icon="fa-solid fa-cart-shopping" /></button> -->
         <component :is="Component" />
         <footer-vue></footer-vue>
       </div>
