@@ -1,10 +1,9 @@
 <template>
   <div @click.prevent="close($event)" class="modal-backdrop" v-if="active">
   </div>
-   <div @click.prevent="close($event)" class="slider-modal" :style="{'right': active ? '' : closingWidth}">
-       <span @click="close" style="color: red; cursor: pointer; position: fixed;
-       width: 500px; background: white; border-radius: 10px; margin-bottom: 30px;" id="close-modal">
-         X Close</span>
+   <div @click.prevent="close($event)" class="slider-modal" :style="{'right': active ? '' : closingWidth, 'min-width': modalWidth + 'px', top: scrolledPixels + 'px'}">
+    <div @click.stop="close" class="modal-close-button" id="close-modal">
+        <font-awesome-icon style="padding: 0 10px;" id="close-modal" icon="fa-solid fa-xmark" /></div>
         <slot name="header">
         </slot>
   
@@ -29,14 +28,30 @@
             default: false,
         }
       },
+      data(){
+        return {
+          scrolledPixels: 0,
+        }
+      },
       computed:{
         closingWidth(){
             return `-${this.modalWidth}px`
+        },
+      },
+      watch:{
+        active(){
+          this.getScrolledPixels();
         }
       },
+      created(){
+        // document.addEventListener("scroll", (event) => {this.getScrolledPixels()});
+      },
       methods: {
+        getScrolledPixels(){
+          this.scrolledPixels =  window.scrollY;
+        },
         close(e) {
-          if(e.target.classList.contains('modal-backdrop') || e.target.id == 'close-modal')
+          if(e.target.classList.contains('modal-backdrop') || e.target.id == 'close-modal' || e.target.parentElement.id == 'close-modal')
           this.$emit('close');
         },
       },

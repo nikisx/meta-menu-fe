@@ -1,7 +1,7 @@
 <template>
-    <slider :active="visible" @close="$emit('close');orderSent = false;" >
+    <slider :modalWidth="isMobile ? mobileWidth : 500" :visible="isCartVisible" :active="visible" @close="$emit('close');orderSent = false;" >
         <section style="margin-top: 30px;">
-            <h2>Cart</h2>
+            <h2>Поръчка</h2>
             <div v-for="(food, i) in cartItmes" :key="i">
                 {{food.name}} - <span>{{cart[food.id]}}</span>
             </div>
@@ -32,6 +32,17 @@ export default {
         cart:{
             type: Object,
             default: {},
+        }
+    },
+    computed:{
+        isMobile(){
+            if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                return true;
+            }
+            return false;
+        },
+        mobileWidth(){
+            return window.screen.width;
         }
     },
     watch:{

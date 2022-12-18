@@ -1,22 +1,30 @@
 <template>
     <section v-if="user.accountType" style="text-align: center;contain: paint; position: relative;margin-bottom: 10px;">
         <div class="menu-header">
-            <h1 style="color: white;">{{user.username}} menu</h1>
+            <h1 style="color: white;">{{user.username}}</h1>
         </div>
           
           <button class="sticky-element" @click="isCartVisible = true">
             <span v-if="cartItmes.length" class="cart-items-number">{{calculatedItemsCount}}</span>
             <font-awesome-icon style="margin-left: -14px;" icon="fa-solid fa-cart-shopping" />
           </button>
-          <section style="width: 500px; margin: 0 auto; text-align: left;">
-              <div v-for="(category, index) in user.categories.filter(x => !x.isHidden)" style="margin-bottom: 10px;" :key="index">
-                  {{category.name}} 
-                  <ul style="padding-right: 15px;">
-                      <li v-for="(food, i) in category.items.filter(x => !x.isHidden)" :key="i">{{food.name}} 
-                        <font-awesome-icon @click="removeFromCart(food.id)" class="edit-table-name" style="cursor: pointer; margin-right: 8px;" icon="fa-solid fa-minus" />
-                        <span style="margin-right: 8px;">{{cart[food.id]}}</span>
-                        <font-awesome-icon @click="addToCart(food)" class="edit-table-name" style="cursor: pointer;" icon="fa-solid fa-plus" />
-                        <img v-if="food.imageBytes" :src="'data:image/png;base64,'+ food.imageBytes" style="width: 200px;" alt="">
+          <section style="width: fit-content; margin: 0 auto; text-align: left;">
+              <div v-for="(category, index) in user.categories.filter(x => !x.isHidden)" style="margin-bottom: 10px;width: 100vw;" :key="index">
+                  <p class="menu-category-name" style="margin-bottom: 0">{{category.name}} </p>
+                  <ul style="padding-right: 15px;list-style: none;padding: 0;">
+                      <li v-for="(food, i) in category.items.filter(x => !x.isHidden)" :style="{'border-left': cart[food.id] ? '4px solid #ffdf00' : ''}" class="product-item" :key="i">
+                        <div style="">
+                            <div style="width: 212px;">
+                                <p class="food-price">{{food.price}} лв.</p>
+                                <p style="margin-bottom: 5px;font-size: 17px;">{{food.name}}</p> 
+                                <p v-if="food.description?.length <= 76" style="max-width: 182px;color: #757b86;">{{food.description}}</p>
+                                <p v-else-if="food.description" style="max-width: 182px;color: #757b86;">{{food.description.substring(0, 77)}}...</p>
+                            </div>
+                            <font-awesome-icon @click="removeFromCart(food.id)" v-if="cart[food.id]" class="edit-table-name" style="cursor: pointer; font-size: 22px;margin-right: 8px;" icon="fa-solid fa-minus" />
+                            <span v-if="cart[food.id]" style="margin-right: 8px;font-size: 17px;">{{cart[food.id]}}</span>
+                            <font-awesome-icon @click="addToCart(food)" class="edit-table-name" style="cursor: pointer;font-size: 22px;" icon="fa-solid fa-plus" />
+                        </div>
+                        <img v-if="food.imageBytes" :src="'data:image/png;base64,'+ food.imageBytes" style="width: 140px;border-radius: 10px;max-height: 200px;" alt="">
                     </li>
                   </ul>
               </div>
@@ -158,23 +166,47 @@
         position: sticky;
         left: 70%;
         top: 90%;
-        width: 46px;
+        width: 48px;
         background: #FF5733;
-        border-radius: 34px;
+        border-radius: 36px;
         border: none;
         color: white;
         font-size: 23px;
-        padding: 16px 27px;
+        padding: 19px 30px;
     }
     .cart-items-number{
-        background: white;
-        color: black;
-        font-size: 12px;
+        background: #ffdf00;
+        color: white;
+        font-size: 15px;
         padding: 0px 7px;
-        border-radius: 10px;
+        border-radius: 13px;
         position: absolute;
         top: -9px;
         right: -1px;
-        border: 0.5px solid;
+        border: 3px solid;
+        font-weight: bold;
+    }
+    .menu-category-name{
+        font-size: 20px;
+        background-color: #fafafa;
+        padding: 15px;
+        font-weight: bold;
+    }
+    .product-item{
+        display: flex;
+        align-items: center;
+        padding-bottom: 17px;
+        border-bottom: 1px solid #CCC;
+        margin-bottom: 17px;
+        padding-left: 22px;
+        padding-top: 10px;
+    }
+    .food-price{
+        margin-bottom: 5px;
+        color: #FF5733;
+        width: 84px;
+        border: 1px solid;
+        text-align: center;
+        border-radius: 15px;
     }
   </style>
