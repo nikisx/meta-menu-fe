@@ -1,7 +1,7 @@
 <template>
   <div @click.prevent="close($event)" class="modal-backdrop" v-if="active">
   </div>
-   <div @click.prevent="close($event)" class="slider-modal" :style="{'right': active ? '' : closingWidth, 'min-width': modalWidth + 'px', top: scrolledPixels + 'px'}">
+   <div @click.prevent="close($event)" class="slider-modal" :style="{'right': active ? '' : closingWidth, 'min-width': modalWidth + 'px'}">
     <div @click.stop="close" class="modal-close-button" id="close-modal">
         <font-awesome-icon style="padding: 0 10px;" id="close-modal" icon="fa-solid fa-xmark" /></div>
         <slot name="header">
@@ -40,7 +40,19 @@
       },
       watch:{
         active(){
-          this.getScrolledPixels();
+          // this.getScrolledPixels();
+          
+          if(this.active){
+            this.scrolledPixels =  window.scrollY;
+            setTimeout(() => {
+              document.body.style.position = 'fixed';
+            }, "500") 
+           
+          }
+          else{
+            document.body.style.position = '';
+            window.scrollTo(0, this.scrolledPixels);
+          }
         }
       },
       created(){
@@ -71,7 +83,7 @@
     position: absolute;
     right: 0;
     height: 100%;
-    transition: 1s;
+    transition: .5s;
     top: 0;
     z-index: 1136;
 }
