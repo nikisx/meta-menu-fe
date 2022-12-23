@@ -3,13 +3,15 @@
         <div class="menu-header">
             <h1 style="color: white;">{{user.username}}</h1>
         </div>
-          
+          <section class="scrollable-categories">
+            <div v-for="(category, index) in user.categories.filter(x => !x.isHidden)" @click="scroolToCategory(category.id)" class="category-button" :key="index">{{category.name}}</div>
+          </section>
           <button class="sticky-element" @click="isCartVisible = true">
             <span v-if="cartItmes.length" class="cart-items-number">{{calculatedItemsCount}}</span>
             <font-awesome-icon style="margin-left: -14px;" icon="fa-solid fa-cart-shopping" />
           </button>
           <section style="width: fit-content; margin: 0 auto; text-align: left;">
-              <div v-for="(category, index) in user.categories.filter(x => !x.isHidden)" style="margin-bottom: 10px;width: 100vw;" :key="index">
+              <div v-for="(category, index) in user.categories.filter(x => !x.isHidden)" :id="category.id" style="margin-bottom: 10px;width: 100vw;" :key="index">
                   <p class="menu-category-name" style="margin-bottom: 0">{{category.name}} </p>
                   <ul style="padding-right: 15px;list-style: none;padding: 0;">
                       <li v-for="(food, i) in category.items.filter(x => !x.isHidden)" :style="{'border-left': cart[food.id] ? '4px solid #ffdf00' : ''}" class="product-item" :key="i">
@@ -20,9 +22,9 @@
                                 <p v-if="food.description?.length <= 76" style="max-width: 182px;color: #757b86;">{{food.description}}</p>
                                 <p v-else-if="food.description" style="max-width: 182px;color: #757b86;">{{food.description.substring(0, 77)}}...</p>
                             </div>
-                            <font-awesome-icon @click="removeFromCart(food.id)" v-if="cart[food.id]" class="edit-table-name" style="cursor: pointer; font-size: 22px;margin-right: 8px;" icon="fa-solid fa-minus" />
-                            <span v-if="cart[food.id]" style="margin-right: 8px;font-size: 17px;">{{cart[food.id]}}</span>
                             <font-awesome-icon @click="addToCart(food)" class="edit-table-name" style="cursor: pointer;font-size: 22px;" icon="fa-solid fa-plus" />
+                            <span v-if="cart[food.id]" style="margin-right: 8px;font-size: 17px;">{{cart[food.id]}}</span>
+                            <font-awesome-icon @click="removeFromCart(food.id)" v-if="cart[food.id]" class="edit-table-name" style="cursor: pointer; font-size: 22px;margin-left: 8px;" icon="fa-solid fa-minus" />
                         </div>
                         <img v-if="food.imageBytes" :src="'data:image/png;base64,'+ food.imageBytes" style="width: 140px;border-radius: 10px;max-height: 200px;" alt="">
                     </li>
@@ -85,6 +87,10 @@
         Loader,
      },
      methods:{
+        scroolToCategory(categoryId){
+            const element = document.getElementById(categoryId);
+            element.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
+        },
         removeFromCart(itemId){
             if(!this.cart[itemId]){
                 return;
@@ -208,5 +214,32 @@
         border: 1px solid;
         text-align: center;
         border-radius: 15px;
+    }
+    .scrollable-categories{
+        display: flex;
+        margin-top: 23px;
+        margin-bottom: -40px;
+        gap: 10px;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        white-space: nowrap;
+        scroll-padding-left: 1rem; /* Same as gutter */
+        scroll-snap-type: x mandatory;
+        position: sticky;
+        top: 0;
+        background: white;
+        padding-bottom: 4px;
+    }
+    .scrollable-categories::-webkit-scrollbar {
+        display: none;
+    }
+    .category-button{
+        padding: 10px 15px;
+        background: #FF5733;
+        color: white;
+        font-weight: bold;
+        scroll-snap-align: center;
+        border-radius: 20px;
+        scroll-snap-stop: always;
     }
   </style>
