@@ -40,10 +40,7 @@
       },
       watch:{
         active(){
-         
-          
           if(this.active){
-           
             this.scrolledPixels =  window.scrollY;
             setTimeout(() => {
               document.body.style.position = 'fixed';

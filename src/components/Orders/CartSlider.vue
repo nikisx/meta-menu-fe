@@ -1,6 +1,6 @@
 <template>
     <slider :modalWidth="isMobile ? mobileWidth : 500" :visible="isCartVisible" :active="visible" @close="$emit('close');orderSent = false;" >
-        <section style="margin-top: 30px;">
+        <section :style="{marginTop: scrolledPixels + 'px'}">
             <h2>Поръчка</h2>
             <hr>
             <section style="overflow-y: scroll;max-height: 575px;">
@@ -22,6 +22,9 @@
             </div>
             <p v-if="orderSent">Order recieved!</p>
         </section>
+        <!-- <section v-else style="position: absolute;left: 27%;" :style="{top: scrolledPixels + 'px'}">
+            <small-loader style="height: 188px;width: 188px;"></small-loader>
+        </section> -->
     </slider>
 </template>
 
@@ -34,7 +37,7 @@ export default {
     data() {
       return {
         orderSent: false,
-        
+        showContent: false,
       };
     },
     props:{
@@ -53,6 +56,10 @@ export default {
         cart:{
             type: Object,
             default: {},
+        },
+        scrolledPixels:{
+            type: Number,
+            default: 0,
         }
     },
     computed:{
@@ -82,7 +89,14 @@ export default {
     watch:{
       visible: function(){
           if(this.visible){
-           
+            setTimeout(() => {
+              this.showContent = true;
+            }, "500") 
+          }
+          else {
+            setTimeout(() => {
+              this.showContent = false;
+            }, "500") 
           }
       },
     },

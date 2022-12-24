@@ -6,7 +6,7 @@
           <section class="scrollable-categories" ref="element">
             <div v-for="(category, index) in user.categories.filter(x => !x.isHidden)" @click="scroolToCategory(category.id)" class="category-button" :key="index">{{category.name}}</div>
           </section>
-          <button class="sticky-element" @click="isCartVisible = true">
+          <button class="sticky-element" @click="openCart()">
             <span v-if="cartItmes.length" class="cart-items-number">{{calculatedItemsCount}}</span>
             <font-awesome-icon style="margin-left: -14px;" icon="fa-solid fa-cart-shopping" />
           </button>
@@ -36,7 +36,7 @@
                   </ul>
               </div>
           </section>
-          <cart :cart="cart" @close="isCartVisible = false" @setOrder="createOrder" :isLoading="isLoading" :visible="isCartVisible" :cartItmes="cartItmes"></cart>
+          <cart :cart="cart" @close="isCartVisible = false" :scrolledPixels="scrolledPixels" @setOrder="createOrder" v-show="isCartVisible" :isLoading="isLoading" :visible="isCartVisible" :cartItmes="cartItmes"></cart>
     </section>
     <section v-else-if="user.accountType == 0">
         <h1>User not validated</h1>
@@ -58,6 +58,7 @@
            isCartVisible: false,
            isLoading: false,
            user:{},
+           scrolledPixels:0,
          };
        },
        props:{
@@ -96,6 +97,14 @@
         Loader,
      },
      methods:{
+        openCart(){
+            this.scrolledPixels = window.pageYOffset ;
+            this.isCartVisible = true
+            setTimeout(() => {
+                this.scrolledPixels = 0;
+            }, "550") 
+            
+        },
         vueOnScroll() {
            
             var prev = window.pageYOffset;
