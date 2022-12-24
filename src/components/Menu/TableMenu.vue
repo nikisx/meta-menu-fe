@@ -3,7 +3,7 @@
         <div class="menu-header">
             <h1 style="color: white;">{{user.username}}</h1>
         </div>
-          <section class="scrollable-categories">
+          <section class="scrollable-categories" ref="element">
             <div v-for="(category, index) in user.categories.filter(x => !x.isHidden)" @click="scroolToCategory(category.id)" class="category-button" :key="index">{{category.name}}</div>
           </section>
           <button class="sticky-element" @click="isCartVisible = true">
@@ -17,21 +17,26 @@
                       <li v-for="(food, i) in category.items.filter(x => !x.isHidden)" :style="{'border-left': cart[food.id] ? '4px solid #ffdf00' : ''}" class="product-item" :key="i">
                         <div style="">
                             <div style="width: 212px;">
-                                <p class="food-price">{{food.price}} лв.</p>
-                                <p style="margin-bottom: 5px;font-size: 17px;">{{food.name}}</p> 
-                                <p v-if="food.description?.length <= 76" style="max-width: 182px;color: #757b86;">{{food.description}}</p>
+                                <div style="display: flex;justify-content: space-between;width: 345px;">
+                                    <p style="margin-bottom: 5px;font-size: 17px;">{{food.name}}</p> 
+                                    <p class="food-price">{{food.price}} лв.</p>                               
+                                 </div>
+                                <p v-if="food.description?.length <= 76 && food.imageBytes" style="max-width: 182px;color: #757b86;">{{food.description}}</p>
+                                <p v-else-if="food.description && !food.imageBytes" style="width: 165%;color: #757b86;">{{food.description.substring(0, 240)}}
+                                    <span v-if="food.description.length > 240">...</span>
+                                </p>
                                 <p v-else-if="food.description" style="max-width: 182px;color: #757b86;">{{food.description.substring(0, 77)}}...</p>
                             </div>
                             <font-awesome-icon @click="addToCart(food)" class="edit-table-name" style="cursor: pointer;font-size: 22px;" icon="fa-solid fa-plus" />
                             <span v-if="cart[food.id]" style="margin-right: 8px;font-size: 17px;">{{cart[food.id]}}</span>
                             <font-awesome-icon @click="removeFromCart(food.id)" v-if="cart[food.id]" class="edit-table-name" style="cursor: pointer; font-size: 22px;margin-left: 8px;" icon="fa-solid fa-minus" />
                         </div>
-                        <img v-if="food.imageBytes" :src="'data:image/png;base64,'+ food.imageBytes" style="width: 140px;border-radius: 10px;max-height: 200px;" alt="">
+                        <img v-if="food.imageBytes" :src="'data:image/png;base64,'+ food.imageBytes" style="width: 140px;border-radius: 10px;max-height: 200px;height: 100px;object-fit: cover;" alt="">
                     </li>
                   </ul>
               </div>
           </section>
-          <cart :cart="cart" @close="isCartVisible = false" @setOrder="createOrder" :visible="isCartVisible" :cartItmes="cartItmes"></cart>
+          <cart :cart="cart" @close="isCartVisible = false" @setOrder="createOrder" :isLoading="isLoading" :visible="isCartVisible" :cartItmes="cartItmes"></cart>
     </section>
     <section v-else-if="user.accountType == 0">
         <h1>User not validated</h1>
@@ -51,6 +56,7 @@
            cart:{},
            cartItmes: [],
            isCartVisible: false,
+           isLoading: false,
            user:{},
          };
        },
@@ -82,11 +88,44 @@
      created(){
       this.getUserInfo();
      },
+     mounted(){
+        this.vueOnScroll();
+     },
      components:{
         Cart,
         Loader,
      },
      methods:{
+        vueOnScroll() {
+           
+            var prev = window.pageYOffset;
+            window.addEventListener("scroll", () => {
+            const refs = document.querySelector('.scrollable-categories'); // assign the reference in variable         
+            if(refs){
+                var curr = window.pageYOffset;
+
+                if(curr >= 200){
+                    refs.classList.add("scrollDown");
+                }  
+                else{
+                    refs.classList.remove("scrollDown");
+                }
+
+                // if (prev > curr) {
+                //     refs.classList.add("scrolled");
+                //     refs.classList.remove("scrollDown");
+                // } else {
+                //     refs.classList.add("scrollDown");
+                //     refs.classList.remove("scrolled");
+                // }
+                // if (curr === 0) {
+                //     refs.classList.remove("scrollDown");
+                //     refs.classList.remove("scrolled");
+                // }
+            }
+                prev = curr;
+            });
+        },
         scroolToCategory(categoryId){
             const element = document.getElementById(categoryId);
             element.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});
@@ -115,6 +154,7 @@
             
         },
         createOrder(){
+            this.isLoading = true;
             this.cartItmes.forEach(item => item.quantity = this.cart[item.id])
 
             let obj ={
@@ -128,8 +168,9 @@
             post('/orders/create', obj)
             .then(response => {
                 if(response.data.success){
-              this.cartItmes = [];
-              this.cart = {};
+                    this.cartItmes = [];
+                    this.cart = {};
+                    this.isLoading = false;
             }
             })
         },
@@ -229,6 +270,10 @@
         top: 0;
         background: white;
         padding-bottom: 4px;
+
+    }
+    .scrollDown{
+        box-shadow: 0px 5px 5px #ccc;;
     }
     .scrollable-categories::-webkit-scrollbar {
         display: none;

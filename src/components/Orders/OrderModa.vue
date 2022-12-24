@@ -4,7 +4,7 @@
             <h3>Поръчка от маса {{order.tableNumber}}</h3>
             <hr>
             <h4 style="text-align: left;margin-left: 44px;">Продукти:</h4>
-            <section style="width: 80%;margin: 0 auto;">
+            <section class="orders-wrapper" >
                 <div v-for="(item, index) in order.items" style="margin-bottom: 10px; text-align: left;" :key="index">
                         <b>{{item.name}}</b>
                         <div style="display: flex; justify-content: space-between;">
@@ -77,4 +77,20 @@ export default {
 </script>
 
 <style>
+.orders-wrapper{
+    width: 80%;margin: 0 auto;overflow-y: auto; max-height: 408px;padding-right: 9px;
+}
+.orders-wrapper::-webkit-scrollbar {
+    width: 10px;
+}
+
+.orders-wrapper::-webkit-scrollbar-track {
+    background: #CCC;
+    border-radius: 10px;
+}
+
+.orders-wrapper::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #00c9db;
+}
 </style>
