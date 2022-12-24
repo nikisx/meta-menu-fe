@@ -1,6 +1,6 @@
 <template>
     <slider :modalWidth="isMobile ? mobileWidth : 500" :visible="isCartVisible" :active="visible" @close="$emit('close');orderSent = false;" >
-        <section :style="{marginTop: scrolledPixels + 'px'}">
+        <section v-if="showContent" style="margin-top: 30px;">
             <h2>Поръчка</h2>
             <hr>
             <section style="overflow-y: scroll;max-height: 575px;">
@@ -22,9 +22,9 @@
             </div>
             <p v-if="orderSent">Order recieved!</p>
         </section>
-        <!-- <section v-else style="position: absolute;left: 27%;" :style="{top: scrolledPixels + 'px'}">
+        <section v-else style="position: absolute;left: 27%;" :style="{top: scrolledPixels + 'px'}">
             <small-loader style="height: 188px;width: 188px;"></small-loader>
-        </section> -->
+        </section>
     </slider>
 </template>
 

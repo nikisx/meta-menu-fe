@@ -98,7 +98,7 @@
      },
      methods:{
         openCart(){
-            this.scrolledPixels = window.pageYOffset ;
+            this.scrolledPixels = window.pageYOffset  + 200;
             this.isCartVisible = true
             setTimeout(() => {
                 this.scrolledPixels = 0;
