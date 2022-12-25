@@ -15,7 +15,7 @@
                 </div>
             </section>
             <hr>
-            <h5 style="display: flex;justify-content: right;margin-right: 30px;margin-bottom: 10px;">Обща сума: {{calclulatedPrice.toFixed(2)}} лв.</h5>
+            <h5 style="display: flex;justify-content: right;margin-right: 20px;margin-bottom: 10px;">Обща сума: {{calclulatedPrice.toFixed(2)}} лв.</h5>
             <button v-if="!isLoading" type="button"  @click="$emit('setOrder');orderSent = true;" style="margin: 0 auto;" class="btn-solid-lg">Поръчай</button>
             <div v-else style="background: white;padding: 14px 47px;width: max-content;margin: 0 auto;"  class="btn-solid-lg">
                             <small-loader style="height: 20px;width: 20px;"></small-loader>

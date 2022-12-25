@@ -21,17 +21,19 @@
                                     <p style="margin-bottom: 5px;font-size: 17px;">{{food.name}}</p> 
                                     <p class="food-price">{{food.price}} лв.</p>                               
                                  </div>
-                                <p v-if="food.description?.length <= 76 && food.imageBytes" style="max-width: 182px;color: #757b86;">{{food.description}}</p>
-                                <p v-else-if="food.description && !food.imageBytes" style="width: 165%;color: #757b86;">{{food.description.substring(0, 240)}}
-                                    <span v-if="food.description.length > 240">...</span>
-                                </p>
-                                <p v-else-if="food.description" style="max-width: 182px;color: #757b86;">{{food.description.substring(0, 77)}}...</p>
+                                 <div style="display: flex;justify-content: space-between;width: 345px;">
+                                    <p v-if="food.description?.length <= 76 && food.imageBytes" style="max-width: 182px;color: #757b86;">{{food.description}}</p>
+                                    <p v-else-if="food.description && !food.imageBytes" style="width: 165%;color: #757b86;">{{food.description.substring(0, 240)}}
+                                        <span v-if="food.description.length > 240">...</span>
+                                    </p>
+                                    <p v-else-if="food.description" style="max-width: 182px;color: #757b86;">{{food.description.substring(0, 77)}}...</p>
+                                    <img v-if="food.imageBytes" :src="'data:image/png;base64,'+ food.imageBytes" style="width: 140px;border-radius: 10px;max-height: 200px;height: 100px;object-fit: cover;" alt="">
+                                 </div>
                             </div>
                             <font-awesome-icon @click="addToCart(food)" class="edit-table-name" style="cursor: pointer;font-size: 22px;" icon="fa-solid fa-plus" />
                             <span v-if="cart[food.id]" style="margin-right: 8px;font-size: 17px;">{{cart[food.id]}}</span>
                             <font-awesome-icon @click="removeFromCart(food.id)" v-if="cart[food.id]" class="edit-table-name" style="cursor: pointer; font-size: 22px;margin-left: 8px;" icon="fa-solid fa-minus" />
                         </div>
-                        <img v-if="food.imageBytes" :src="'data:image/png;base64,'+ food.imageBytes" style="width: 140px;border-radius: 10px;max-height: 200px;height: 100px;object-fit: cover;" alt="">
                     </li>
                   </ul>
               </div>
