@@ -14,7 +14,7 @@
               <div v-for="(category, index) in user.categories.filter(x => !x.isHidden)" :id="category.id" style="margin-bottom: 10px;width: 100vw;" :key="index">
                   <p class="menu-category-name" style="margin-bottom: 0">{{category.name}} </p>
                   <ul style="padding-right: 15px;list-style: none;padding: 0;">
-                      <li v-for="(food, i) in category.items.filter(x => !x.isHidden)" :style="{'border-left': cart[food.id] ? '4px solid #ffdf00' : ''}" class="product-item" :key="i">
+                      <li v-for="(food, i) in category.items.filter(x => !x.isHidden)" @click="isProductModalOpen = true;currentProduct = food" :style="{'border-left': cart[food.id] ? '4px solid #ffdf00' : ''}" class="product-item" :key="i">
                         <div style="">
                             <div style="width: 212px;">
                                 <div style="display: flex;justify-content: space-between;width: 345px;">
@@ -44,12 +44,14 @@
         <h1>User not validated</h1>
     </section>
     <loader v-else></loader>
+    <product-modal :product="currentProduct" @close="isProductModalOpen = false" v-show="isProductModalOpen" :visible="isProductModalOpen"></product-modal>
   </template>
   
   <script>
   import {post, get} from '../../request.js';  
   import Cart from '../Orders/CartSlider.vue';
   import Loader from '../Shared/Loader.vue';
+  import ProductModal from '../Orders/ProductModal.vue';
 
   export default {
       data() {
@@ -58,8 +60,10 @@
            cart:{},
            cartItmes: [],
            isCartVisible: false,
+           isProductModalOpen: false,
            isLoading: false,
            user:{},
+           currentProduct:{},
            scrolledPixels:0,
          };
        },
@@ -97,6 +101,7 @@
      components:{
         Cart,
         Loader,
+        ProductModal,
      },
      methods:{
         openCart(){

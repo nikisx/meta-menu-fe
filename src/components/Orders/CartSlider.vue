@@ -1,5 +1,5 @@
 <template>
-    <slider :modalWidth="isMobile ? mobileWidth : 500" :visible="isCartVisible" :active="visible" @close="$emit('close');orderSent = false;" >
+    <slider :modalWidth="isMobile ? mobileWidth : 390" :visible="isCartVisible" :active="visible" @close="$emit('close');orderSent = false;" >
         <section v-if="showContent" style="margin-top: 30px;">
             <h2>Поръчка</h2>
             <hr>
