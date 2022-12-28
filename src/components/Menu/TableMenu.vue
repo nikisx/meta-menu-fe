@@ -14,7 +14,7 @@
               <div v-for="(category, index) in user.categories.filter(x => !x.isHidden)" :id="category.id" style="margin-bottom: 10px;width: 100vw;" :key="index">
                   <p class="menu-category-name" style="margin-bottom: 0">{{category.name}} </p>
                   <ul style="padding-right: 15px;list-style: none;padding: 0;">
-                      <li v-for="(food, i) in category.items.filter(x => !x.isHidden)" @click="isProductModalOpen = true;currentProduct = food" :style="{'border-left': cart[food.id] ? '4px solid #ffdf00' : ''}" class="product-item" :key="i">
+                      <li v-for="(food, i) in category.items.filter(x => !x.isHidden)" @click="isProductModalOpen = true;currentProduct = food;currentProduct.category = category.name" :style="{'border-left': cart[food.id] ? '4px solid #ffdf00' : ''}" class="product-item" :key="i">
                         <div style="">
                             <div style="width: 212px;">
                                 <div style="display: flex;justify-content: space-between;width: 345px;">
@@ -30,9 +30,9 @@
                                     <img v-if="food.imageBytes" :src="'data:image/png;base64,'+ food.imageBytes" style="width: 140px;border-radius: 10px;max-height: 200px;height: 100px;object-fit: cover;" alt="">
                                  </div>
                             </div>
-                            <font-awesome-icon @click="addToCart(food)" class="edit-table-name" style="cursor: pointer;font-size: 22px;" icon="fa-solid fa-plus" />
+                            <font-awesome-icon @click.stop="addToCart(food)" class="edit-table-name" style="cursor: pointer;font-size: 22px;" icon="fa-solid fa-plus" />
                             <span v-if="cart[food.id]" style="margin-right: 8px;font-size: 17px;">{{cart[food.id]}}</span>
-                            <font-awesome-icon @click="removeFromCart(food.id)" v-if="cart[food.id]" class="edit-table-name" style="cursor: pointer; font-size: 22px;margin-left: 8px;" icon="fa-solid fa-minus" />
+                            <font-awesome-icon @click.stop="removeFromCart(food.id)" v-if="cart[food.id]" class="edit-table-name" style="cursor: pointer; font-size: 22px;margin-left: 8px;" icon="fa-solid fa-minus" />
                         </div>
                     </li>
                   </ul>
@@ -44,7 +44,7 @@
         <h1>User not validated</h1>
     </section>
     <loader v-else></loader>
-    <product-modal :product="currentProduct" @close="isProductModalOpen = false" v-show="isProductModalOpen" :visible="isProductModalOpen"></product-modal>
+    <product-modal :product="currentProduct" @close="isProductModalOpen = false" v-show="isProductModalOpen" :cart="cart" @addToCart="addToCart" @removeFromCart="removeFromCart" :visible="isProductModalOpen"></product-modal>
   </template>
   
   <script>
