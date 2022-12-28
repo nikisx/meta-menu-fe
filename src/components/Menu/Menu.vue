@@ -3,6 +3,11 @@
     <h1>Създай меню</h1>
     <div style="display: flex; justify-content: space-evenly">
       <div>
+        <div style="display: flex; flex-direction: column;text-align: left;">
+          <b style="font-size: 10px">Име</b>
+          <input class="category-name" @input="editUsername($event)"  type="text" :value="user.username" />
+        </div>
+        
         <h3 @click="addCategory = true" style="cursor: pointer">
           + Добави категория
         </h3>
@@ -186,6 +191,20 @@ export default {
             if (response.data.success) {
               this.getAllCategories();
               this.updateIframe();
+            }
+        });
+      }, 600)
+    },
+    editUsername(event){
+      clearTimeout(this.debounce)
+      this.debounce = setTimeout(() => {
+        let newName = event.target.value;
+
+        post("/users/edit-username", { username: newName}).then(
+          (response) => {
+            if (response.data.success) {
+              this.updateIframe();
+              this.user.username = newName;
             }
         });
       }, 600)
