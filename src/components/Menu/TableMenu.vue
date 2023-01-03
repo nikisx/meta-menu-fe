@@ -3,6 +3,10 @@
         <div class="menu-header">
             <h1 style="color: white;">{{user.username}}</h1>
         </div>
+        <div v-if="user.wifi" class="fancy-font wifi-info">
+            <font-awesome-icon icon="fa-solid fa-wifi" />
+            {{ user.wifi }}
+        </div>
           <section class="scrollable-categories" ref="element">
             <div v-for="(category, index) in user.categories.filter(x => !x.isHidden)" @click="scroolToCategory(category.id)" class="category-button" :key="index">{{category.name}}</div>
           </section>
@@ -302,5 +306,14 @@
         scroll-snap-align: center;
         border-radius: 20px;
         scroll-snap-stop: always;
+    }
+    .wifi-info{
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 17px;
+        color: rgb(117, 123, 134);
+
     }
   </style>

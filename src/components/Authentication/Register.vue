@@ -41,6 +41,16 @@ export default {
       repeatedPass: null,
     }
   },
+  computed:{
+    user(){
+      return this.$store.state.user;
+    }
+  },
+  created(){
+    if(this.user){
+      this.$router.push({name:'menu-create', params:{name: this.user.username}})
+    }
+  },
   methods:{
     submit(){
       if(this.password != this.repeatedPass){

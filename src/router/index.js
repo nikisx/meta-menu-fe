@@ -9,5 +9,19 @@ const router = createRouter({
   linkExactActiveClass: "active",
 });
 
+router.beforeEach((to, from, next) => {
+  if (!localStorage.getItem("user")) {
+    if ((to.name === 'menu-create' || to.name === 'tables' || to.name === 'users'  || to.name === 'orders'  || to.name === 'statistics') ) {
+      next({name: 'login'});
+    } 
+    else{
+      next();
+    }
+  }
+  else{
+    next();
+  }
+ 
+})
 
 export default router;

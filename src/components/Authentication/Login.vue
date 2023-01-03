@@ -33,6 +33,11 @@ export default {
       return this.$store.state.user;
     }
   },
+  created(){
+    if(this.user){
+      this.$router.push({name:'menu-create', params:{name: this.user.username}})
+    }
+  },
   methods:{
     submit(){
       let obj = {
@@ -44,7 +49,9 @@ export default {
         if(response.data.success){
           localStorage.setItem('user', response.data.token);
           this.$store.commit('setUser', response.data.data)
-          this.$router.push({name:'home'})
+          setTimeout(() => {
+            this.$router.push({name:'menu-create', params:{name: response.data.data.username}})
+          }, "100")
         }
       }).catch(e => {alert(e.message)})
       //   this.$http.post('https://localhost:44356', obj).then((response) => {

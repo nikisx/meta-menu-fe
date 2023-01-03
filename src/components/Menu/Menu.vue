@@ -5,7 +5,11 @@
       <div>
         <div style="display: flex; flex-direction: column;text-align: left;">
           <b style="font-size: 10px">Име</b>
-          <input class="category-name" @input="editUsername($event)"  type="text" :value="user.username" />
+          <input class="category-name" @input="editUsername($event, true)"  type="text" :value="user.username" />
+        </div>
+        <div style="display: flex; flex-direction: column;text-align: left;margin-top: 10px;">
+          <b style="font-size: 10px">WiFi</b>
+          <input class="category-name" @input="editUsername($event)"  type="text" :value="user.wifi" />
         </div>
         
         <h3 @click="addCategory = true" style="cursor: pointer">
@@ -195,16 +199,32 @@ export default {
         });
       }, 600)
     },
-    editUsername(event){
+    editUsername(event, isUsername){
       clearTimeout(this.debounce)
       this.debounce = setTimeout(() => {
         let newName = event.target.value;
 
-        post("/users/edit-username", { username: newName}).then(
+        let object = {};
+
+        if (isUsername) {
+          object.username = newName;
+          object.wifi = this.user.wifi;
+        }
+        else{
+          object.wifi = newName;
+          object.username = this.user.username;
+        }
+
+        post("/users/edit-user-info", object).then(
           (response) => {
             if (response.data.success) {
               this.updateIframe();
-              this.user.username = newName;
+              if(isUsername){
+                this.user.username = newName;
+              }
+              else{
+                this.user.wifi = newName;
+              }
             }
         });
       }, 600)

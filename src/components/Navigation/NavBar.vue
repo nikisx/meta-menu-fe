@@ -20,34 +20,34 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <router-link class="nav-link"  to="/">HOME <span class="sr-only">(current)</span></router-link>
+                    <router-link class="nav-link" v-if="!user"  to="/"> НАЧАЛО <span class="sr-only">(current)</span></router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link v-if="!user" to="/login" class="nav-link " >LOGIN</router-link>
+                    <router-link v-if="!user" to="/login" class="nav-link " >ВЛИЗАНЕ</router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link v-if="!user" to="/register" class="nav-link ">REGISTER</router-link>
+                    <router-link v-if="!user" to="/register" class="nav-link ">РЕГИСТРАЦИЯ</router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link v-if="user" :to="{name:'menu-create', params:{name: user.username}}" class="nav-link ">MENU</router-link>
+                    <router-link v-if="user" :to="{name:'menu-create', params:{name: user.username}}" class="nav-link ">МЕНЮ</router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link v-if="user" :to="{name:'tables'}" class="nav-link ">TABLES</router-link>
+                    <router-link v-if="user" :to="{name:'tables'}" class="nav-link ">МАСИ</router-link>
                 </li>
                  <li class="nav-item">
-                    <router-link v-if="user" :to="{name:'orders'}" class="nav-link ">ORDERS</router-link>
+                    <router-link v-if="user" :to="{name:'orders'}" class="nav-link ">ПОРЪЧКИ</router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link v-if="user" :to="{name:'statistics'}" class="nav-link ">STATISTICS</router-link>
+                    <router-link v-if="user" :to="{name:'statistics'}" class="nav-link ">СТАТИСТИКИ</router-link>
                 </li>
                 <li class="nav-item">
                     <router-link v-if="userIsAdmin" :to="{name:'users'}" class="nav-link ">USERS</router-link>
                 </li>
                 <li class="nav-item">
-                  <p v-if="user" class="nav-link ">Hello {{user.username}} </p>
+                  <a v-if="user" class="nav-link ">Здравейте, {{user.email}} </a>
                 </li>
                 <li class="nav-item">
-                  <a v-if="user" @click="logout" class="nav-link "  style="cursor: pointer;">LOGOUT</a>
+                  <a v-if="user" @click="logout" class="nav-link "  style="cursor: pointer;">ИЗЛЕЗ</a>
                 </li>
                 <!-- Dropdown Menu -->          
                 <!-- <li class="nav-item dropdown">
@@ -121,6 +121,7 @@
        logout(){
            this.$store.commit('setUser', null)
            localStorage.removeItem('user')
+           this.$router.push({name: 'home'});
        }
    }
  }
