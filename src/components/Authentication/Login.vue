@@ -1,32 +1,49 @@
 <template>
-  <h1 style="text-align: center">Login Page</h1>
-   <form @submit.prevent="submit" class="">
-    <div class="container">
-        <h1>Login</h1>
-        <p>Please fill in this form to login.</p>
-        <hr>
+  <section class="login-wrapper">
+    <img class="login-inner-image" src="../../assets/styles/images/download.png" alt="">
+    <h1 class="fancy-font login-text">Meta menu</h1>
+    <img class="login-image" src="../../assets/styles/images/download-background.jpg" alt="">
+    <form id="contactForm"  @submit.prevent="submit" style="width: 400px" class="">
+      <div class="container">
+          <h1>Влизане</h1>
 
-        <label for="email"><b>Email</b></label>
-        <input type="text" v-model="email" placeholder="Email" name="text" id="email" required>
-
-        <label for="psw"><b>Password</b></label>
-        <input type="password" v-model="password" placeholder="Enter Password" name="psw" id="psw" required>
-        
-        <hr>
-
-        <button type="submit" class="registerbtn">Login</button>
-  </div>
-  
+          <hr>
+      </div>
+      <div class="form-group auth-input">
+        <input type="email" class="form-control-input" id="cname" v-model="email" required>
+        <label class="label-control" for="cname">Имейл</label>
+      </div>
+      <div class="form-group auth-input">
+        <input type="password" class="form-control-input" id="cname" v-model="password" required>
+        <label class="label-control" for="cname">Парола</label>
+        <div class="help-block with-errors"></div>
+      </div>
+      <hr>
+      <button v-if="!isLoading" type="submit" style="width: 80%" class="form-control-submit-button"> Влез</button>
+      <div v-else style="background: white;padding: 14px 47px;width: 80%;margin: 0 auto;"  class="form-control-submit-button">
+                <small-loader style="height: 20px;width: 20px;"></small-loader>
+      </div>
+      <p class="fancy-font" style="margin-top: 20px;">Нямате акаунт? <br> Направете безплатна регистрация <span @click="$router.push({name: 'register'})" class="register-redirect">тук!</span> </p>
+      <div v-show="error" class="auth-error fancy-font">{{ error }}</div>
   </form>
+  </section>
+  
 </template>
 <script>
 import {post} from '../../request.js'
+import SmallLoader from '../Shared/SmallLoader.vue';
+
 export default {
    data() {
     return{
       email: null,
       password: null,
+      isLoading: false,
+      error: null,
     }
+  },
+  components:{
+    SmallLoader,
   },
   computed:{
     user(){
@@ -44,16 +61,21 @@ export default {
         email: this.email,
         password: this.password,
       }
-        
+      
+      this.isLoading = true;
+
         post('/authentication/login', obj).then((response) => {
         if(response.data.success){
           localStorage.setItem('user', response.data.token);
-          this.$store.commit('setUser', response.data.data)
+          this.$store.commit('setUser', response.data.data);
           setTimeout(() => {
             this.$router.push({name:'menu-create', params:{name: response.data.data.username}})
           }, "100")
         }
-      }).catch(e => {alert(e.message)})
+      }).catch(e => {
+        this.error = e.response.data; 
+        this.isLoading = false;
+      })
       //   this.$http.post('https://localhost:44356', obj).then((response) => {
       //   if(response.data.success){
       //     localStorage.setItem('user', response.data.token);
@@ -65,3 +87,48 @@ export default {
   }
 }
 </script>
+<style scoped>
+  .login-image{
+    width: 560px;
+    height: 482px;
+  }
+  .login-wrapper{
+    display: flex;
+    margin: 0 auto;
+    position: relative;
+    -webkit-box-shadow: 0px 2px 13px 1px rgb(0 0 0 / 75%);
+    -moz-box-shadow: 0px 2px 13px 1px rgba(0,0,0,0.75);
+    box-shadow: 0px 2px 13px 1px rgb(0 0 0 / 75%);
+    padding: 0.5px;
+  }
+  .login-inner-image{
+    position: absolute;
+    width: 300px;
+    left: 12%;
+    top: 32%;
+  }
+  .login-text{
+    position: absolute;
+    color: #00c9db;
+    left: 12%;
+    top: 10%;
+  }
+  .auth-input{
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+  .auth-error{
+    font-weight: bold;
+    color: #fd1f1f;
+    margin-top: 30px;
+  }
+  .register-redirect{
+    cursor: pointer;
+    color: #00c9db;
+    font-weight: bold;
+  }
+  .register-redirect:hover{
+    text-decoration: underline;
+  }
+</style>

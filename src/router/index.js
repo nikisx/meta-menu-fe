@@ -7,6 +7,10 @@ const router = createRouter({
   routes,
   linkActiveClass: "active",
   linkExactActiveClass: "active",
+  scrollBehavior(to, from, savedPosition) {
+    // always scroll to top
+    return { top: 0 }
+  },
 });
 
 router.beforeEach((to, from, next) => {
