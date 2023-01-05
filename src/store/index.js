@@ -24,7 +24,10 @@ const store =createStore({
     setCurrentUser(){
       get("/authentication/current-user")
       .then((response) => {
-        this.commit("setUser", response.data);
+        if(response.data){
+          this.commit("setUser", response.data);
+        }
+       
       })
     },
     setLoadingFalse(){

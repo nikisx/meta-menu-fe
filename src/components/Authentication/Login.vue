@@ -66,7 +66,7 @@ export default {
 
         post('/authentication/login', obj).then((response) => {
         if(response.data.success){
-          localStorage.setItem('user', response.data.token);
+          // localStorage.setItem('user', response.data.token);
           this.$store.commit('setUser', response.data.data);
           setTimeout(() => {
             this.$router.push({name:'menu-create', params:{name: response.data.data.username}})
@@ -76,13 +76,7 @@ export default {
         this.error = e.response.data; 
         this.isLoading = false;
       })
-      //   this.$http.post('https://localhost:44356', obj).then((response) => {
-      //   if(response.data.success){
-      //     localStorage.setItem('user', response.data.token);
-      //     this.$store.commit('setUser', response.data.data)
-      //     this.$router.push({name:'home'})
-      //   }
-      // })
+     
     }
   }
 }

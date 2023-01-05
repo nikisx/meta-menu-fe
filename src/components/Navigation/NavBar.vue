@@ -85,7 +85,7 @@
  
  <script>
   import $ from 'jquery'
-
+  import {post, get} from '../../request';
  export default {
      data() {
        return {
@@ -119,10 +119,13 @@
    },
    methods:{
        logout(){
-           this.$store.commit('setUser', null)
-           localStorage.removeItem('user')
-           this.$router.push({name: 'home'});
-       }
+        post('/authentication/logout', {}).then((response) => {
+        if(response.data.success){
+            this.$store.commit('setUser', null)
+            this.$router.push({name: 'home'});
+        }
+      })
+    }
    }
  }
  </script>
