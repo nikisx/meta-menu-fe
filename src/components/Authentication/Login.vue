@@ -56,6 +56,15 @@ export default {
     }
   },
   methods:{
+    setCookie(name,value,days) {
+      var expires = "";
+      if (days) {
+          var date = new Date();
+          date.setTime(date.getTime() + (days*24*60*60*1000));
+          expires = "; expires=" + date.toUTCString();
+      }
+      document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+  },
     submit(){
       let obj = {
         email: this.email,
@@ -68,6 +77,7 @@ export default {
         if(response.data.success){
           // localStorage.setItem('user', response.data.token);
           this.$store.commit('setUser', response.data.data);
+          this.setCookie('isLoggedIn', true, 7);
           setTimeout(() => {
             this.$router.push({name:'menu-create', params:{name: response.data.data.username}})
           }, "100")
