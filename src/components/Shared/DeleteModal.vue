@@ -55,7 +55,7 @@ export default {
                 this.$emit('close');
             }
             else{
-                alert(response.data.message)
+                console.log(response.data.message)
             }
             }).catch(e => {alert(e.message)})
         },

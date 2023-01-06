@@ -14,7 +14,7 @@
         <label class="label-control" for="cname">Имейл</label>
       </div>
       <div class="form-group auth-input">
-        <input type="password" class="form-control-input" id="cname" v-model="password" required>
+        <input type="password" class="form-control-input" id="pass" v-model="password" required>
         <label class="label-control" for="cname">Парола</label>
         <div class="help-block with-errors"></div>
       </div>

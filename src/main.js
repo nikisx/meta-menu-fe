@@ -9,6 +9,8 @@ import { HubConnectionBuilder } from '@microsoft/signalr';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import VueApexCharts from "vue3-apexcharts";
 import LoadScript from "vue-plugin-load-script";
+import ToastPlugin from 'vue-toast-notification';
+import 'vue-toast-notification/dist/theme-sugar.css';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faPenToSquare} from '@fortawesome/free-solid-svg-icons';
@@ -39,5 +41,6 @@ createApp(App)
 .use(VueSignalR, { connection })
 .use(VueApexCharts)
 .use(LoadScript)
+.use(ToastPlugin)
 .component('font-awesome-icon', FontAwesomeIcon)
 .mount("#app");

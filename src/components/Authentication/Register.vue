@@ -1,30 +1,36 @@
 <template>
-  <h1 style="text-align: center">Register Page</h1>
-  <form @submit.prevent="submit" class="">
+  <form @submit.prevent="submit" style="width: 521px; margin: 0 auto;" class="">
       <div class="container">
-    <h1>Register</h1>
-    <p>Please fill in this form to create an account.</p>
+    <h1>Регистрация</h1>
     <hr>
+    <div class="form-group auth-input">
+        <input type="text" class="form-control-input" id="cname" v-model="username" required>
+        <label class="label-control" for="cname">Име на обекта</label>
+    </div>
 
-     <label for="email"><b>Username</b></label>
-    <input type="text" v-model="username" placeholder="Username" name="text" id="Username" required>
+    <div class="form-group auth-input">
+        <input type="email" class="form-control-input" id="email" v-model="email" required>
+        <label class="label-control" for="email">Имейл</label>
+    </div>
 
-    <label for="email"><b>Email</b></label>
-    <input type="text" v-model="email" placeholder="Enter Email" name="email" id="email" required>
+    <div class="form-group auth-input">
+        <input type="password" class="form-control-input" id="password" v-model="password" required>
+        <label class="label-control" for="email">Парола</label>
+    </div>
 
-    <label for="psw"><b>Password</b></label>
-    <input type="password" v-model="password" placeholder="Enter Password" name="psw" id="psw" required>
+    <div class="form-group auth-input">
+        <input type="password" class="form-control-input" id="password-rep" v-model="repeatedPass" required>
+        <label class="label-control" for="email">Повторете паролата</label>
+    </div>
 
-    <label for="psw-repeat"><b>Repeat Password</b></label>
-    <input type="password" v-model="repeatedPass" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
     <hr>
-    <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
+    <p>Със създаването на акаунт вие се съгласявате с нашите <a href="#">Общи условия</a>.</p>
 
-    <button type="submit" class="registerbtn">Register</button>
+    <button type="submit"  style="width: 80%" class="form-control-submit-button">Регистрация</button>
   </div>
   
-  <div class="container signin">
-    <p>Already have an account? <router-link to="/login">Login</router-link>|.</p>
+  <div class="container signin" style="margin-top: 10px;">
+    <p>Вече имате акаунт? <router-link to="/login">Влезте</router-link>.</p>
   </div>
   </form>
 </template>
@@ -54,7 +60,7 @@ export default {
   methods:{
     submit(){
       if(this.password != this.repeatedPass){
-        alert("Please confirm password!");
+        this.$toast.open({message: 'Паролите не съвпадат', type: 'error', position: 'top'});
         return;
       }
       let obj = {
@@ -65,12 +71,19 @@ export default {
         
         post('/authentication/register', obj).then((response) => {
         if(response.data.success){
-          alert(response.data.message)
           this.$router.push({name:'login'})
         }
-      }).catch(e => {alert(e.message)})
+        else{
+          this.$toast.open({message: response.data.message, type: 'error', position: 'top'});
+        }
+      }).catch(e => {console.log(e.message)})
     }
   }
 }
 </script>
+<style>
+  .v-toast__item p{
+      color: white;
+    }
+</style>
 

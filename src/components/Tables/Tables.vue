@@ -91,7 +91,7 @@
          },
          downloadQrImage(table){
             if(!table.number){
-                alert("Please enter number for table!");
+              this.$toast.open({message: 'Моля въведете номер на маса', type: 'error', position: 'top'});
                 return;
             }
 
