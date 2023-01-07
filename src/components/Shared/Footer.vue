@@ -61,7 +61,7 @@
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
         </div> <!-- end of container -->
-        <p style="color: white;">Powere by Meta Menu</p>
+        <p style="color: white;">Powered by Meta Menu</p>
     </div> <!-- end of footer -->  
     <!-- end of footer -->
 </template>

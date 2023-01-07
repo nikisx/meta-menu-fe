@@ -1,12 +1,13 @@
 <template>
   <section style="text-align: center">
     <p v-if="isLastWeek"> 
-        <b v-if="calculatedPrecent > 0" style="color: green;"><font-awesome-icon icon="fa-solid fa-arrow-up" /> {{calculatedPrecent}} % Increase </b> 
-        <b v-else style="color: red;"><font-awesome-icon icon="fa-solid fa-arrow-down" /> {{calculatedPrecent}} % Decrease </b> 
+        <b v-if="calculatedPrecent > 0" style="color: green;"><font-awesome-icon icon="fa-solid fa-arrow-up" /> {{calculatedPrecent}} % Увеличение </b> 
+        <b v-else style="color: red;"><font-awesome-icon icon="fa-solid fa-arrow-down" /> {{calculatedPrecent}} % Спад </b> 
     </p>
     <p v-else>
-        Gathering data for current month orders
+        Събират се данни за текущия месец
     </p>
+    <h4>Брой поръчки за текущ/предходен месец</h4>
     <div id="chart" style="max-width: 500px; margin: 0 auto;">
       <apexchart
         type="bar"
@@ -14,8 +15,10 @@
         :options="chartOptionsBar"
         :series="seriesBar"
       ></apexchart>
+      <p v-if="!isLastWeek" style="font-style: italic;">Данни относно увеличени/спад на брой поръчки ще се покажат през последната седмица на текущия месец</p>
     </div>
-
+    <hr>
+    <h4>Процентно разделение на поръчки</h4>
     <pie :chart-data="chartDataPie" :chart-options="chartOptionsPie"></pie>
   </section>
 </template>
@@ -44,7 +47,7 @@ export default {
   computed: {
     chartDataPie() {
       return {
-        labels: ["Morning", "Lunch", "Afternoon", "Evening"],
+        labels: ["Сутрин", "Обяд", "Следобед", "Вечер"],
         datasets: [
           {
             data: [
@@ -81,21 +84,15 @@ export default {
         },
         xaxis: {
           categories: [
-            "Last Month",
-            ... this.isLastWeek ? ["This Month"] : [],
+            "Предходен месец",
+            "Текущ месец",
           ],
         },
       };
     },
     seriesBar(){
-        if(this.isLastWeek){
-            return [{
-            data: [this.statistics.lastMonthOrdersCount, this.statistics.currentMonthOrdersCount]
-          }];
-        }
-
         return [{
-            data: [this.statistics.lastMonthOrdersCount,]
+            data: [this.statistics.lastMonthOrdersCount, this.statistics.currentMonthOrdersCount]
           }];
     },
     isLastWeek() {

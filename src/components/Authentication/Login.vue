@@ -5,7 +5,7 @@
     <img class="login-image" src="../../assets/styles/images/download-background.jpg" alt="">
     <form id="contactForm"  @submit.prevent="submit" style="width: 400px" class="">
       <div class="container">
-          <h1>Влизане</h1>
+          <h1>Вход</h1>
 
           <hr>
       </div>

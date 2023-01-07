@@ -23,7 +23,7 @@
                     <router-link class="nav-link" v-if="!user"  to="/"> НАЧАЛО <span class="sr-only">(current)</span></router-link>
                 </li>
                 <li class="nav-item">
-                    <router-link v-if="!user" to="/login" class="nav-link " >ВЛИЗАНЕ</router-link>
+                    <router-link v-if="!user" to="/login" class="nav-link " >ВХОД</router-link>
                 </li>
                 <li class="nav-item">
                     <router-link v-if="!user" to="/register" class="nav-link ">РЕГИСТРАЦИЯ</router-link>
