@@ -8,6 +8,7 @@ import Orders from "../components/Orders/Orders.vue";
 import Users from '../components/AdminPanel/Users.vue';
 import AdminMenuForUser from '../components/AdminPanel/AdminMenuForUser.vue';
 import Statistics from '../components/Statistics/Statistics.vue';
+import Profile from '../components/Profile/Profile.vue';
 
 export default [
     {
@@ -68,5 +69,10 @@ export default [
       path:"/statistics",
       name:"statistics",
       component: Statistics,
+    },
+    {
+      path:"/profile",
+      name:"profile",
+      component: Profile,
     }
   ];

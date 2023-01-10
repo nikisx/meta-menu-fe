@@ -70,12 +70,13 @@ export default {
       }
         
         post('/authentication/register', obj).then((response) => {
-        if(response.data.success){
-          this.$router.push({name:'login'})
-        }
-        else{
-          this.$toast.open({message: response.data.message, type: 'error', position: 'top'});
-        }
+          if(response.data.success){
+            this.$toast.open({message: 'Успешна регистрация', type: 'success', position: 'top'});
+            this.$router.push({name:'login'})
+          }
+          else{
+            this.$toast.open({message: response.data.message, type: 'error', position: 'top'});
+          }
       }).catch(e => {console.log(e.message)})
     }
   }

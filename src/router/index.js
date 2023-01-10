@@ -24,9 +24,11 @@ function getCookie(name) {
   return null;
 } 
 
+const authRoutes = ['menu-create', 'tables', 'users','orders','statistics', 'profile' ]
+
 router.beforeEach((to, from, next) => {
   if (!getCookie('isLoggedIn')) {
-    if ((to.name === 'menu-create' || to.name === 'tables' || to.name === 'users'  || to.name === 'orders'  || to.name === 'statistics') ) {
+    if ((authRoutes.includes(to.name)) ) {
       next({name: 'login'});
     } 
     else{

@@ -44,7 +44,7 @@
                     <router-link v-if="userIsAdmin" :to="{name:'users'}" class="nav-link ">USERS</router-link>
                 </li>
                 <li class="nav-item">
-                  <a v-if="user" class="nav-link ">Здравейте, {{user.email}} </a>
+                    <router-link v-if="user" :to="{name:'profile'}" class="nav-link ">ПРОФИЛ</router-link>
                 </li>
                 <li class="nav-item">
                   <a v-if="user" @click="logout" class="nav-link "  style="cursor: pointer;">ИЗЛЕЗ</a>
