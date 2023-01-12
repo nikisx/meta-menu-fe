@@ -1,5 +1,5 @@
 <template>
-   <section style="text-align: center">
+   <section style="text-align: center; margin-bottom: 50px;">
         <h3>Здравейте, {{ user.email }}</h3>
         <form @submit.prevent="submit" style="width: 521px; margin: 0 auto;" class="">
             <div class="container">
@@ -22,11 +22,19 @@
                 <button type="submit"  style="width: 80%" class="form-control-submit-button">Смяна</button>
             </div>
         </form>
+
+        <div style="margin-top: 50px;">
+            <h4>Изтриване на профил</h4>
+            <p style="font-style: italic">С изтриването на профила, се изтриват и всички данни свързани с него</p>
+            <button @click="openDeleteModal()" class="btn btn-outline-danger">Изтриване</button>
+        </div>
+        <delete-modal v-show="showDeleteModal" @close="showDeleteModal=false" @success="getAllCategories" :item="currentDeleteItem" :visible="showDeleteModal"></delete-modal>
    </section>
 </template>
 
 <script>
-import {post} from '../../request.js'
+import {post} from '../../request.js';
+import DeleteModal from "./../Shared/DeleteModal.vue";
 
 export default {
     data() {
@@ -34,7 +42,12 @@ export default {
             password: null,
             oldPassword: null,
             repeatedPass: null,
+            showDeleteModal: false,
+            currentDeleteItem: null,
         };
+  },
+  components:{
+    DeleteModal,
   },
   computed: {
     user() {
@@ -42,6 +55,13 @@ export default {
     },
   },
   methods:{
+    openDeleteModal(){
+        this.showDeleteModal = true;
+        this.currentDeleteItem = {
+            url: '/users/delete',
+            name: 'профил',
+        }
+    },
     submit(){
         if(this.password != this.repeatedPass){
             this.$toast.open({message: 'Паролите не съвпадат', type: 'error', position: 'top'});

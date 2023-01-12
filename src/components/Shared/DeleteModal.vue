@@ -55,9 +55,10 @@ export default {
                 this.$emit('close');
             }
             else{
-                console.log(response.data.message)
+                this.$toast.open({message: 'Възникна грешка, моля опитайте отново', type: 'error', position: 'top'})
+               
             }
-            }).catch(e => {alert(e.message)})
+            }).catch(e => { console.log(e.message) })
         },
     }
 }
