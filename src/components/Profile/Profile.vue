@@ -28,7 +28,7 @@
             <p style="font-style: italic">С изтриването на профила, се изтриват и всички данни свързани с него</p>
             <button @click="openDeleteModal()" class="btn btn-outline-danger">Изтриване</button>
         </div>
-        <delete-modal v-show="showDeleteModal" @close="showDeleteModal=false" @success="getAllCategories" :item="currentDeleteItem" :visible="showDeleteModal"></delete-modal>
+        <delete-modal v-show="showDeleteModal" @close="showDeleteModal=false" @success="logoutUser()" :item="currentDeleteItem" :visible="showDeleteModal"></delete-modal>
    </section>
 </template>
 
@@ -55,11 +55,17 @@ export default {
     },
   },
   methods:{
+    logoutUser(){
+            this.$store.commit('setUser', null)
+            this.$router.push({name: 'home'});
+            this.eraseCookie('isLoggedIn');
+    },
     openDeleteModal(){
         this.showDeleteModal = true;
         this.currentDeleteItem = {
-            url: '/users/delete',
+            url: '/authentication/delete',
             name: 'профил',
+            id: this.user.id,
         }
     },
     submit(){
