@@ -3,84 +3,94 @@
     <h1>Създай меню</h1>
     <div style="display: flex; justify-content: space-evenly">
       <div>
-        <div style="display: flex; flex-direction: column;text-align: left;">
-          <b style="font-size: 10px">Име</b>
-          <input class="category-name" @input="editUsername($event, true)"  type="text" :value="user.username" />
-        </div>
-        <div style="display: flex; flex-direction: column;text-align: left;margin-top: 10px;">
-          <b style="font-size: 10px">WiFi</b>
-          <input class="category-name" @input="editUsername($event)"  type="text" :value="user.wifi" />
-        </div>
-        
-        <h3 @click="addCategory = true" style="cursor: pointer">
-          + Добави категория
-        </h3>
-        <div :class="[addCategory ? 'expanded' : 'collapsed']">
-          <div class="form-group" style="display: flex; gap: 10px;align-items: start;">
-            <div>
-              <input type="text" v-model="categoryName" class="form-control-input" style="width: 300px" id="cname" required>
-              <label class="label-control" style="font-size: 10px;" for="cname" >Ще се добави отдолу</label>
-              <div class="help-block with-errors"></div>
-              <!-- <p style="font-size: 10px;">(Ще се добави отдолу)</p> -->
-            </div>
-           <div style="gap: 10px;display: flex;">
-            <button
-            class="btn btn-outline-success"
-            @click="
-              createCategory();
-              categoryName = null;
-              addCategory = false;
-            "
-          >
-            Add
-          </button>
-          <button class="btn btn-outline-danger" @click="addCategory = false">Cancel</button>
-           </div>
-          </div>
-        </div>
-        <section class="menu-create-wrapper">
-          <div
-            v-for="(category, index) in categories"
-            style="margin-bottom: 10px"
-            :key="index">
-          <b style="font-size: 10px">Категория</b>
-          <div :class="[category.isHidden ? 'hidden' : '']">
-            <input :disabled="category.isHidden" class="category-name" @input="editCategoryName($event, category.id)" type="text" :value="category.name" />
-            <font-awesome-icon
-              class="edit-table-name"
-              @click="
-                isOpenFoodItemModal = true;
-                currentCategory = category;
-                currentItem = null;
-              "
-              style="cursor: pointer;margin-right: 9px;margin-left: 12px;font-size: 20px;"
-              icon="fa-solid fa-plus"
-            />
-            <font-awesome-icon class="btn btn-outline-danger" @click="openDeleteModal(category.name, category.id, true)" style="margin-right: 8px;font-size: 13px;padding: 5px;cursor: pointer;margin-bottom: 10px;" icon="fa-solid fa-trash" />
+        <ul class="nav nav-tabs fancy-font" style="margin-bottom: 30px;" id="lenoTabs" role="tablist" >
+          <li @click="selectedTab = 'menu'" class="nav-item" data-v-9ea40744="" style="cursor: pointer;"><a class="nav-link" :class="[{'active-menu-toggle': selectedTab == 'menu'}]" id="nav-tab-2" data-toggle="tab" role="tab" aria-controls="tab-2" aria-selected="false">Меню</a></li>
+          <li @click="selectedTab = 'info'" class="nav-item" data-v-9ea40744="" style="cursor: pointer;"><a class="nav-link" :class="[{'active-menu-toggle': selectedTab == 'info'}]" id="nav-tab-1" data-toggle="tab" role="tab" aria-controls="tab-1" aria-selected="true" >Информация за обекта</a></li>
+        </ul>
 
-            <font-awesome-icon v-if="!category.isHidden"
-             @click="editHideCategory(category.id, true)" 
-             class="edit-table-name" title="Скрий от менюто" style="cursor: pointer;font-size: 20px; margin-right: 0;" icon="fa-solid fa-eye" />
-             <font-awesome-icon v-else
-             @click="editHideCategory(category.id, false)" 
-             class="edit-table-name" title="Покажи в менюто" style="cursor: pointer;font-size: 20px; margin-right: 0;" icon="fa-solid fa-eye-slash" />
-
-            <ul style="list-style: none; padding: 5px;">
-              <li v-for="(food, i) in category.items" :class="[food.isHidden ? 'hidden' : '']" style="border-radius: 0;cursor: pointer; border-top: 1px solid #CCC;padding: 10px 0;display: flex;justify-content: space-between;align-items: center;" :key="i">
-                <span @click="isOpenFoodItemModal = true; currentCategory = category;currentItem = food" class="food-name">{{ food.name }} </span> 
-                <div>
-                  <font-awesome-icon class="btn btn-outline-danger" @click="openDeleteModal(food.name, food.id, false)" style="margin-right: 8px;padding: 5px;cursor: pointer;font-size: 11px;" icon="fa-solid fa-trash" />
-                  <font-awesome-icon v-if="!food.isHidden" @click="editHideItem(food.id, true)"  title="Скрий от менюто" class="edit-table-name" icon="fa-solid fa-eye" />
-                  <font-awesome-icon v-else @click="editHideItem(food.id, false)"  title="Покажи в менюто" class="edit-table-name" icon="fa-solid fa-eye-slash" />
-                </div>
-              </li>
-            </ul>
+        <section v-if="selectedTab == 'info'" style="width: 500px">
+          <div style="display: flex; flex-direction: column;text-align: left;">
+            <b style="font-size: 10px">Име</b>
+            <input class="category-name" @input="editUsername($event, true)"  type="text" :value="user.username" />
           </div>
+          <div style="display: flex; flex-direction: column;text-align: left;margin-top: 10px;">
+            <b style="font-size: 10px">WiFi</b>
+            <input class="category-name" @input="editUsername($event)"  type="text" :value="user.wifi" />
+          </div>
+          <div class="profile-image-upload">
+            <b style="font-size: 10px">Избор на снимка</b>
           </div>
         </section>
-      </div>
+      
+        <section v-if="selectedTab == 'menu'">
+            <h3 @click="addCategory = true" style="cursor: pointer">
+            + Добави категория
+          </h3>
+          <div :class="[addCategory ? 'expanded' : 'collapsed']">
+            <div class="form-group" style="display: flex; gap: 10px;align-items: start;">
+              <div>
+                <input type="text" v-model="categoryName" class="form-control-input" style="width: 300px" id="cname" required>
+                <label class="label-control" style="font-size: 10px;" for="cname" >Ще се добави отдолу</label>
+                <div class="help-block with-errors"></div>
+                <!-- <p style="font-size: 10px;">(Ще се добави отдолу)</p> -->
+              </div>
+            <div style="gap: 10px;display: flex;">
+              <button
+              class="btn btn-outline-success"
+              @click="
+                createCategory();
+                categoryName = null;
+                addCategory = false;
+              "
+            >
+              Add
+            </button>
+            <button class="btn btn-outline-danger" @click="addCategory = false">Cancel</button>
+            </div>
+            </div>
+          </div>
+          <section class="menu-create-wrapper">
+            <div
+              v-for="(category, index) in categories"
+              style="margin-bottom: 10px"
+              :key="index">
+            <b style="font-size: 10px">Категория</b>
+            <div :class="[category.isHidden ? 'hidden' : '']">
+              <input :disabled="category.isHidden" class="category-name" @input="editCategoryName($event, category.id)" type="text" :value="category.name" />
+              <font-awesome-icon
+                class="edit-table-name"
+                @click="
+                  isOpenFoodItemModal = true;
+                  currentCategory = category;
+                  currentItem = null;
+                "
+                style="cursor: pointer;margin-right: 9px;margin-left: 12px;font-size: 20px;"
+                icon="fa-solid fa-plus"
+              />
+              <font-awesome-icon class="btn btn-outline-danger" @click="openDeleteModal(category.name, category.id, true)" style="margin-right: 8px;font-size: 13px;padding: 5px;cursor: pointer;margin-bottom: 10px;" icon="fa-solid fa-trash" />
 
-     
+              <font-awesome-icon v-if="!category.isHidden"
+              @click="editHideCategory(category.id, true)" 
+              class="edit-table-name" title="Скрий от менюто" style="cursor: pointer;font-size: 20px; margin-right: 0;" icon="fa-solid fa-eye" />
+              <font-awesome-icon v-else
+              @click="editHideCategory(category.id, false)" 
+              class="edit-table-name" title="Покажи в менюто" style="cursor: pointer;font-size: 20px; margin-right: 0;" icon="fa-solid fa-eye-slash" />
+
+              <ul style="list-style: none; padding: 5px;">
+                <li v-for="(food, i) in category.items" :class="[food.isHidden ? 'hidden' : '']" style="border-radius: 0;cursor: pointer; border-top: 1px solid #CCC;padding: 10px 0;display: flex;justify-content: space-between;align-items: center;" :key="i">
+                  <span @click="isOpenFoodItemModal = true; currentCategory = category;currentItem = food" class="food-name">{{ food.name }} </span> 
+                  <div>
+                    <font-awesome-icon class="btn btn-outline-danger" @click="openDeleteModal(food.name, food.id, false)" style="margin-right: 8px;padding: 5px;cursor: pointer;font-size: 11px;" icon="fa-solid fa-trash" />
+                    <font-awesome-icon v-if="!food.isHidden" @click="editHideItem(food.id, true)"  title="Скрий от менюто" class="edit-table-name" icon="fa-solid fa-eye" />
+                    <font-awesome-icon v-else @click="editHideItem(food.id, false)"  title="Покажи в менюто" class="edit-table-name" icon="fa-solid fa-eye-slash" />
+                  </div>
+                </li>
+              </ul>
+            </div>
+            </div>
+          </section>
+        </section>
+      </div>
 
       <div class="marvel-device iphone-x">
         <div class="notch">
@@ -135,6 +145,7 @@ export default {
       debounce: null,
       currentDeleteItem: null,
       showDeleteModal: false,
+      selectedTab: 'menu',
     };
   },
   computed: {
@@ -296,5 +307,11 @@ export default {
 .hidden{
   background: #f0f0f0;
     border-radius: 10px;
+}
+.active-menu-toggle{
+    color: #00c9db !important;
+    background-color: #fff !important;
+    border-color: #dee2e6 #dee2e6 #fff !important;
+    font-weight: bold;
 }
 </style>
