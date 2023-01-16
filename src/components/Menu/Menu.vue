@@ -18,7 +18,19 @@
             <input class="category-name" @input="editUsername($event)"  type="text" :value="user.wifi" />
           </div>
           <div class="profile-image-upload">
-            <b style="font-size: 10px">Избор на снимка</b>
+            <div style="display: flex;justify-content: space-between;margin-bottom: 10px;">
+              <label style="display: flex;align-items: center;gap: 10px;cursor: pointer;" for="file-upload-profile" >
+                <font-awesome-icon class="btn-solid-lg" style="font-size: 25px;padding: 4px 10px;cursor: pointer;" icon="fa-solid fa-upload" />
+                <p style="font-weight: bold;">Качи снимка</p>
+              </label>
+              <button v-if="image || user.imageBytes" @click="editUserImage" class="btn btn-outline-success">Запази</button>
+              <button v-if="image || user.imageBytes" class="btn btn-outline-danger" @click="image = null">Премахни</button>
+            </div>
+          
+            <img v-show="image" id="previewImage-profile" class="profile-image-preview" src="#" />
+            <img v-if="!image && !user.imageBytes" id="previewImage-profile" class="profile-image-preview" src="../../assets/images/dark.jpg" />
+            <img v-if="!image && user.imageBytes" id="previewImage-profile" class="profile-image-preview" :src="'data:image/png;base64,'+ user.imageBytes" />
+            <input type="file" style="display:none;" id="file-upload-profile" @change="onFileChange($event)"  />
           </div>
         </section>
       
@@ -92,7 +104,7 @@
         </section>
       </div>
 
-      <div class="marvel-device iphone-x">
+      <div v-if="user" class="marvel-device iphone-x">
         <div class="notch">
           <div class="camera"></div>
           <div class="speaker"></div>
@@ -146,6 +158,7 @@ export default {
       currentDeleteItem: null,
       showDeleteModal: false,
       selectedTab: 'menu',
+      image: null,
     };
   },
   computed: {
@@ -162,6 +175,26 @@ export default {
     DeleteModal,
   },
   methods: {
+    editUserImage(){
+      const formData = new FormData();
+      formData.append('image', this.image)
+
+      post("/users/update-image", formData).then(
+          (response) => {
+            if (response.data.success) {
+              this.updateIframe();
+              
+            }
+        });
+    },
+    onFileChange(e) {
+            var files = e.target.files || e.dataTransfer.files;
+            if (!files.length)
+                return;
+           this.image = files[0];
+           let previewImage = document.getElementById('previewImage-profile');
+           previewImage.src = URL.createObjectURL(files[0])
+    },
     openDeleteModal(name, id, isCategory){
       let item = {
         id: id,
@@ -215,18 +248,18 @@ export default {
       this.debounce = setTimeout(() => {
         let newName = event.target.value;
 
-        let object = {};
-
+        const formData = new FormData();
+       
         if (isUsername) {
-          object.username = newName;
-          object.wifi = this.user.wifi;
+          formData.append('username', newName)
+          formData.append('wifi', this.user.wifi)
         }
         else{
-          object.wifi = newName;
-          object.username = this.user.username;
+          formData.append('username', this.user.username)
+          formData.append('wifi', newName)
         }
 
-        post("/users/edit-user-info", object).then(
+        post("/users/edit-user-info", formData).then(
           (response) => {
             if (response.data.success) {
               this.updateIframe();
@@ -313,5 +346,16 @@ export default {
     background-color: #fff !important;
     border-color: #dee2e6 #dee2e6 #fff !important;
     font-weight: bold;
+}
+.profile-image-upload{
+  margin-top: 30px;
+  display: flex;
+ flex-direction: column;
+}
+.profile-image-preview{
+  width: auto;
+  height: 200px;
+  border-radius: 10px;
+  object-fit: cover;
 }
 </style>

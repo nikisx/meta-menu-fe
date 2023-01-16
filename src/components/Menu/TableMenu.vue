@@ -1,6 +1,6 @@
 <template>
-    <section v-if="user.accountType" style="text-align: center;contain: paint; position: relative;margin-bottom: 10px;">
-        <div class="menu-header">
+    <section v-if="user.accountType" style="text-align: center;contain: paint; position: relative;margin-bottom: 10px;min-height: 100vh;">
+        <div :style="[user.imageBytes ? {'background-image': `url('data:image/png;base64, ${user.imageBytes}'), linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.5))`} : '']" class="menu-header">
             <h1 style="color: white;">{{user.username}}</h1>
         </div>
         <div v-if="user.wifi" class="fancy-font wifi-info">
@@ -48,6 +48,11 @@
         <h1>User not validated</h1>
     </section>
     <loader v-else></loader>
+    <!-- here is a fixed button, the current one style is sticky -->
+    <!-- <button class="sticky-element" style="top: 76%; position: fixed" @click="openCart()">
+            <span v-if="cartItmes.length" class="cart-items-number">{{calculatedItemsCount}}</span>
+            <font-awesome-icon style="margin-left: -14px;" icon="fa-solid fa-cart-shopping" />
+    </button> -->
     <product-modal :product="currentProduct" @close="isProductModalOpen = false" v-show="isProductModalOpen" :cart="cart" @addToCart="addToCart" @removeFromCart="removeFromCart" :visible="isProductModalOpen"></product-modal>
   </template>
   
