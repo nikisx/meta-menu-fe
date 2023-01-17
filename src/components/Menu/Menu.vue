@@ -23,8 +23,8 @@
                 <font-awesome-icon class="btn-solid-lg" style="font-size: 25px;padding: 4px 10px;cursor: pointer;" icon="fa-solid fa-upload" />
                 <p style="font-weight: bold;">Качи снимка</p>
               </label>
-              <button v-if="image || user.imageBytes" @click="editUserImage" class="btn btn-outline-success">Запази</button>
-              <button v-if="image || user.imageBytes" class="btn btn-outline-danger" @click="image = null">Премахни</button>
+              <button v-if="image" @click="editUserImage" class="btn btn-outline-success">Запази</button>
+              <button v-if="image || user.imageBytes" class="btn btn-outline-danger" @click="deleteImage()">Премахни</button>
             </div>
           
             <img v-show="image" id="previewImage-profile" class="profile-image-preview" src="#" />
@@ -135,7 +135,7 @@
       :editItem="currentItem"
       @success="getAllCategories"
     ></create-item-modal>
-    <delete-modal v-show="showDeleteModal" @close="showDeleteModal=false" @success="getAllCategories" :item="currentDeleteItem" :visible="showDeleteModal"></delete-modal>
+    <delete-modal v-show="showDeleteModal" @close="showDeleteModal=false" @success="handleDeleteSuccess" :item="currentDeleteItem" :visible="showDeleteModal"></delete-modal>
   </section>
 </template>
 
@@ -175,6 +175,29 @@ export default {
     DeleteModal,
   },
   methods: {
+    handleDeleteSuccess(item){
+      if (item.id) {
+        this.getAllCategories();
+      }
+      else{
+        if (this.user.imageBytes) {
+          this.user.imageBytes = null;
+          this.updateIframe();
+        }
+        else{
+          this.image = null;
+        }
+      }
+    },
+    deleteImage(){
+      let item = {
+        name: 'снимка',
+        url:  '/users/update-image',
+      }
+
+      this.currentDeleteItem = item;
+      this.showDeleteModal = true;
+    },
     editUserImage(){
       const formData = new FormData();
       formData.append('image', this.image)
@@ -183,7 +206,7 @@ export default {
           (response) => {
             if (response.data.success) {
               this.updateIframe();
-              
+              this.user.imageBytes = response.data.data;
             }
         });
     },

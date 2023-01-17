@@ -51,7 +51,7 @@ export default {
             
              post(this.item.url, obj).then((response) => {
             if(response.data.success){
-                this.$emit('success');
+                this.$emit('success', this.item);
                 this.$emit('close');
             }
             else{
