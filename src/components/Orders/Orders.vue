@@ -2,9 +2,10 @@
     <section style="text-align: center;">
           <h1>Поръчки</h1>
           <section style="width: 500px; margin: 0 auto; text-align: left;">
-              <div v-for="(order, index) in orders" @click="currentOrder = order ; isOrderModalVisible = true" 
+              <div v-for="(order, index) in orders" @click="openOrderModal(order)" 
               class="order-row" :key="index">
               <div>
+                <div v-if="order.isNew" class="new-order fancy-font">Нова</div>
                 <div>
                   Номер на маса - <b>{{order.tableNumber}}</b>
                  </div> 
@@ -66,12 +67,24 @@
       OrderModal
      },
      methods:{
+        openOrderModal(order){
+          this.currentOrder = order ;
+          this.isOrderModalVisible = true;
+          if (order.isNew) {
+            post('/orders/open', {id: order.id})
+            .then(response => {
+                  if(response.data.success){
+                    this.currentOrder.isNew = false;
+                  }
+              })
+          }
+        },
         getAllOrders(){
           get('/orders/get-all')
           .then(response => {
                 if(response.data.success){
-              this.orders = response.data.data;
-            }
+                  this.orders = response.data.data;
+                }
             })
          },
      }
@@ -90,5 +103,13 @@
     }
     .order-row:hover{
       background:#cccccc4a;
+    }
+    .new-order{
+      color: white;
+      font-weight: bold;
+      background: red;
+      border-radius: 20px;
+      text-align: center;
+      width: 35%;
     }
   </style>
