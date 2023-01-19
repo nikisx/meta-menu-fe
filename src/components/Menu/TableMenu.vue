@@ -8,6 +8,7 @@
             {{ user.wifi }}
         </div>
           <section class="scrollable-categories" ref="element">
+            <div @click="openCart" class="category-button" style="background: rgb(255 195 0)">Сметка</div>
             <div v-for="(category, index) in user.categories.filter(x => !x.isHidden)" @click="scroolToCategory(category.id)" class="category-button" :key="index">{{category.name}}</div>
           </section>
           <button class="sticky-element" @click="openCart()">
@@ -42,7 +43,7 @@
                   </ul>
               </div>
           </section>
-          <cart :cart="cart" @close="isCartVisible = false" :scrolledPixels="scrolledPixels" @setOrder="createOrder" v-show="isCartVisible" :isLoading="isLoading" :visible="isCartVisible" :cartItmes="cartItmes"></cart>
+          <cart :cart="cart" @close="isCartVisible = false" :isBill="isBill" :scrolledPixels="scrolledPixels" @setOrder="createOrder" v-show="isCartVisible" :isLoading="isLoading" :visible="isCartVisible" :cartItmes="cartItmes"></cart>
     </section>
     <section v-else-if="user.accountType == 0">
         <h1>User not validated</h1>
@@ -71,6 +72,7 @@
            isCartVisible: false,
            isProductModalOpen: false,
            isLoading: false,
+           isBill: false,
            user:{},
            currentProduct:{},
            scrolledPixels:0,
@@ -113,13 +115,13 @@
         ProductModal,
      },
      methods:{
-        openCart(){
+        openCart(isBill){
             this.scrolledPixels = window.pageYOffset  + 200;
             this.isCartVisible = true
             setTimeout(() => {
                 this.scrolledPixels = 0;
             }, "550") 
-            
+            this.isBill = isBill;
         },
         vueOnScroll() {
            
@@ -295,6 +297,7 @@
         top: 0;
         background: white;
         padding-bottom: 4px;
+        transition: .3s ease;
 
     }
     .scrollDown{
@@ -319,6 +322,6 @@
         gap: 7px;
         font-size: 17px;
         color: rgb(117, 123, 134);
-
+        margin-left: 9px;
     }
   </style>
