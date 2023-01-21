@@ -41,7 +41,7 @@
           <div :class="[addCategory ? 'expanded' : 'collapsed']">
             <div class="form-group" style="display: flex; gap: 10px;align-items: start;">
               <div>
-                <input type="text" v-model="categoryName" class="form-control-input" style="width: 300px" id="cname" required>
+                <input type="text" v-model="categoryName" placeholder="Супи, Пици и т.н." class="form-control-input" style="width: 300px" id="cname" required>
                 <label class="label-control" style="font-size: 10px;" for="cname" >Ще се добави отдолу</label>
                 <div class="help-block with-errors"></div>
                 <!-- <p style="font-size: 10px;">(Ще се добави отдолу)</p> -->
@@ -69,7 +69,8 @@
             <b style="font-size: 10px">Категория</b>
             <div :class="[category.isHidden ? 'hidden' : '']">
               <input :disabled="category.isHidden" class="category-name" @input="editCategoryName($event, category.id)" type="text" :value="category.name" />
-              <font-awesome-icon
+              <span class="tooltip-container">
+                <font-awesome-icon
                 class="edit-table-name"
                 @click="
                   isOpenFoodItemModal = true;
@@ -79,14 +80,22 @@
                 style="cursor: pointer;margin-right: 9px;margin-left: 12px;font-size: 20px;"
                 icon="fa-solid fa-plus"
               />
-              <font-awesome-icon class="btn btn-outline-danger" @click="openDeleteModal(category.name, category.id, true)" style="margin-right: 8px;font-size: 13px;padding: 5px;cursor: pointer;margin-bottom: 10px;" icon="fa-solid fa-trash" />
-
-              <font-awesome-icon v-if="!category.isHidden"
-              @click="editHideCategory(category.id, true)" 
-              class="edit-table-name" title="Скрий от менюто" style="cursor: pointer;font-size: 20px; margin-right: 0;" icon="fa-solid fa-eye" />
-              <font-awesome-icon v-else
-              @click="editHideCategory(category.id, false)" 
-              class="edit-table-name" title="Покажи в менюто" style="cursor: pointer;font-size: 20px; margin-right: 0;" icon="fa-solid fa-eye-slash" />
+              <span class="tooltip-text">Добави ястие</span>
+              </span>
+              <span  class="tooltip-container">
+                <font-awesome-icon class="btn btn-outline-danger" @click="openDeleteModal(category.name, category.id, true)" style="margin-right: 8px;font-size: 13px;padding: 5px;cursor: pointer;margin-bottom: 10px;" icon="fa-solid fa-trash" />
+                <span class="tooltip-text">Изтрий категория</span>
+              </span>
+              <span v-if="!category.isHidden" class="tooltip-container">
+                <font-awesome-icon @click="editHideCategory(category.id, true)" 
+                class="edit-table-name" style="cursor: pointer;font-size: 20px; margin-right: 0;" icon="fa-solid fa-eye" />
+                <span class="tooltip-text">Скрий от меню</span>
+              </span>
+              <span v-else class="tooltip-container">
+                <font-awesome-icon @click="editHideCategory(category.id, false)" 
+                class="edit-table-name" style="cursor: pointer;font-size: 20px; margin-right: 0;" icon="fa-solid fa-eye-slash" />
+                <span class="tooltip-text">Покажи в меню</span>
+              </span>
 
               <ul style="list-style: none; padding: 5px;">
                 <li v-for="(food, i) in category.items" :class="[food.isHidden ? 'hidden' : '']" style="border-radius: 0;cursor: pointer; border-top: 1px solid #CCC;padding: 10px 0;display: flex;justify-content: space-between;align-items: center;" :key="i">
@@ -380,5 +389,25 @@ export default {
   height: 200px;
   border-radius: 10px;
   object-fit: cover;
+}
+.tooltip-container{
+  position: relative;
+}
+
+.tooltip-container:hover .tooltip-text{
+  display: block;
+}
+
+.tooltip-text{
+    position: absolute;
+    top: 19px;
+    left: -22px;
+    width: max-content;
+    background: #0000009c;
+    color: white;
+    text-align: center;
+    border-radius: 7px;
+    padding: 3px 6px;
+    display: none;
 }
 </style>
