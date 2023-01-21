@@ -43,7 +43,7 @@
                   </ul>
               </div>
           </section>
-          <cart :cart="cart" @close="isCartVisible = false" :isBill="isBill" :scrolledPixels="scrolledPixels" @setOrder="createOrder" v-show="isCartVisible" :isLoading="isLoading" :visible="isCartVisible" :cartItmes="cartItmes"></cart>
+          <cart :cart="cart" @close="isCartVisible = false" :isBill="isBill" :scrolledPixels="scrolledPixels" @setBill="sendBill" @setOrder="createOrder" v-show="isCartVisible" :isLoading="isLoading" :visible="isCartVisible" :cartItmes="cartItmes"></cart>
     </section>
     <section v-else-if="user.accountType == 0">
         <h1>User not validated</h1>
@@ -115,6 +115,21 @@
         ProductModal,
      },
      methods:{
+        sendBill(isCard){
+            this.isLoading = true;
+            let obj ={
+                userId: this.userId, 
+                tableId: this.$route.params.tableId,
+                type: isCard ? 2 : 1
+            }
+            
+            post('/orders/create', obj)
+            .then(response => {
+                if(response.data.success){
+                    this.isLoading = false;
+            }
+            })
+        },
         openCart(isBill){
             this.scrolledPixels = window.pageYOffset  + 200;
             this.isCartVisible = true
@@ -189,8 +204,6 @@
                 tableId: this.$route.params.tableId,
                 items: this.cartItmes,
             }
-
-
 
             post('/orders/create', obj)
             .then(response => {

@@ -11,10 +11,11 @@
                  </div> 
                   <p v-for="(item, i) in order.items.slice(0,2)" :key="i" style="margin-bottom: 0px; font-size: 12px;"> {{item.name}} - {{item.quantity}}бр.</p>
                   <p v-if="order.items.length > 2" style="font-size: 12px;margin-bottom: 0;">и още {{order.items.length - 2}} продукта</p>
+                  <b v-if="order.type != 0">Клиентът иска да заплати сметката си {{ order.type == 1 ? 'в брой' : 'с карта' }}</b>
               </div>
               <div style="display: flex; flex-direction: column; position: relative;">
                 <b>{{order.time}} ч.</b>  
-                <b style="position: absolute;bottom: 0px;width: 80px;">{{order.price}} лв.</b>  
+                <b v-if="order.type == 0" style="position: absolute;bottom: 0px;width: 80px;">{{order.price}} лв.</b>  
               </div>
               </div>
           </section>
@@ -110,6 +111,7 @@
       background: red;
       border-radius: 20px;
       text-align: center;
-      width: 35%;
+      width: max-content;
+      padding: 0 11px;
     }
   </style>

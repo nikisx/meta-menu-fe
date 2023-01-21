@@ -46,6 +46,7 @@
                 <div v-else style="background: white;padding: 14px 47px;width: max-content;margin: 0 auto;"  class="btn-solid-lg">
                     <small-loader style="height: 20px;width: 20px;"></small-loader>
                 </div>
+                <p v-if="orderSent">Сметката е изпратена</p>
             </div>
         </section>
         <section v-else style="position: absolute;left: 27%;" :style="{top: scrolledPixels + 'px'}">
@@ -142,12 +143,19 @@ export default {
     },
     methods:{
         setOrder(){
-            if (this.cartItmes.length) {
-                this.$emit('setOrder');
+            if (this.isBill) {
+                this.$emit('setBill', this.billWithCard);
                 this.orderSent = true;
-            }
-            else{
-                this.errorNoProducts = true;
+            } 
+            else 
+            {
+                if (this.cartItmes.length) {
+                    this.$emit('setOrder');
+                    this.orderSent = true;
+                }
+                else{
+                    this.errorNoProducts = true;
+                }
             }
         }
     }

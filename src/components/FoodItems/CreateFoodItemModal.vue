@@ -14,12 +14,12 @@
                     <div style="position: relative;margin-top: 10px;">
                         <textarea type="text" v-model="description"  class="form-control-input form-input" id="cname">
                         </textarea>
-                        <label class="label-control" style="font-size: 12px;" for="cname" >Опсиание</label>
+                        <label class="label-control" style="font-size: 12px;width: 90%;text-align: left;background: rgb(248, 246, 242);top: 0px;" for="cname" >Описание</label>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div style="position: relative;margin-top: 10px;">
                         <input type="text" v-model="allergens"  class="form-control-input form-input" id="cname"/>
-                        <label class="label-control" style="font-size: 12px;" for="cname" >Алерегени</label>
+                        <label class="label-control" style="font-size: 12px;" for="cname" >Алергени</label>
                         <div class="help-block with-errors"></div>
                     </div>
                     <div style="position: relative;margin-top: 10px;">
