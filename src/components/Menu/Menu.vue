@@ -99,11 +99,23 @@
 
               <ul style="list-style: none; padding: 5px;">
                 <li v-for="(food, i) in category.items" :class="[food.isHidden ? 'hidden' : '']" style="border-radius: 0;cursor: pointer; border-top: 1px solid #CCC;padding: 10px 0;display: flex;justify-content: space-between;align-items: center;" :key="i">
-                  <span @click="isOpenFoodItemModal = true; currentCategory = category;currentItem = food" class="food-name">{{ food.name }} </span> 
+                  <span class="tooltip-container" >
+                    <span @click="isOpenFoodItemModal = true; currentCategory = category;currentItem = food" class="food-name">{{ food.name }} </span> 
+                    <span class="tooltip-text" style="left: -3%;top: 24px;">Редактирай</span>
+                  </span>
                   <div>
-                    <font-awesome-icon class="btn btn-outline-danger" @click="openDeleteModal(food.name, food.id, false)" style="margin-right: 8px;padding: 5px;cursor: pointer;font-size: 11px;" icon="fa-solid fa-trash" />
-                    <font-awesome-icon v-if="!food.isHidden" @click="editHideItem(food.id, true)"  title="Скрий от менюто" class="edit-table-name" icon="fa-solid fa-eye" />
-                    <font-awesome-icon v-else @click="editHideItem(food.id, false)"  title="Покажи в менюто" class="edit-table-name" icon="fa-solid fa-eye-slash" />
+                    <span class="tooltip-container">
+                      <font-awesome-icon class="btn btn-outline-danger" @click="openDeleteModal(food.name, food.id, false)" style="margin-right: 8px;padding: 5px;cursor: pointer;font-size: 11px;" icon="fa-solid fa-trash" />
+                      <span class="tooltip-text" style="top: 24px;">Изтрий ястие</span>
+                    </span>
+                    <span v-if="!food.isHidden" class="tooltip-container">
+                      <font-awesome-icon  @click="editHideItem(food.id, true)" class="edit-table-name" icon="fa-solid fa-eye" />
+                      <span class="tooltip-text">Скрий от меню</span>
+                    </span>
+                    <span v-else class="tooltip-container">
+                      <font-awesome-icon  @click="editHideItem(food.id, false)" class="edit-table-name" icon="fa-solid fa-eye-slash" />
+                      <span class="tooltip-text">Покажи в меню</span>
+                    </span>
                   </div>
                 </li>
               </ul>
@@ -401,7 +413,7 @@ export default {
 .tooltip-text{
     position: absolute;
     top: 19px;
-    left: -22px;
+    left: -44%;
     width: max-content;
     background: #0000009c;
     color: white;
@@ -409,5 +421,6 @@ export default {
     border-radius: 7px;
     padding: 3px 6px;
     display: none;
+    z-index: 1200;
 }
 </style>

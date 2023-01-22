@@ -47,7 +47,7 @@
                     <router-link v-if="user" :to="{name:'profile'}" class="nav-link ">ПРОФИЛ</router-link>
                 </li>
                 <li class="nav-item">
-                  <a v-if="user" @click="logout" class="nav-link "  style="cursor: pointer;">ИЗЛЕЗ</a>
+                  <a v-if="user" @click="isLogoutVisible = true" class="nav-link "  style="cursor: pointer;">ИЗЛЕЗ</a>
                 </li>
                 <!-- Dropdown Menu -->          
                 <!-- <li class="nav-item dropdown">
@@ -79,6 +79,7 @@
                 </span>
             </span> -->
         </div>
+        <confirmation-modal v-show="isLogoutVisible" :visible="isLogoutVisible" :text="'Излизане от профил ?'" @close="isLogoutVisible = false" @success="logout"></confirmation-modal>
     </nav> 
     <!-- end of navbar -->
  </template>
@@ -86,10 +87,11 @@
  <script>
   import $ from 'jquery'
   import {post, get} from '../../request';
+  import ConfirmationModal from '../Shared/ConfirmationModal.vue';
  export default {
      data() {
        return {
-         
+        isLogoutVisible: false,
        };
      },
      computed:{
@@ -115,7 +117,7 @@
     });
     },
    components:{
-       
+    ConfirmationModal
    },
    methods:{
     eraseCookie(name) {   
@@ -127,6 +129,7 @@
             this.$store.commit('setUser', null)
             this.$router.push({name: 'home'});
             this.eraseCookie('isLoggedIn');
+            this.isLogoutVisible = false;   
         }
       })
     }

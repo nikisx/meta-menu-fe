@@ -14,11 +14,23 @@
                     <input v-if="currentTable.id == table.id" class="category-name" style="width: 162px;" type="text" v-model="tableNumber">
                   </div>
                   <div style="width: 181px;">
-                    <font-awesome-icon v-if="currentTable.id == table.id" @click="editTable(table)" style="font-size: 20px;" class="edit-table-name" icon="fa-solid fa-check" />
-                    <font-awesome-icon v-else @click="currentTable = table;tableNumber = table.number" style="font-size: 20px;" class="edit-table-name" icon="fa-solid fa-pen-to-square" />
-                    <font-awesome-icon class="btn btn-outline-danger" @click="openDeleteModal(table)"  style="margin-right: 8px;font-size: 13px;padding: 5px;cursor: pointer;margin-bottom: 10px;" icon="fa-solid fa-trash" />
+                    <span v-if="currentTable.id == table.id" class="tooltip-container">
+                      <font-awesome-icon @click="editTable(table)" style="font-size: 20px;" class="edit-table-name" icon="fa-solid fa-check" />
+                      <span class="tooltip-text">Запази</span>
+                    </span>
+                    <span v-else class="tooltip-container">
+                      <font-awesome-icon @click="currentTable = table;tableNumber = table.number" style="font-size: 20px;" class="edit-table-name" icon="fa-solid fa-pen-to-square" />
+                      <span class="tooltip-text">Редактирай</span>
+                    </span>
+                    <span class="tooltip-container">
+                      <font-awesome-icon class="btn btn-outline-danger" @click="openDeleteModal(table)"  style="margin-right: 8px;font-size: 13px;padding: 5px;cursor: pointer;margin-bottom: 10px;" icon="fa-solid fa-trash" />
+                      <span class="tooltip-text">Изтрий</span>
+                    </span>
                   </div>
-                  <a v-if="!table.loader" @click="downloadQrImage(table)" href="#"><font-awesome-icon style="font-size: 20px; margin-top: 6px;" icon="fa-solid fa-qrcode" /></a>
+                  <span class="tooltip-container">
+                    <a v-if="!table.loader" @click="downloadQrImage(table)" href="#"><font-awesome-icon style="font-size: 20px; margin-top: 6px;" icon="fa-solid fa-qrcode" /></a>
+                    <span class="tooltip-text" style="top: 30px; left: -86%">Изтегли</span>
+                  </span>
                   <small-loader v-if="table.loader" style="width: 20px;height: 20px;" ></small-loader>   
               </div>
           </section>
