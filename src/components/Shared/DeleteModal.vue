@@ -6,7 +6,10 @@
         </section>
         <div style="display: flex; justify-content: space-around; align-items: center;">
                 <span class="btn-light-grey" @click="$emit('close')">Откажи</span>
-                <span class="deletebtn" @click="submit">Изтриване</span>
+                <span v-if="!isLoading" class="deletebtn" @click="submit">Изтриване</span>
+                <span v-else  style="width: 88px;" class="deletebtn">
+                    <small-loader style="height: 15px;width: 15px;border-color: black;border-bottom-color: transparent; "></small-loader>
+                </span>
             </div>
     </modal>
 </template>
@@ -14,6 +17,8 @@
 <script>
 import Modal from './Modal.vue'
 import {post} from '../../request'
+import SmallLoader from './SmallLoader.vue'
+
 export default {
      props:{
         visible: {
@@ -29,8 +34,14 @@ export default {
             default: false,
         },
     },
+    data(){
+        return {
+            isLoading: false,
+        }
+    },
     components:{
         Modal,
+        SmallLoader,
     },
     computed:{
         modalStyles(){
@@ -41,6 +52,7 @@ export default {
     },
     methods:{
         submit(){
+            this.isLoading = true;
             let obj = {
                 id: this.item?.id,
                 name: this.item?.name,
@@ -50,15 +62,16 @@ export default {
             }
             
              post(this.item.url, obj).then((response) => {
-            if(response.data.success){
-                this.$emit('success', this.item);
-                this.$emit('close');
-            }
-            else{
-                this.$toast.open({message: 'Възникна грешка, моля опитайте отново', type: 'error', position: 'top'})
-               
-            }
-            }).catch(e => { console.log(e.message) })
+                if(response.data.success){
+                    this.$emit('success', this.item);
+                    this.$emit('close');
+                    this.isLoading = false;
+                }
+                else{
+                    this.$toast.open({message: 'Възникна грешка, моля опитайте отново', type: 'error', position: 'top'})
+                    this.isLoading = false;
+                }
+            }).catch(e => { console.log(e.message);this.isLoading = false ;})
         },
     }
 }
