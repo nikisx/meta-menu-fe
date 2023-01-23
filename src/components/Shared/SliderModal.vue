@@ -1,5 +1,5 @@
 <template>
-  <div @click.prevent="close($event)" class="modal-backdrop" v-if="active">
+  <div @click.prevent="close($event)" class="modal-backdrop" style="background-color: rgba(0, 0, 0, 0.3);" v-if="active">
   </div>
    <div @click.prevent="close($event)" class="slider-modal" id="slider-modal-container" :style="{'right': active ? '' : closingWidth, 'min-width': modalWidth + 'px'}">
     <div @click.stop="close" class="modal-close-button" id="close-modal">

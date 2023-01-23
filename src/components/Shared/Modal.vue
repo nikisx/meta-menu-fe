@@ -1,6 +1,6 @@
 <template>
     <transition  name="fade" appear>
-    <div @click="close($event)" class="modal-backdrop" style="    background-color: rgba(0, 0, 0, 0.3);">
+    <div @click="close($event)" class="modal-backdrop" style="background-color: rgba(0, 0, 0, 0.3);">
       <transition  name="drop-in" >
       <div v-show="visible" class="modal-og" :style="[isDelete ? {'background': 'linear-gradient(87deg,#f5365c,#f56036)!important'} : '', isMobile ? {'min-width': mobileWidth + 'px'} : '']">
        <div v-if="!isDelete" @click.stop="close" class="modal-close-button" id="close-modal">
