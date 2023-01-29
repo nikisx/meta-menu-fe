@@ -3,12 +3,12 @@
     <h1>Създай меню</h1>
     <div style="display: flex; justify-content: space-evenly">
       <div>
-        <ul class="nav nav-tabs fancy-font" style="margin-bottom: 30px;" id="lenoTabs" role="tablist" >
+        <ul class="nav nav-tabs fancy-font menu-nav" id="lenoTabs" role="tablist" >
           <li @click="selectedTab = 'menu'" class="nav-item" data-v-9ea40744="" style="cursor: pointer;"><a class="nav-link" :class="[{'active-menu-toggle': selectedTab == 'menu'}]" id="nav-tab-2" data-toggle="tab" role="tab" aria-controls="tab-2" aria-selected="false">Меню</a></li>
           <li @click="selectedTab = 'info'" class="nav-item" data-v-9ea40744="" style="cursor: pointer;"><a class="nav-link" :class="[{'active-menu-toggle': selectedTab == 'info'}]" id="nav-tab-1" data-toggle="tab" role="tab" aria-controls="tab-1" aria-selected="true" >Информация за обекта</a></li>
         </ul>
 
-        <section v-if="selectedTab == 'info'" style="width: 500px">
+        <section v-if="selectedTab == 'info'" style="margin-bottom: 30px;margin-left: 5px;" :style="{width: isMobile ? 'width: 97vw;' : '500px'}">
           <div style="display: flex; flex-direction: column;text-align: left;">
             <b style="font-size: 10px">Име</b>
             <input class="category-name" @input="editUsername($event, true)"  type="text" :value="user.username" />
@@ -41,7 +41,7 @@
           <div :class="[addCategory ? 'expanded' : 'collapsed']">
             <div class="form-group" style="display: flex; gap: 10px;align-items: start;">
               <div>
-                <input type="text" v-model="categoryName" placeholder="Супи, Пици и т.н." class="form-control-input" style="width: 300px" id="cname" required>
+                <input type="text" v-model="categoryName" placeholder="Супи, Пици и т.н." class="form-control-input" :style="{width: isMobile ? '185px' : '300px'}" id="cname" required>
                 <label class="label-control" style="font-size: 10px;" for="cname" >Ще се добави отдолу</label>
                 <div class="help-block with-errors"></div>
                 <!-- <p style="font-size: 10px;">(Ще се добави отдолу)</p> -->
@@ -80,7 +80,7 @@
                 style="cursor: pointer;margin-right: 9px;margin-left: 12px;font-size: 20px;"
                 icon="fa-solid fa-plus"
               />
-              <span class="tooltip-text">Добави ястие</span>
+              <span class="tooltip-text">Добави продукт</span>
               </span>
               <span  class="tooltip-container">
                 <font-awesome-icon class="btn btn-outline-danger" @click="openDeleteModal(category.name, category.id, true)" style="margin-right: 8px;font-size: 13px;padding: 5px;cursor: pointer;margin-bottom: 10px;" icon="fa-solid fa-trash" />
@@ -106,7 +106,7 @@
                   <div>
                     <span class="tooltip-container">
                       <font-awesome-icon class="btn btn-outline-danger" @click="openDeleteModal(food.name, food.id, false)" style="margin-right: 8px;padding: 5px;cursor: pointer;font-size: 11px;" icon="fa-solid fa-trash" />
-                      <span class="tooltip-text" style="top: 24px;">Изтрий ястие</span>
+                      <span class="tooltip-text" style="top: 24px;">Изтрий продукт</span>
                     </span>
                     <span v-if="!food.isHidden" class="tooltip-container">
                       <font-awesome-icon  @click="editHideItem(food.id, true)" class="edit-table-name" icon="fa-solid fa-eye" />
@@ -125,7 +125,7 @@
         </section>
       </div>
 
-      <div v-if="user" class="marvel-device iphone-x">
+      <div v-if="user && !isMobile" class="marvel-device iphone-x">
         <div class="notch">
           <div class="camera"></div>
           <div class="speaker"></div>
@@ -186,6 +186,12 @@ export default {
     user() {
       return this.$store.state.user;
     },
+    isMobile(){
+            if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                return true;
+            }
+            return false;
+        },
   },
   created() {
     this.getAllCategories();
@@ -422,5 +428,17 @@ export default {
     padding: 3px 6px;
     display: none;
     z-index: 1200;
+}
+@media (max-width: 768px) {
+  .menu-create-wrapper{
+    width: 97vw;
+  }
+  .category-name{
+    width: 225px;
+  }
+  .menu-nav{
+    margin-bottom: 30px;
+    width: 100vw;
+  }
 }
 </style>

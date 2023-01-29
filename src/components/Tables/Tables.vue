@@ -2,18 +2,18 @@
     <section style="text-align: center;">
           <h1>Добави маси</h1>
           <button @click="isAddTablesOpen = true" class="btn-solid-lg" style="margin-bottom: 20px;">+ Добавяне на маси</button>
-          <section style="width: 500px; margin: 0 auto; text-align: left; border: 2px solid #CCC; border-bottom: none; border-radius: 10px;">
+          <section class="tables">
               <div style="border-bottom: 2px solid #CCC;padding: 10px 20px;display: flex;align-items: center;">
-                <b style="width: 185px;">Номер на маса</b>
-                <b style="width:155px;">Редактиране</b>
-                <b>Изтегли QR код</b>
+                <b :style="{width: isMobile ? '156px' : '185px'}">Номер на маса</b>
+                <b :style="{width: isMobile ? '97px' : '155px'}" >Редактиране</b>
+                <b :style="[isMobile ? {'margin-left': '21px'} : '']"> <span v-if="!isMobile">Изтегли</span> QR код</b>
               </div>
               <div v-for="(table, index) in tables" style="border-bottom: 2px solid #CCC;padding: 10px 20px;display: flex;align-items: center;" :key="index">
-                  <div style="width: 196px;">
+                  <div :style="{width: isMobile ? '170px' : '196px'}" >
                     <b v-if="currentTable.id != table.id" >{{table.number}}</b>
                     <input v-if="currentTable.id == table.id" class="category-name" style="width: 162px;" type="text" v-model="tableNumber">
                   </div>
-                  <div style="width: 181px;">
+                  <div :style="{width: isMobile ? '121px' : '181px'}">
                     <span v-if="currentTable.id == table.id" class="tooltip-container">
                       <font-awesome-icon @click="editTable(table)" style="font-size: 20px;" class="edit-table-name" icon="fa-solid fa-check" />
                       <span class="tooltip-text">Запази</span>
@@ -59,7 +59,13 @@
        computed:{
        user(){
          return this.$store.state.user;
-       }
+       },
+       isMobile(){
+            if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                return true;
+            }
+            return false;
+        },
      },
      created(){
       this.getAllTables();
@@ -145,5 +151,18 @@
     }
     .edit-table-name:hover{
         background: gainsboro;
+    }
+    .tables{
+      width: 500px; 
+      margin: 0 auto;
+      text-align: left;
+      border: 2px solid #CCC;
+      border-bottom: none;
+      border-radius: 10px;
+    }
+    @media (max-width: 768px) {
+      .tables{
+        width: 97vw;
+      }
     }
   </style>

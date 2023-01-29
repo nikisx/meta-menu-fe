@@ -1,6 +1,6 @@
 <template>
    <!-- Footer -->
-   <div class="footer">
+   <div style="margin-top: 20px;" class="footer">
         <div v-if="$route.name != 'menu'" class="container">
             <div class="row">
                 <div class="col-md-4">

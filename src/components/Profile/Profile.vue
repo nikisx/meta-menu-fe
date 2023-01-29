@@ -1,7 +1,7 @@
 <template>
    <section style="text-align: center; margin-bottom: 50px;">
         <h3>Здравейте, {{ user.email }}</h3>
-        <form @submit.prevent="submit" style="width: 521px; margin: 0 auto;" class="">
+        <form @submit.prevent="submit" class="profile-container">
             <div class="container">
                 <h4>Смяна на парола</h4>
                 <hr>
@@ -95,5 +95,14 @@ export default {
 </script>
 
 <style>
+  .profile-container{
+    width: 521px; 
+    margin: 0 auto;
+  }
 
+  @media (max-width: 768px) {
+    .profile-container{
+      width: 95vw;
+    }
+  }
 </style>

@@ -1,6 +1,6 @@
 <template>
     <modal :isDelete="true" :visible="visible" @close="$emit('close')" v-if="item">
-        <section style="margin: 110px auto; margin-top: 90px;width: 500px;">
+        <section class="delete-modal-body">
             <font-awesome-icon style="font-size: 105px;color: white;" icon="fa-solid fa-circle-exclamation" />
             <h2 style="color: white">Изтриване на {{item.name}}?</h2>
         </section>
@@ -99,5 +99,16 @@ export default {
  }
  .btn-light-grey:hover{
      background-color: rgba(211, 211, 211, 0.842);
+ }
+ .delete-modal-body{
+    margin: 110px auto;
+     margin-top: 90px;
+     width: 500px;
+ }
+
+ @media (max-width: 768px) {
+    .delete-modal-body{
+        width: 100vw;
+    }
  }
 </style>

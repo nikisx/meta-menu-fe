@@ -1,7 +1,7 @@
 <template>
     <section style="text-align: center;">
           <h1>Поръчки</h1>
-          <section style="width: 500px; margin: 0 auto; text-align: left;">
+          <section class="orders-wrapper">
               <div v-for="(order, index) in orders" @click="openOrderModal(order)" 
               class="order-row" :key="index">
               <div>
@@ -114,4 +114,15 @@
       width: max-content;
       padding: 0 11px;
     }
+    .orders-wrapper{
+      width: 500px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    @media (max-width: 768px) {
+      .orders-wrapper{
+      width: 98vw;
+    }
+  }
   </style>

@@ -2,7 +2,7 @@
             <modal :visible="visible" @close="$emit('close')" >
                 <form @submit.prevent="submit" class="form-group" enctype="multipart/form-data">
                     <div class="container">
-                    <h3 v-if="!editItem">Добавяне на храна</h3>
+                    <h3 v-if="!editItem">Добавяне на продукт</h3>
                     <h3 v-else>Обновяване на {{editItem.name}}</h3>
                     <hr>
                     <div style="position: relative">
