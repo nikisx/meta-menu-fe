@@ -1,9 +1,9 @@
 <template>
   <section class="login-wrapper">
-    <img class="login-inner-image" src="../../assets/styles/images/download.png" alt="">
-    <h1 class="fancy-font login-text">Meta menu</h1>
-    <img class="login-image" src="../../assets/styles/images/download-background.jpg" alt="">
-    <form id="contactForm"  @submit.prevent="submit" style="width: 400px" class="">
+    <img v-if="!isMobile" class="login-inner-image" src="../../assets/styles/images/download.png" alt="">
+    <h1 v-if="!isMobile" class="fancy-font login-text">Meta menu</h1>
+    <img v-if="!isMobile" class="login-image" src="../../assets/styles/images/download-background.jpg" alt="">
+    <form id="contactForm auth-form"  @submit.prevent="submit"  class="">
       <div class="container">
           <h1>Вход</h1>
 
@@ -48,7 +48,13 @@ export default {
   computed:{
     user(){
       return this.$store.state.user;
-    }
+    },
+    isMobile(){
+            if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                return true;
+            }
+            return false;
+        },
   },
   created(){
     if(this.user){
@@ -134,5 +140,16 @@ export default {
   }
   .register-redirect:hover{
     text-decoration: underline;
+  }
+  .auth-form{
+    width: 400px;
+  }
+  @media (max-width: 768px) {
+    .auth-form{
+      width: 95vw;
+    }
+    .login-wrapper{
+      box-shadow: none;
+    }
   }
 </style>

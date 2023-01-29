@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="submit" style="width: 521px; margin: 0 auto;" class="">
+  <form @submit.prevent="submit" class="reg-form">
       <div class="container">
     <h1>Регистрация</h1>
     <hr>
@@ -96,6 +96,15 @@ export default {
 <style>
   .v-toast__item p{
       color: white;
+    }
+    .reg-form{
+      width: 521px;
+       margin: 0 auto;
+    }
+    @media (max-width: 768px) {
+      .reg-form{
+        width: 100vw;;
+      }
     }
 </style>
 

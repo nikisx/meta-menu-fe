@@ -106,6 +106,11 @@
       return this.user.roles.includes("Admin");
      }
    },
+   watch:{
+        $route (to, from){
+            this.isMobileMenuOpened = false;
+        }
+    },
    created(){
    },
    mounted() {
