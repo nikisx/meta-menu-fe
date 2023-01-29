@@ -11,13 +11,13 @@
         <router-link class="navbar-brand logo-image" to="/" ><img src="../../assets/styles/images/logo.svg" alt="alternative"></router-link> 
         
         <!-- Mobile Menu Toggle Button -->
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-awesome fas fa-bars"></span>
-            <span class="navbar-toggler-awesome fas fa-times"></span>
+        <button @click="isMobileMenuOpened = !isMobileMenuOpened" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span v-if="!isMobileMenuOpened" class="navbar-toggler-awesome fas fa-bars"></span>
+            <span v-else class="navbar-toggler-awesome fas fa-times"></span>
         </button>
         <!-- end of mobile menu toggle button -->
 
-        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <div class="collapse navbar-collapse" :class="[{'show': isMobileMenuOpened}]" id="navbarsExampleDefault">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <router-link class="nav-link" v-if="!user"  to="/"> НАЧАЛО <span class="sr-only">(current)</span></router-link>
@@ -92,6 +92,7 @@
      data() {
        return {
         isLogoutVisible: false,
+        isMobileMenuOpened: false,
        };
      },
      computed:{

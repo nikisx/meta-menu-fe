@@ -7,12 +7,12 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="text-container">
-                            <h1>MOBILE APP <br>FOR <span id="js-rotating" style="position : relative; margin-left: 10px;" >
-                              <span :class="[currentIndex == 0 ? 'word-shown' : 'word-hidden', 'word-rotating' ]">DESIGNERS</span>
-                              <span :class="[currentIndex == 1 ? 'word-shown' : 'word-hidden', 'word-rotating']">MARKETERS</span>
-                              <span :class="[currentIndex == 2 ? 'word-shown' : 'word-hidden', 'word-rotating']">DEVELOPERS</span>
+                            <h1 :style="[isMobile ? {'margin-bottom': '57px'} : '']">НАПРАВЕТЕ БИЗНЕСА<br>СИ <span id="js-rotating"  style="position : relative; margin-left: 10px;" >
+                              <span :class="[currentIndex == 0 ? 'word-shown' : 'word-hidden', 'word-rotating' ]">ИНОВАТИВЕН</span>
+                              <span :class="[currentIndex == 1 ? 'word-shown' : 'word-hidden', 'word-rotating']">УДОБЕН</span>
+                              <span :class="[currentIndex == 2 ? 'word-shown' : 'word-hidden', 'word-rotating']">ЕФЕКТИВЕН</span>
                             </span> </h1>
-                            <p class="p-large">Leno is one of the easiest and feature packed marketing automation apps in the market. Download it today!</p>
+                            <p class="p-large fancy-font">Подобрете преживяването на вашите клиенти с <br> <span style="color: #00c9db; font-weight: bold;"> Meta Menu</span></p>
                             <a class="btn-solid-lg page-scroll" href="#your-link"><i class="fab fa-apple"></i>APP STORE</a>
                             <a class="btn-solid-lg page-scroll" href="#your-link"><i class="fab fa-google-play"></i>PLAY STORE</a>
                         </div>
@@ -33,8 +33,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2>FEATURES</h2>
-                    <div class="p-heading p-large">Leno was designed based on input from personal development coaches and popular trainers so it offers all</div>
+                    <h2>Функционалности</h2>
+                    <div class="p-heading p-large">С нашите услуги можете лесно да създавате и актуализирате менюто си в реално време, а клиентите Ви да имат достъп до него като просто сканират QR кода.</div>
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
             <div class="row">
@@ -42,20 +42,20 @@
                 <!-- Tabs Links -->
                 <ul class="nav nav-tabs" id="lenoTabs" role="tablist">
                     <li style="cursor: pointer" class="nav-item">
-                        <a class="nav-link" :class="[selectedTab == 1 ? 'active' : '']" id="nav-tab-1" data-toggle="tab" @click="selectedTab = 1" role="tab" aria-controls="tab-1" aria-selected="true"><i class="fas fa-cog"></i>CONFIGURING</a>
+                        <a class="nav-link" :class="[selectedTab == 1 ? 'active' : '']" id="nav-tab-1" data-toggle="tab" @click="selectedTab = 1" role="tab" aria-controls="tab-1" aria-selected="true"><i class="fas fa-cog"></i>МЕНЮ</a>
                     </li>
                     <li style="cursor: pointer" class="nav-item">
-                        <a class="nav-link" :class="[selectedTab == 2 ? 'active' : '']" id="nav-tab-2" data-toggle="tab" @click="selectedTab = 2" role="tab" aria-controls="tab-2" aria-selected="false"><i class="fas fa-binoculars"></i>TRACKING</a>
+                        <a class="nav-link" :class="[selectedTab == 2 ? 'active' : '']" id="nav-tab-2" data-toggle="tab" @click="selectedTab = 2" role="tab" aria-controls="tab-2" aria-selected="false"><i class="fas fa-binoculars"></i>ПОРЪЧКИ</a>
                     </li>
                     <li style="cursor: pointer" class="nav-item">
-                        <a class="nav-link" :class="[selectedTab == 3 ? 'active' : '']" id="nav-tab-3" data-toggle="tab" @click="selectedTab = 3" role="tab" aria-controls="tab-3" aria-selected="false"><i class="fas fa-search"></i>MONITORING</a>
+                        <a class="nav-link" :class="[selectedTab == 3 ? 'active' : '']" id="nav-tab-3" data-toggle="tab" @click="selectedTab = 3" role="tab" aria-controls="tab-3" aria-selected="false"><i class="fas fa-search"></i>СТАТИСТИКА</a>
                     </li>
                 </ul>
                 <!-- end of tabs links -->
 
 
                 <!-- Tabs Content-->
-                <div class="tab-content" style="position: relative;" id="lenoTabsContent">
+                <div class="tab-content" style="position: relative;" :class="[selectedTab == 2 ? 'shorter-tab-heigth' : 'longer-tab-heigth']" id="lenoTabsContent">
                     
                     <!-- Tab -->
                     <div class=" fade" :class="[selectedTab == 1 ? 'word-shown' : 'word-hidden']" style="position: absolute; transition: 400ms ease all;"  id="tab-1" role="tabpanel" aria-labelledby="tab-1">
@@ -64,33 +64,33 @@
                                 
                                 <!-- Icon Cards Pane -->
                                 <div class="col-lg-4">
-                                    <div class="card left-pane first">
+                                    <!-- <div class="card left-pane first">
                                         <div class="card-body">
                                             <div class="text-wrapper">
-                                                <h4 class="card-title">Goal Setting</h4>
-                                                <p>Like any self improving process, everything starts with setting your goals and committing to them</p>
+                                                <h4 class="card-title">Безконтактни поръчки</h4>
+                                                <p></p>
                                             </div>
                                             <div class="card-icon">
                                                 <i class="far fa-compass"></i>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="card left-pane">
+                                    </div> -->
+                                    <div class="card left-pane first">
                                         <div class="card-body">
                                             <div class="text-wrapper">
-                                                <h4 class="card-title">Visual Editor</h4>
-                                                <p>Leno provides a well designed and ergonomic visual editor for you to edit your notes and input data</p>
+                                                <h4 class="card-title">Максимално удобство</h4>
+                                                <p>Клиентите разглеждат менюто и правят поръчка със свое собствено темпо, без да се налага да отпращат или чакат сервитьор да донесе менюто или да вземе поръчката.</p>
                                             </div>
                                             <div class="card-icon">
-                                                <i class="far fa-file-code"></i>
+                                                <i class="far fa-smile"></i>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card left-pane">
                                         <div class="card-body">
                                             <div class="text-wrapper">
-                                                <h4 class="card-title">Refined Options</h4>
-                                                <p>Each option packaged in the app's menus is provided in order to improve your personal development status</p>
+                                                <h4 class="card-title">Спестени ресурси</h4>
+                                                <p>Традиционните хартиени менюта могат да бъдат високобюджетни, особено ако се налагат чести редакции по тях. QR менюто значително намаля нужните бройки хартиени менюта и спестява солидно количество от предвидените за целта ресурси.</p>
                                             </div>
                                             <div class="card-icon">
                                                 <i class="far fa-gem"></i>
@@ -111,26 +111,26 @@
                                     <div class="card right-pane first">
                                         <div class="card-body">
                                             <div class="card-icon">
-                                                <i class="far fa-calendar-check"></i>
+                                                <i class="far fa-check-square"></i>
                                             </div>
                                             <div class="text-wrapper">
-                                                <h4 class="card-title">Calendar Input</h4>
-                                                <p>Schedule your appointments, meetings and periodical evaluations using the provided in-app calendar option</p>
+                                                <h4 class="card-title" style="text-align: left">Актуална информация</h4>
+                                                <p style="text-align: left">Менюто може лесно да се модифицира по всяко време, позволявайки на клиентите да разполагат с най - актуалната му версия.</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="card right-pane">
                                         <div class="card-body">
                                             <div class="card-icon">
-                                                <i class="far fa-bookmark"></i>
+                                                <i class="fas fa-leaf"></i>
                                             </div>
                                             <div class="text-wrapper">
-                                                <h4 class="card-title">Easy Reading</h4>
-                                                <p>Reading focus mode for long form articles, ebooks and other materials which involve large text areas</p>
+                                                <h4 class="card-title" style="text-align: left">Приятел на природата</h4>
+                                                <p style="text-align: left">QR менюто елиминира нуждата от употреба на хартиени менюта, което помага за намаляване на замърсяването и изсичането на дървета.</p>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="card right-pane">
+                                    <!-- <div class="card right-pane">
                                         <div class="card-body">
                                             <div class="card-icon">
                                                 <i class="fas fa-cube"></i>
@@ -140,7 +140,7 @@
                                                 <p>Get a solid foundation for your self development efforts. Try Leno mobile app for any mobile platform</p>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                                 <!-- end of icon cards pane -->
 
@@ -163,30 +163,30 @@
                                 <!-- Text And Icon Cards Area -->
                                 <div class="col-md-8">
                                     <div class="text-area">
-                                        <h3>Track Result Based On Your</h3>
-                                        <p>After you've configured the app and settled on the data gathering techniques you can not start the information trackers and start collecting those <a class="turquoise" href="#your-link">interesting details</a>. You can always change them.</p>
+                                        <h3>Поръчването стана много по - лесно</h3>
+                                        <p>След като сте оформили своето онлайн меню и сте предоставили достъп на клиентите до QR кодовете можете да започнете да получавате поръчки!</p>
                                     </div> <!-- end of text-area -->
                                     
                                     <div class="icon-cards-area">
                                             <div class="card">
                                                 <div class="card-icon">
-                                                    <i class="fas fa-cube"></i>
+                                                    <font-awesome-icon icon="fa-solid fa-fingerprint" class="fas" style="padding-top: 19px;"/>
                                                 </div>
                                                 <div class="card-body">
-                                                    <h4 class="card-title">Good Foundation</h4>
-                                                    <p>Get a solid foundation for your self development efforts. Try Leno mobile app for any mobile platform</p>
+                                                    <h4 class="card-title">Безконтактни поръчки</h4>
+                                                    <p>Клиентите могат да разглеждат менюто и да правят поръчки без да се налага употребата на хартиено меню. Това ще намали риска от предаване на бактерии и ще повиши безопасността при пандемия.</p>
                                                 </div>
                                             </div>
                                             <div class="card">
                                                 <div class="card-icon">
-                                                    <i class="far fa-bookmark"></i>
+                                                    <i class="fas fa-chart-line"></i>
                                                 </div>
                                                 <div class="card-body">
-                                                    <h4 class="card-title">Easy Reading</h4>
-                                                    <p>Reading focus mode for long form articles, ebooks and other materials which involve large text areas</p>
+                                                    <h4 class="card-title">Ръст в продажбите</h4>
+                                                    <p>Процесът на поръчване е лесен, ефективен и бърз, което води до повишен брой поръчки и съответно повече продажби.</p>
                                                 </div>
                                             </div>
-                                            <div class="card">
+                                            <!-- <div class="card">
                                                 <div class="card-icon">
                                                     <i class="far fa-calendar-check"></i>
                                                 </div>
@@ -203,7 +203,7 @@
                                                     <h4 class="card-title">Visual Editor</h4>
                                                     <p>Leno provides a well designed and ergonomic visual editor for you to edit your notes and input data</p>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                     </div> <!-- end of icon cards area -->
                                 </div> <!-- end of col-md-8 -->
                                 <!-- end of text and icon cards area -->
@@ -371,6 +371,14 @@ export default {
       currentIndex: 0,
     }
   },
+  computed:{
+    isMobile(){
+            if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                return true;
+            }
+            return false;
+        },
+  },
   created(){
     setTimeout(() => {
       this.currentIndex += 1;
@@ -402,5 +410,18 @@ export default {
   .word-rotating{
     transition: 400ms ease all;
     position: absolute;
+  }
+  @media (max-width: 768px) {
+    .word-rotating{
+        display: block;
+        margin-left: 35px;
+    }
+
+    .shorter-tab-heigth{
+        height: 700px;
+    }
+    .longer-tab-heigth{
+        height: 982px;
+    }
   }
 </style>

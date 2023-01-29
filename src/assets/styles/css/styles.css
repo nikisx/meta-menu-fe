@@ -744,7 +744,7 @@ input[type='checkbox'] {
 	font-size: 2rem;
 }
 
-.navbar-custom button[aria-expanded='false'] .navbar-toggler-awesome.fas.fa-times{
+/* .navbar-custom button[aria-expanded='false'] .navbar-toggler-awesome.fas.fa-times{
 	display: none;
 }
 
@@ -759,7 +759,7 @@ input[type='checkbox'] {
 .navbar-custom button[aria-expanded='true'] .navbar-toggler-awesome.fas.fa-times{
 	display: inline-block;
 	margin-right: 0.125rem;
-}
+} */
 
 
 /*********************/
