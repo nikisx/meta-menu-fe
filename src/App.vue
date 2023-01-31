@@ -2,10 +2,10 @@
   <nav-bar></nav-bar>
   <router-view v-slot="{ Component, route }">
     <transition name="page-slide" mode="out-in">
-      <div :style="[route.name != 'home' && route.name != 'menu' ? 'margin-top: 135px;' : '', 'min-height: 105vh;display: flex;flex-direction: column;']" 
+      <div :style="[route.name != 'home' && route.name != 'menu' ? 'margin-top: 135px;' : '', 'display: flex;flex-direction: column;']" 
       :key="route.name"> 
         <!-- <button v-if="route.name == 'menu'" class="sticky-element"><font-awesome-icon style="margin-left: -14px;" icon="fa-solid fa-cart-shopping" /></button> -->
-        <component :is="Component" />
+        <component :is="Component" style="min-height: 45.5vh" />
         <footer-vue></footer-vue>
       </div>
     </transition>

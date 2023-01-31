@@ -3,7 +3,7 @@
     <img v-if="!isMobile" class="login-inner-image" src="../../assets/styles/images/download.png" alt="">
     <h1 v-if="!isMobile" class="fancy-font login-text">Meta menu</h1>
     <img v-if="!isMobile" class="login-image" src="../../assets/styles/images/download-background.jpg" alt="">
-    <form id="contactForm auth-form"  @submit.prevent="submit"  class="">
+    <form id="contactForm "  @submit.prevent="submit"  class="auth-form">
       <div class="container">
           <h1>Вход</h1>
 

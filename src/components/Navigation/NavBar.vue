@@ -5,10 +5,10 @@
     </nav> -->
     <nav v-if="$route.name != 'menu'" :style="[ $route.name != 'home' ? 'background-color: #4633af' : '']" class="navbar navbar-expand-md navbar-dark navbar-custom fixed-top">
         <!-- Text Logo - Use this if you don't have a graphic logo -->
-        <!-- <a class="navbar-brand logo-text page-scroll" href="index.html">Leno</a> -->
+        <router-link class="navbar-brand logo-image" to="/" >MetaMenu</router-link>
 
         <!-- Image Logo -->
-        <router-link class="navbar-brand logo-image" to="/" ><img src="../../assets/styles/images/logo.svg" alt="alternative"></router-link> 
+        <!-- <router-link class="navbar-brand logo-image" to="/" ><img src="../../assets/styles/images/logo.svg" alt="alternative"></router-link>  -->
         
         <!-- Mobile Menu Toggle Button -->
         <button @click="isMobileMenuOpened = !isMobileMenuOpened" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">

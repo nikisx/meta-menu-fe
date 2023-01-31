@@ -45,10 +45,10 @@
                         <a class="nav-link" :class="[selectedTab == 1 ? 'active' : '']" id="nav-tab-1" data-toggle="tab" @click="selectedTab = 1" role="tab" aria-controls="tab-1" aria-selected="true"><i class="fas fa-cog"></i>МЕНЮ</a>
                     </li>
                     <li style="cursor: pointer" class="nav-item">
-                        <a class="nav-link" :class="[selectedTab == 2 ? 'active' : '']" id="nav-tab-2" data-toggle="tab" @click="selectedTab = 2" role="tab" aria-controls="tab-2" aria-selected="false"><i class="fas fa-binoculars"></i>ПОРЪЧКИ</a>
+                        <a class="nav-link" :class="[selectedTab == 3 ? 'active' : '']" id="nav-tab-3" data-toggle="tab" @click="selectedTab = 3" role="tab" aria-controls="tab-3" aria-selected="false"><i class="fas fa-search"></i>СТАТИСТИКА</a>
                     </li>
                     <li style="cursor: pointer" class="nav-item">
-                        <a class="nav-link" :class="[selectedTab == 3 ? 'active' : '']" id="nav-tab-3" data-toggle="tab" @click="selectedTab = 3" role="tab" aria-controls="tab-3" aria-selected="false"><i class="fas fa-search"></i>СТАТИСТИКА</a>
+                        <a class="nav-link" :class="[selectedTab == 2 ? 'active' : '']" id="nav-tab-2" data-toggle="tab" @click="selectedTab = 2" role="tab" aria-controls="tab-2" aria-selected="false"><i class="fas fa-binoculars"></i>ПОРЪЧКИ</a>
                     </li>
                 </ul>
                 <!-- end of tabs links -->
