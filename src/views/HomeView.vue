@@ -13,8 +13,8 @@
                               <span :class="[currentIndex == 2 ? 'word-shown' : 'word-hidden', 'word-rotating']">ЕФЕКТИВЕН</span>
                             </span> </h1>
                             <p class="p-large fancy-font">Подобрете преживяването на вашите клиенти с <br> <span style="color: #00c9db; font-weight: bold;"> Meta Menu</span></p>
-                            <a class="btn-solid-lg page-scroll" href="#your-link">Демо</a>
-                            <a class="btn-solid-lg page-scroll" href="#your-link">Информация</a>
+                            <a class="btn-solid-lg page-scroll" target="_blanc" href="https://meta-menu.netlify.app/menu/f7a01c46-a728-496e-ba74-a7e9219f4ea9/1">Демо</a>
+                            <a class="btn-solid-lg page-scroll" style="color: white; cursor: pointer;" @click="scrollTo()">Информация</a>
                         </div>
                     </div> <!-- end of col -->
                     <div class="col-lg-6">
@@ -394,6 +394,11 @@ export default {
       }
     
     }, "3000")
+  },
+  methods:{
+    scrollTo(){
+        window.scrollTo(0, 900);
+    }
   },
   components: {
     HelloWorld,
