@@ -35,7 +35,7 @@
                     <router-link v-if="user" :to="{name:'tables'}" class="nav-link ">МАСИ</router-link>
                 </li>
                  <li class="nav-item">
-                    <router-link v-if="user" :to="{name:'orders'}" class="nav-link ">ПОРЪЧКИ</router-link>
+                    <a v-if="user" href="/orders" class="nav-link" :class="[{'active': $route.name == 'orders'}]">ПОРЪЧКИ</a>
                 </li>
                 <li class="nav-item">
                     <router-link v-if="user" :to="{name:'statistics'}" class="nav-link ">СТАТИСТИКИ</router-link>
