@@ -45,10 +45,10 @@
                         <a class="nav-link" :class="[selectedTab == 1 ? 'active' : '']" id="nav-tab-1" data-toggle="tab" @click="selectedTab = 1" role="tab" aria-controls="tab-1" aria-selected="true"><i class="fas fa-cog"></i>МЕНЮ</a>
                     </li>
                     <li style="cursor: pointer" class="nav-item">
-                        <a class="nav-link" :class="[selectedTab == 3 ? 'active' : '']" id="nav-tab-3" data-toggle="tab" @click="selectedTab = 3" role="tab" aria-controls="tab-3" aria-selected="false"><i class="fas fa-search"></i>СТАТИСТИКА</a>
+                        <a class="nav-link" :class="[selectedTab == 3 ? 'active' : '']" id="nav-tab-3" data-toggle="tab" @click="selectedTab = 3" role="tab" aria-controls="tab-3" aria-selected="false"><i class="fas far fa-chart-bar"></i>СТАТИСТИКА</a>
                     </li>
                     <li style="cursor: pointer" class="nav-item">
-                        <a class="nav-link" :class="[selectedTab == 2 ? 'active' : '']" id="nav-tab-2" data-toggle="tab" @click="selectedTab = 2" role="tab" aria-controls="tab-2" aria-selected="false"><i class="fas fa-binoculars"></i>ПОРЪЧКИ</a>
+                        <a class="nav-link" :class="[selectedTab == 2 ? 'active' : '']" id="nav-tab-2" data-toggle="tab" @click="selectedTab = 2" role="tab" aria-controls="tab-2" aria-selected="false"><i class="fas fa-money-bill"></i>ПОРЪЧКИ</a>
                     </li>
                 </ul>
                 <!-- end of tabs links -->
@@ -226,8 +226,8 @@
                                                 <i class="far fa-calendar-check"></i>
                                             </div>
                                             <div class="card-body">
-                                                <h4 class="card-title">Calendar Input</h4>
-                                                <p>Schedule your appointments, meetings and periodical evaluations using the provided in-app calendar option</p>
+                                                <h4 class="card-title">Оптимизация</h4>
+                                                <p>Използвайте статистиката, за да следите кои са бестселърите от вашето меню и кои са най-натоварените часове от деня.</p>
                                             </div>
                                         </div>
                                         <div class="card">
@@ -235,11 +235,11 @@
                                                 <i class="far fa-file-code"></i>
                                             </div>
                                             <div class="card-body">
-                                                <h4 class="card-title">Visual Editor</h4>
-                                                <p>Leno provides a well designed and ergonomic visual editor for you to edit your notes and input data</p>
+                                                <h4 class="card-title">Яснота</h4>
+                                                <p>Статистиката може да помогне да се придобие представа за предпочитанията на клиентите. Тази информация може да се използва за подобряване на удовлетвореността на клиентите.</p>
                                             </div>
                                         </div>
-                                        <div class="card">
+                                        <!-- <div class="card">
                                             <div class="card-icon">
                                                 <i class="fas fa-cube"></i>
                                             </div>
@@ -256,12 +256,12 @@
                                                 <h4 class="card-title">Easy Reading</h4>
                                                 <p>Reading focus mode for long form articles, ebooks and other materials which involve large text areas</p>
                                             </div>
-                                        </div>
+                                        </div> -->
                                     </div> <!-- end of icon cards area -->
                                     
                                     <div class="text-area">
-                                        <h3>Monitoring Tools Evaluation</h3>
-                                        <p>Monitor the evolution of your finances and health state using tools integrated in Leno. The generated real time reports can be filtered based on any <a class="turquoise" href="#your-link">desired criteria</a>.</p>
+                                        <h3>Нищо не говори по-добре от данните</h3>
+                                        <p>Чрез използването на статистика Вие може да получатавате ценна информация за своя бизнес, да подобрите удовлетвореността на клиентите и да вземате информирани решения, които водят до увеличаване на продажбите и подобряване на ефективността.</p>
                                     </div> <!-- end of text-area -->
                                 </div> <!-- end of col-md-8 -->
                                 <!-- end of text and icon cards area -->
@@ -426,7 +426,7 @@ export default {
         height: 700px;
     }
     .longer-tab-heigth{
-        height: 982px;
+        height: 1382px;
     }
   }
 </style>
