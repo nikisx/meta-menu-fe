@@ -22,8 +22,8 @@
                       <li v-for="(food, i) in category.items.filter(x => !x.isHidden)" @click="isProductModalOpen = true;currentProduct = food;currentProduct.category = category.name" :style="{'border-left': cart[food.id] ? '4px solid #ffdf00' : ''}" class="product-item" :key="i">
                         <div style="">
                             <div style="width: 212px;">
-                                <div style="display: flex;justify-content: space-between;width: 345px;">
-                                    <p style="margin-bottom: 5px;font-size: 17px;">{{food.name}}</p> 
+                                <div style="display: flex;justify-content: space-between;width: 345px;align-items: center;">
+                                    <p style="margin-bottom: 5px;font-size: 17px; max-width: 200px;">{{food.name}}</p> 
                                     <p class="food-price">{{food.price}} лв.</p>                               
                                  </div>
                                  <div style="display: flex;justify-content: space-between;width: 345px;">
