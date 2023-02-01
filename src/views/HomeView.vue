@@ -13,8 +13,8 @@
                               <span :class="[currentIndex == 2 ? 'word-shown' : 'word-hidden', 'word-rotating']">ЕФЕКТИВЕН</span>
                             </span> </h1>
                             <p class="p-large fancy-font">Подобрете преживяването на вашите клиенти с <br> <span style="color: #00c9db; font-weight: bold;"> Meta Menu</span></p>
-                            <a class="btn-solid-lg page-scroll" href="#your-link"><i class="fab fa-apple"></i>APP STORE</a>
-                            <a class="btn-solid-lg page-scroll" href="#your-link"><i class="fab fa-google-play"></i>PLAY STORE</a>
+                            <a class="btn-solid-lg page-scroll" href="#your-link">Демо</a>
+                            <a class="btn-solid-lg page-scroll" href="#your-link">Информация</a>
                         </div>
                     </div> <!-- end of col -->
                     <div class="col-lg-6">
@@ -33,7 +33,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <h2>Функционалности</h2>
+                    <h2 style="font-size: 33px;">Функционалности</h2>
                     <div class="p-heading p-large">С нашите услуги можете лесно да създавате и актуализирате менюто си в реално време, а клиентите Ви да имат достъп до него като просто сканират QR кода.</div>
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
