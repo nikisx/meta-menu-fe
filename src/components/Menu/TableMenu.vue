@@ -48,7 +48,7 @@
     <section v-else-if="user.accountType == 0">
         <h1>User not validated</h1>
     </section>
-    <loader v-else></loader>
+    <loader v-else style="height: 52vh;margin: 0 auto;margin-top: 217px;"></loader>
     <!-- here is a fixed button, the current one style is sticky -->
     <!-- <button class="sticky-element" style="top: 76%; position: fixed" @click="openCart()">
             <span v-if="cartItmes.length" class="cart-items-number">{{calculatedItemsCount}}</span>

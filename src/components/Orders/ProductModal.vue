@@ -4,7 +4,7 @@
             <div class="product-details-header">
                 <div>
                     <p class="food-price">{{product.category}}</p>  
-                    <h4>{{product.name }}</h4>
+                    <h4 style="text-align: left;">{{product.name }}</h4>
                 </div>
                 <img v-if="product.imageBytes" :src="'data:image/png;base64,'+ product.imageBytes" style="width: 140px;border-radius: 10px;max-height: 200px;height: 100px;object-fit: cover;" alt="">
             </div>
