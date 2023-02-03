@@ -44,7 +44,7 @@
             return false;
         },
         mobileWidth(){
-            return window.screen.width;
+            return window.innerWidth;
         },
     },
       methods: {

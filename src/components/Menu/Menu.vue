@@ -125,11 +125,11 @@
         </section>
       </div>
 
-      <div v-if="user && !isMobile" class="marvel-device iphone-x">
-        <div class="notch">
+      <div v-if="user && !isMobile" style="    position: sticky;top: 62px;" class="marvel-device iphone-x">
+        <!-- <div class="notch">
           <div class="camera"></div>
           <div class="speaker"></div>
-        </div>
+        </div> -->
         <div class="top-bar"></div>
         <div class="sleep"></div>
         <div class="bottom-bar"></div>
