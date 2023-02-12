@@ -286,18 +286,18 @@
     <!-- end of features -->
     
     <!-- Video -->
-    <div id="preview" class="basic-1">
+    <!-- <div id="preview" class="basic-1">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <h2>PREVIEW</h2>
                     <div class="p-heading p-large">Target the right customers for your business with the help of Leno's patented segmentation technology</div>
-                </div> <!-- end of col -->
-            </div> <!-- end of row -->
+                </div> 
+            </div>
             <div class="row">
                 <div class="col-lg-12">
 
-                    <!-- Video Preview -->
+                    
                     <div class="image-container">
                         <div class="video-wrapper">
                             <a class="popup-youtube" href="https://www.youtube.com/watch?v=fLCjQJCekTs" data-effect="fadeIn">
@@ -306,15 +306,15 @@
                                     <span></span>
                                 </span>
                             </a>
-                        </div> <!-- end of video-wrapper -->
-                    </div> <!-- end of image-container -->
-                    <!-- end of video preview -->
+                        </div> 
+                    </div>
+                    
 
-                </div> <!-- end of col -->
-            </div> <!-- end of row -->
-        </div> <!-- end of container -->
-    </div> <!-- end of basic-1 -->
-    <!-- end of video -->
+                </div> 
+            </div> 
+        </div> 
+    </div>  -->
+    
 
       <!-- Details 1 -->
       <div id="details" style="background-color: white;" class="basic-2">

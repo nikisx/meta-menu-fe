@@ -20,19 +20,19 @@
                   <p class="menu-category-name" style="margin-bottom: 0">{{category.name}} </p>
                   <ul style="padding-right: 15px;list-style: none;padding: 0;">
                       <li v-for="(food, i) in category.items.filter(x => !x.isHidden)" @click="isProductModalOpen = true;currentProduct = food;currentProduct.category = category.name" :style="{'border-left': cart[food.id] ? '4px solid #ffdf00' : ''}" class="product-item" :key="i">
-                        <div style="">
-                            <div style="width: 212px;">
-                                <div style="display: flex;justify-content: space-between;width: 345px;align-items: center;">
-                                    <p style="margin-bottom: 5px;font-size: 17px; max-width: 200px;">{{food.name}}</p> 
+                        <div :style="!isMobile ? {margin: '0 auto'} : ''">
+                            <div :style="isMobile ? {'width': '90vw', 'margin': '0 auto'} : {'width': '50vw', 'margin': '0 auto'}" >
+                                <div style="display: flex;justify-content: space-between;align-items: center;">
+                                    <p class="food-name">{{food.name}}</p> 
                                     <p class="food-price">{{food.price}} лв.</p>                               
                                  </div>
-                                 <div style="display: flex;justify-content: space-between;width: 345px;">
-                                    <p v-if="food.description?.length <= 76 && food.imageBytes" style="max-width: 182px;color: #757b86;">{{food.description}}</p>
+                                 <div style="display: flex;justify-content: space-between;">
+                                    <p v-if="food.description?.length <= 76 && food.imageBytes" class="food-description">{{food.description}}</p>
                                     <p v-else-if="food.description && !food.imageBytes" style="width: 165%;color: #757b86;">{{food.description.substring(0, 240)}}
                                         <span v-if="food.description.length > 240">...</span>
                                     </p>
-                                    <p v-else-if="food.description" style="max-width: 182px;color: #757b86;">{{food.description.substring(0, 77)}}...</p>
-                                    <img v-if="food.imageBytes" :src="'data:image/png;base64,'+ food.imageBytes" style="width: 140px;border-radius: 10px;max-height: 200px;height: 100px;object-fit: cover;" alt="">
+                                    <p v-else-if="food.description" class="food-description">{{ isMobile ? food.description.substring(0, 77) : food.description.substring(0, 240)}}...</p>
+                                    <img v-if="food.imageBytes" :src="'data:image/png;base64,'+ food.imageBytes" class="food-image" alt="">
                                  </div>
                             </div>
                             <font-awesome-icon @click.stop="addToCart(food)" class="edit-table-name" style="cursor: pointer;font-size: 22px;" icon="fa-solid fa-plus" />
@@ -101,6 +101,12 @@
 
                 return res;
             }
+        },
+        isMobile(){
+            if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+                return true;
+            }
+            return false;
         },
      },
      created(){
@@ -278,6 +284,7 @@
         background-color: #fafafa;
         padding: 15px;
         font-weight: bold;
+        text-align: center;
     }
     .product-item{
         display: flex;
@@ -311,7 +318,7 @@
         background: white;
         padding-bottom: 4px;
         transition: .3s ease;
-
+        justify-content: center;
     }
     .scrollDown{
         box-shadow: 0px 5px 5px #ccc;;
@@ -336,5 +343,34 @@
         font-size: 17px;
         color: rgb(117, 123, 134);
         margin-left: 9px;
+    }
+    .food-name{
+        margin-bottom: 5px;
+        font-size: 17px;
+        max-width: 300px;
+    }
+    .food-description{
+        max-width: 500px;
+        color: #757b86;
+    }
+    .food-image{
+            width: 300px;
+            border-radius: 10px;
+            height:200px;
+            object-fit: cover;
+        }
+    @media (max-width: 768px) {
+        .scrollable-categories{
+            justify-content: unset;
+        }
+        .food-name{
+            max-width: 200px;
+        }
+        .food-description{
+            max-width: 182px;
+        }
+        .food-image{
+            width: 140px;border-radius: 10px;max-height: 200px;height: 100px;object-fit: cover;
+        }
     }
   </style>
