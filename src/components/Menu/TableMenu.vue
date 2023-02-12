@@ -21,7 +21,7 @@
                   <ul style="padding-right: 15px;list-style: none;padding: 0;">
                       <li v-for="(food, i) in category.items.filter(x => !x.isHidden)" @click="isProductModalOpen = true;currentProduct = food;currentProduct.category = category.name" :style="{'border-left': cart[food.id] ? '4px solid #ffdf00' : ''}" class="product-item" :key="i">
                         <div :style="!isMobile ? {margin: '0 auto'} : ''">
-                            <div :style="isMobile ? {'width': '90vw', 'margin': '0 auto'} : {'width': '50vw', 'margin': '0 auto'}" >
+                            <div class="food-item" >
                                 <div style="display: flex;justify-content: space-between;align-items: center;">
                                     <p class="food-name">{{food.name}}</p> 
                                     <p class="food-price">{{food.price}} лв.</p>                               
@@ -358,7 +358,11 @@
             border-radius: 10px;
             height:200px;
             object-fit: cover;
-        }
+    }
+    .food-item{
+        width: 50vw;
+        margin: 0 auto;
+    }
     @media (max-width: 768px) {
         .scrollable-categories{
             justify-content: unset;
@@ -371,6 +375,9 @@
         }
         .food-image{
             width: 140px;border-radius: 10px;max-height: 200px;height: 100px;object-fit: cover;
+        }
+        .food-item{
+            width: 90vw;
         }
     }
   </style>
