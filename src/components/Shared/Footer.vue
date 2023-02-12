@@ -5,8 +5,8 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="footer-col" >
-                        <h4>About Meta menu</h4>
-                        <p style="color: white !important;">We're passionate about creating the best mobile apps for personal development</p>
+                        <h4>За Meta menu</h4>
+                        <p style="color: white !important;">За нас е важно да даваме стойност на нашите клиенти</p>
                     </div>
                 </div> <!-- end of col -->
                 <div class="col-md-4">
@@ -33,18 +33,18 @@
                                 <i class="fab fa-facebook-f fa-stack-1x"></i>
                             </a>
                         </span>
-                        <span class="fa-stack">
+                        <!-- <span class="fa-stack">
                             <a href="#your-link">
                                 <i class="fas fa-circle fa-stack-2x"></i>
                                 <i class="fab fa-twitter fa-stack-1x"></i>
                             </a>
-                        </span>
-                        <span class="fa-stack">
+                        </span> -->
+                        <!-- <span class="fa-stack">
                             <a href="#your-link">
                                 <i class="fas fa-circle fa-stack-2x"></i>
                                 <i class="fab fa-google-plus-g fa-stack-1x"></i>
                             </a>
-                        </span>
+                        </span> -->
                         <span class="fa-stack">
                             <a href="#your-link">
                                 <i class="fas fa-circle fa-stack-2x"></i>
