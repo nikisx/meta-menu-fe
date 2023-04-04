@@ -32,7 +32,6 @@ import { faFingerprint} from '@fortawesome/free-solid-svg-icons';
 library.add(faPlus, faPenToSquare, faCheck, faMinus, faArrowUp, faArrowDown,faEye, faEyeSlash,faXmark,faUpload,faTrash,faCircleExclamation, faQrcode,faCartShopping, faWifi, faFingerprint);
 
 const connection = new HubConnectionBuilder()
-  // .withUrl('https://meta-menu.azurewebsites.net/api/orderHub')
   .withUrl('https://meta-menu-api.azurewebsites.net/api/orderHub')
   .build();
   

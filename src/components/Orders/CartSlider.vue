@@ -5,7 +5,7 @@
             <div v-if="!isBill">
                 <h2>Поръчка</h2>
                 <hr>
-                <section v-if="cartItmes.length" style="overflow-y: scroll;max-height: 575px;">
+                <section v-if="cartItmes.length" style="overflow-y: scroll;max-height: 60vh;">
                     <div v-for="(food, i) in cartItmes" style="text-align: left;width: 90%;margin: 0 auto;margin-bottom: 20px;" :key="i">
                         <b class="fancy-font">{{food.name}}</b>
                                 <div style="display: flex; justify-content: space-between;">
