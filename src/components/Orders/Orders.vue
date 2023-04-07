@@ -34,6 +34,7 @@
             orders: [],
             isOrderModalVisible: false,
             currentOrder: null,
+            music: require('../../assets/sounds/NewNotification.mp3')
          };
        },
        computed:{
@@ -49,8 +50,9 @@
      },
      mounted(){
         this.signalr.on('NewOrderRecieved', (order) => {
-          console.log(order)
           if(order.userId === this.user.id){
+            var audio = new Audio(this.music);
+            audio.play()
             if(this.orders.some(x => x.id == order.id)){
               let orderSearched = this.orders.find(x => x.id == order.id);
               var index = this.orders.indexOf(orderSearched);

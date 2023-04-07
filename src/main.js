@@ -33,6 +33,7 @@ library.add(faPlus, faPenToSquare, faCheck, faMinus, faArrowUp, faArrowDown,faEy
 
 const connection = new HubConnectionBuilder()
   .withUrl('https://meta-menu-api.azurewebsites.net/api/orderHub')
+  // .withUrl('https://localhost:44349/api/orderHub')
   .build();
   
 createApp(App)
