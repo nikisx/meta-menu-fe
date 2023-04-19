@@ -82,6 +82,12 @@
               />
               <span class="tooltip-text">Добави продукт</span>
               </span>
+              <span class="tooltip-container">
+                <font-awesome-icon v-if="!category.isOnFocus" class="edit-table-name" @click="setOnFocus(category.id)" style="margin-right: 10px;margin-left: 0px;font-size: 20px;cursor: pointer;" icon="fa-solid fa-arrow-up" />
+                <font-awesome-icon v-else class="edit-table-name" @click="setOnFocus(category.id)" style="background: green;color: white;margin-right: 10px;margin-left: 0px;font-size: 20px;cursor: pointer;" icon="fa-solid fa-arrow-up" />
+                <span v-if="!category.isOnFocus" class="tooltip-text">Закачи отгоре</span>
+                <span v-else class="tooltip-text">Премахни закачването</span>
+              </span>
               <span  class="tooltip-container">
                 <font-awesome-icon class="btn btn-outline-danger" @click="openDeleteModal(category.name, category.id, true)" style="margin-right: 8px;font-size: 13px;padding: 5px;cursor: pointer;margin-bottom: 10px;" icon="fa-solid fa-trash" />
                 <span class="tooltip-text">Изтрий категория</span>
@@ -142,7 +148,9 @@
         </div>
         <div class="inner-shadow"></div>
         <div class="screen">
-           <iframe id="menu-preview" style="width: 390px; height: 810px;" :src="`https://meta-menu.netlify.app/menu/${user.id}/18`" title="">
+           <!-- <iframe id="menu-preview" style="width: 390px; height: 810px;" :src="`https://meta-menu.netlify.app/menu/${user.id}/18`" title="">
+            </iframe> -->
+           <iframe id="menu-preview" style="width: 390px; height: 810px;" :src="`http://localhost:8080/menu/${user.id}/18`" title="">
             </iframe>
         </div>
       </div>
@@ -202,6 +210,15 @@ export default {
     DeleteModal,
   },
   methods: {
+    setOnFocus(categoryId){
+      post("/foodcategory/edit-focus", { id: categoryId, name: '' }).then(
+          (response) => {
+            if (response.data.success) {
+              this.getAllCategories();
+              this.updateIframe();
+            }
+        });
+    },
     handleDeleteSuccess(item){
       if (item.id) {
         this.getAllCategories();
@@ -374,7 +391,7 @@ export default {
     width: 361px;
 }
 .menu-create-wrapper{
-  width: 500px;
+  width: 523px;
     margin: 0px auto;
     text-align: left;
     border: 0.5px solid #CCC;

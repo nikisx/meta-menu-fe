@@ -16,7 +16,33 @@
             <font-awesome-icon style="margin-left: -14px;" icon="fa-solid fa-cart-shopping" />
           </button>
           <section style="width: fit-content; margin: 0 auto; text-align: left;">
-              <div v-for="(category, index) in user.categories.filter(x => !x.isHidden)" :id="category.id" style="margin-bottom: 10px;width: 100vw;" :key="index">
+              <div v-if="focusedCategory" :id="focusedCategory.id" style="margin-bottom: 10px;width: 100vw;">
+                  <p class="menu-category-name" style="margin-bottom: 0">{{focusedCategory.name}} </p>
+                  <ul style="padding-right: 15px;list-style: none;padding: 0;">
+                      <li v-for="(food, i) in focusedCategory.items.filter(x => !x.isHidden)" @click="isProductModalOpen = true;currentProduct = food;currentProduct.category = focusedCategory.name" :style="{'border-left': cart[food.id] ? '4px solid #ffdf00' : ''}" class="product-item" :key="i">
+                        <div :style="!isMobile ? {margin: '0 auto'} : ''">
+                            <div class="food-item" >
+                                <div style="display: flex;justify-content: space-between;align-items: center;">
+                                    <p class="food-name">{{food.name}}</p> 
+                                    <p class="food-price">{{food.price}} лв.</p>                               
+                                 </div>
+                                 <div style="display: flex;justify-content: space-between;">
+                                    <p v-if="food.description?.length <= 76 && food.imageBytes" class="food-description">{{food.description}}</p>
+                                    <p v-else-if="food.description && !food.imageBytes" style="width: 165%;color: #757b86;">{{food.description.substring(0, 240)}}
+                                        <span v-if="food.description.length > 240">...</span>
+                                    </p>
+                                    <p v-else-if="food.description" class="food-description">{{ isMobile ? food.description.substring(0, 77) : food.description.substring(0, 240)}}...</p>
+                                    <img v-if="food.imageBytes" :src="'data:image/png;base64,'+ food.imageBytes" class="food-image" alt="">
+                                 </div>
+                            </div>
+                            <font-awesome-icon @click.stop="addToCart(food)" class="edit-table-name" style="cursor: pointer;font-size: 22px;" icon="fa-solid fa-plus" />
+                            <span v-if="cart[food.id]" style="margin-right: 8px;font-size: 17px;">{{cart[food.id]}}</span>
+                            <font-awesome-icon @click.stop="removeFromCart(food.id)" v-if="cart[food.id]" class="edit-table-name" style="cursor: pointer; font-size: 22px;margin-left: 8px;" icon="fa-solid fa-minus" />
+                        </div>
+                    </li>
+                  </ul>
+              </div>
+              <div v-for="(category, index) in user.categories.filter(x => !x.isHidden && !x.isOnFocus)" :id="category.id" style="margin-bottom: 10px;width: 100vw;" :key="index">
                   <p class="menu-category-name" style="margin-bottom: 0">{{category.name}} </p>
                   <ul style="padding-right: 15px;list-style: none;padding: 0;">
                       <li v-for="(food, i) in category.items.filter(x => !x.isHidden)" @click="isProductModalOpen = true;currentProduct = food;currentProduct.category = category.name" :style="{'border-left': cart[food.id] ? '4px solid #ffdf00' : ''}" class="product-item" :key="i">
@@ -108,6 +134,9 @@
             }
             return false;
         },
+        focusedCategory(){
+            return this.user.categories.find(x => x.isOnFocus && !x.isHidden );
+        }
      },
      created(){
       this.getUserInfo();
