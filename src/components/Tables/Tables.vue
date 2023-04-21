@@ -121,7 +121,7 @@
                     const url = window.URL.createObjectURL(new Blob([arr], {type: "image/png"}));
                     const link = document.createElement('a');
                     link.href = url;
-                    link.setAttribute('download', 'qr-code-tabe-' + table.number);
+                    link.setAttribute('download', 'qr-code-table-' + table.number);
                     document.body.appendChild(link);
                     link.click();
                     table.loader = false;
