@@ -13,7 +13,7 @@
                               <span :class="[currentIndex == 2 ? 'word-shown' : 'word-hidden', 'word-rotating']">ЕФЕКТИВЕН</span>
                             </span> </h1>
                             <p class="p-large fancy-font">Подобрете преживяването на вашите клиенти с <br> <span style="color: #00c9db; font-weight: bold;"> Meta Menu</span></p>
-                            <a class="btn-solid-lg page-scroll" target="_blanc" href="https://meta-menu.netlify.app/menu/f7a01c46-a728-496e-ba74-a7e9219f4ea9/1">Демо</a>
+                            <a class="btn-solid-lg page-scroll" target="_blanc" href="https://meta-menu.netlify.app/menu/5037bf6e-7e94-46b6-83ae-250ff4f3dd39/7">Демо</a>
                             <a class="btn-solid-lg page-scroll" style="color: white; cursor: pointer;" @click="scrollTo()">Информация</a>
                         </div>
                     </div> <!-- end of col -->
@@ -324,13 +324,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6">
-                    <img class="img-fluid" src="../assets/styles/images/details-1-iphone.png" alt="alternative">
+                    <img class="img-fluid" src="../assets/styles/images/enjoy-the-digital-difference.png" alt="alternative">
                 </div> <!-- end of col -->
                 <div class="col-lg-6">
                     <div class="text-container">
                         <h3>Насладете се на дигиталната разлика</h3>
                         <p>Подобрете преживяването в ресторанта си с нашето първокласно онлайн меню. Създадено за взискателни бизнес собственици, нашето меню предлага безпроблемно изживяване за вашите клиенти. Сканирайте QR кода, за да откриете свят от възможности.</p>
-                        <a class="btn-solid-reg popup-with-move-anim" href="#details-lightbox-1">LIGHTBOX</a>
+                        <a class="btn-solid-reg popup-with-move-anim" href="https://meta-menu.netlify.app/menu/5037bf6e-7e94-46b6-83ae-250ff4f3dd39/7">Демо</a>
                     </div> <!-- end of text-container -->
                 </div> <!-- end of col -->
             </div> <!-- end of row -->
@@ -348,11 +348,11 @@
                         <div class="text-container">
                             <h3>Успехът е лесен</h3>
                             <p>Осигурете разрастване и удовлетвореност на клиентите с нашето цялостно онлайн меню. Създадена за бизнес собственици, които ценят високите постижения, нашата интуитивна система осигурява безпроблемно дигитално изживяване, което завладява и радва.</p>
-                            <a class="btn-solid-reg popup-with-move-anim" href="#details-lightbox-2">LIGHTBOX</a>
+                            <a class="btn-solid-reg popup-with-move-anim" href="https://meta-menu.netlify.app/menu/5037bf6e-7e94-46b6-83ae-250ff4f3dd39/7">Демо</a>
                         </div> <!-- end of text-container -->
                     </div> <!-- end of col -->
                     <div class="col-lg-6">
-                        <img class="img-fluid" src="../assets/styles/images/details-2-iphone.png" alt="alternative">
+                        <img class="img-fluid" src="../assets/styles/images/success-is-easy.png" alt="alternative">
                     </div> <!-- end of col -->
                 </div> <!-- end of row -->
             </div> <!-- end of container -->
