@@ -287,7 +287,7 @@
     .sticky-element {
         position: sticky;
         left: 70%;
-        top: 90%;
+        top: 85%;
         width: 48px;
         background: #FF5733;
         border-radius: 36px;
