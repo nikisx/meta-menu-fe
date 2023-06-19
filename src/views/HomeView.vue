@@ -102,7 +102,8 @@
 
                                 <!-- Image Pane -->
                                 <div class="col-lg-4">
-                                    <img class="img-fluid" src="../assets/styles/images/features-iphone-1.png" alt="alternative">
+                                    <img v-if="!isMobile" class="img-fluid" style=" height: 610px;width: 770px;max-width: unset;margin-left: -221px;" src="../assets/styles/images/HomePageFunctionality.png" alt="alternative">
+                                    <img v-else class="img-fluid"  src="../assets/styles/images/HomePageFunctionality.png" alt="alternative">
                                 </div>
                                 <!-- end of image pane -->
                                 
@@ -156,7 +157,8 @@
 
                                 <!-- Image Pane -->
                                 <div class="col-md-4">
-                                    <img class="img-fluid" src="../assets/styles/images/features-iphone-2.png" alt="alternative">
+                                    <img v-if="!isMobile" class="img-fluid" style=" height: 610px;width: 770px;max-width: unset;margin-left: -221px;" src="../assets/styles/images/HomePageFunctionality3.png" alt="alternative">
+                                    <img v-else class="img-fluid" src="../assets/styles/images/HomePageFunctionality3.png" alt="alternative">
                                 </div>
                                 <!-- end of image pane -->
                                 
@@ -232,7 +234,7 @@
                                         </div>
                                         <div class="card">
                                             <div class="card-icon">
-                                                <i class="far fa-file-code"></i>
+                                                <font-awesome-icon style="margin-top: 18px;" class="far" :icon="['fas', 'sun']" />
                                             </div>
                                             <div class="card-body">
                                                 <h4 class="card-title">Яснота</h4>
@@ -268,7 +270,8 @@
 
                                 <!-- Image Pane -->
                                 <div class="col-md-4">
-                                    <img class="img-fluid" src="../assets/styles/images/features-iphone-3.png" alt="alternative">
+                                    <img v-if="!isMobile" class="img-fluid" style=" height: 610px;width: 770px;max-width: unset;margin-left: -221px;" src="../assets/styles/images/HomePageFunctions2.png" alt="alternative">
+                                    <img v-else class="img-fluid" src="../assets/styles/images/HomePageFunctions2.png" alt="alternative">
                                 </div>
                                 <!-- end of image pane -->
                                     
@@ -325,8 +328,8 @@
                 </div> <!-- end of col -->
                 <div class="col-lg-6">
                     <div class="text-container">
-                        <h3>Goals Setting</h3>
-                        <p>Leno can easily help you track your personal development evolution if you take the time to properly setup your goals at the beginning of the training process. Check out the details</p>
+                        <h3>Насладете се на дигиталната разлика</h3>
+                        <p>Подобрете преживяването в ресторанта си с нашето първокласно онлайн меню. Създадено за взискателни бизнес собственици, нашето меню предлага безпроблемно изживяване за вашите клиенти. Сканирайте QR кода, за да откриете свят от възможности.</p>
                         <a class="btn-solid-reg popup-with-move-anim" href="#details-lightbox-1">LIGHTBOX</a>
                     </div> <!-- end of text-container -->
                 </div> <!-- end of col -->
@@ -343,8 +346,8 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="text-container">
-                            <h3>Calendar Input</h3>
-                            <p>The calendar input function enables the user to setup training, meditation and relaxation sessions with ease. Just open the feature and start setting up your time as you desire</p>
+                            <h3>Успехът е лесен</h3>
+                            <p>Осигурете разрастване и удовлетвореност на клиентите с нашето цялостно онлайн меню. Създадена за бизнес собственици, които ценят високите постижения, нашата интуитивна система осигурява безпроблемно дигитално изживяване, което завладява и радва.</p>
                             <a class="btn-solid-reg popup-with-move-anim" href="#details-lightbox-2">LIGHTBOX</a>
                         </div> <!-- end of text-container -->
                     </div> <!-- end of col -->
