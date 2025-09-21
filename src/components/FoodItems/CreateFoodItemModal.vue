@@ -108,6 +108,7 @@ export default {
            previewImage.src = URL.createObjectURL(files[0])
         },
         resetData(){
+            debugger
             this.priceError = false;
             this.nameError = false;
             if(this.editItem)
@@ -119,6 +120,7 @@ export default {
                 this.price = this.editItem.price;
                 this.image = this.editItem.image;
                 this.imageBytes = this.editItem.imageBytes;
+                console.log(this.price, typeof(this.price))
             }
             else{
                 this.name = null;
@@ -160,6 +162,7 @@ export default {
             formData.append('allergens', this.allergens)
 
             formData.append('price', this.price)
+            console.log(this.price, typeof(this.price))
             formData.append('imageBytes', this.imageBytes)
 
             let url = this.editItem ? '/fooditem/edit' :'/fooditem/create';

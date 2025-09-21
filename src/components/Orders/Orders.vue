@@ -1,130 +1,154 @@
 <template>
-    <section style="text-align: center;">
-          <h1>Поръчки</h1>
-          <section class="orders-wrapper">
-              <div v-for="(order, index) in orders" @click="openOrderModal(order)" 
-              class="order-row" :key="index">
-              <div>
-                <div v-if="order.isNew" class="new-order fancy-font">Нова</div>
-                <div>
-                  Номер на маса - <b>{{order.tableNumber}}</b>
-                 </div> 
-                  <p v-for="(item, i) in order.items.slice(0,2)" :key="i" style="margin-bottom: 0px; font-size: 12px;"> {{item.name}} - {{item.quantity}}бр.</p>
-                  <p v-if="order.items.length > 2" style="font-size: 12px;margin-bottom: 0;">и още {{order.items.length - 2}} продукта</p>
-                  <b v-if="order.type != 0">Клиентът иска да заплати сметката си {{ order.type == 1 ? 'в брой' : 'с карта' }}</b>
-              </div>
-              <div style="display: flex; flex-direction: column; position: relative;">
-                <b>{{order.time}} ч.</b>  
-                <b v-if="order.type == 0" style="position: absolute;bottom: 0px;width: 80px;">{{order.price}} лв.</b>  
-              </div>
-              </div>
-          </section>
-          <order-modal :visible="isOrderModalVisible" v-show="isOrderModalVisible" @success="getAllOrders" :order="currentOrder" @close="isOrderModalVisible = false"></order-modal>
+  <section style="text-align: center">
+    <h1>Поръчки</h1>
+    <section class="orders-wrapper">
+      <div
+        v-for="(order, index) in orders"
+        @click="openOrderModal(order)"
+        class="order-row"
+        :key="index"
+      >
+        <div>
+          <div v-if="order.isNew" class="new-order fancy-font">Нова</div>
+          <div>
+            Номер на маса - <b>{{ order.tableNumber }}</b>
+          </div>
+          <p
+            v-for="(item, i) in order.items.slice(0, 2)"
+            :key="i"
+            style="margin-bottom: 0px; font-size: 12px"
+          >
+            {{ item.name }} - {{ item.quantity }}бр.
+          </p>
+          <p
+            v-if="order.items.length > 2"
+            style="font-size: 12px; margin-bottom: 0"
+          >
+            и още {{ order.items.length - 2 }} продукта
+          </p>
+          <b v-if="order.type != 0"
+            >Клиентът иска да заплати сметката си
+            {{ order.type == 1 ? "в брой" : "с карта" }}</b
+          >
+        </div>
+        <div style="display: flex; flex-direction: column; position: relative">
+          <b>{{ order.time }} ч.</b>
+          <b
+            v-if="order.type == 0"
+            style="position: absolute; bottom: 0px; width: 80px"
+            >{{ order.price }} лв.</b
+          >
+        </div>
+      </div>
     </section>
-  </template>
-  
-  <script>
-  import {post, get} from '../../request.js';  
-  import { useSignalR } from '@dreamonkey/vue-signalr';
-  import OrderModal from './OrderModa.vue';
+    <order-modal
+      :visible="isOrderModalVisible"
+      v-show="isOrderModalVisible"
+      @success="getAllOrders"
+      :order="currentOrder"
+      @close="isOrderModalVisible = false"
+    ></order-modal>
+  </section>
+</template>
 
-  export default {
-      data() {
-         return {
-            orders: [],
-            isOrderModalVisible: false,
-            currentOrder: null,
-            music: require('../../assets/sounds/NewNotification.mp3')
-         };
-       },
-       computed:{
-        signalr() {
-            return useSignalR();
-        },
-        user(){
-         return this.$store.state.user;
-       }
-     },
-     created(){
-      this.getAllOrders();
-     },
-     mounted(){
-        this.signalr.on('NewOrderRecieved', (order) => {
-          if(order.userId === this.user.id){
-            var audio = new Audio(this.music);
-            audio.play()
-            if(this.orders.some(x => x.id == order.id)){
-              let orderSearched = this.orders.find(x => x.id == order.id);
-              var index = this.orders.indexOf(orderSearched);
+<script>
+import { post, get } from "../../request.js";
+import { useSignalR } from "@dreamonkey/vue-signalr";
+import OrderModal from "./OrderModa.vue";
 
-              this.orders[index] = order;
-            }
-            else{
-              this.orders.unshift(order);
-            }
-            
-          }
+export default {
+  data() {
+    return {
+      orders: [],
+      isOrderModalVisible: false,
+      currentOrder: null,
+      music: require("../../assets/sounds/NewNotification.mp3"),
+    };
+  },
+  computed: {
+    signalr() {
+      return useSignalR();
+    },
+    user() {
+      return this.$store.state.user;
+    },
+  },
+  created() {
+    this.getAllOrders();
+  },
+  mounted() {
+    this.signalr.on("NewOrderRecieved", (order) => {
+      if (order.userId === this.user.id) {
+        var audio = new Audio(this.music);
+        audio.play();
+        if (this.orders.some((x) => x.id == order.id)) {
+          let orderSearched = this.orders.find((x) => x.id == order.id);
+          var index = this.orders.indexOf(orderSearched);
+
+          this.orders[index] = order;
+        } else {
+          this.orders.unshift(order);
+        }
+      }
     });
-     },
-     components:{
-      OrderModal
-     },
-     methods:{
-        openOrderModal(order){
-          this.currentOrder = order ;
-          this.isOrderModalVisible = true;
-          if (order.isNew) {
-            post('/orders/open', {id: order.id})
-            .then(response => {
-                  if(response.data.success){
-                    this.currentOrder.isNew = false;
-                  }
-              })
+  },
+  components: {
+    OrderModal,
+  },
+  methods: {
+    openOrderModal(order) {
+      this.currentOrder = order;
+      this.isOrderModalVisible = true;
+      if (order.isNew) {
+        post("/orders/open", { id: order.id }).then((response) => {
+          if (response.data.success) {
+            this.currentOrder.isNew = false;
           }
-        },
-        getAllOrders(){
-          get('/orders/get-all')
-          .then(response => {
-                if(response.data.success){
-                  this.orders = response.data.data;
-                }
-            })
-         },
-     }
-  }
-  </script>
-  
-  <style>
-    .order-row{
-      margin-bottom: 20px; 
-      border: 1px solid #CCC; 
-      cursor: pointer; 
-      padding: 20px; 
-      border-radius: 10px; 
-      display: flex; 
-      justify-content: space-between;
-    }
-    .order-row:hover{
-      background:#cccccc4a;
-    }
-    .new-order{
-      color: white;
-      font-weight: bold;
-      background: red;
-      border-radius: 20px;
-      text-align: center;
-      width: max-content;
-      padding: 0 11px;
-    }
-    .orders-wrapper{
-      width: 500px;
-      margin: 0 auto;
-      text-align: left;
-    }
+        });
+      }
+    },
+    getAllOrders() {
+      get("/orders/get-all").then((response) => {
+        if (response.data.success) {
+          this.orders = response.data.data;
+        }
+      });
+    },
+  },
+};
+</script>
 
-    @media (max-width: 768px) {
-      .orders-wrapper{
-      width: 98vw;
-    }
+<style>
+.order-row {
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  padding: 20px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.order-row:hover {
+  background: #cccccc4a;
+}
+.new-order {
+  color: white;
+  font-weight: bold;
+  background: red;
+  border-radius: 20px;
+  text-align: center;
+  width: max-content;
+  padding: 0 11px;
+}
+.orders-wrapper {
+  width: 500px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  .orders-wrapper {
+    width: 98vw;
   }
-  </style>
+}
+</style>

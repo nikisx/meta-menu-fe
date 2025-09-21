@@ -1,8 +1,8 @@
 
 import axios from "axios";
-const baseUrl = "https://localhost:44349/api";
+const baseUrl = "https://localhost:7151/api";
 const externalUrl = "https://192.168.1.5/api";
-const prodUrl = "https://meta-menu-api.azurewebsites.net/api";
+const prodUrl = "https://meta-menu-edajgfhuhygadkag.northeurope-01.azurewebsites.net/api";
 
 axios.defaults.withCredentials = true;
 

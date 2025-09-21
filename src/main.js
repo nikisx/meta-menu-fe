@@ -33,8 +33,8 @@ import { faSun} from '@fortawesome/free-solid-svg-icons';
 library.add(faPlus, faPenToSquare, faCheck, faMinus, faArrowUp, faArrowDown,faEye, faEyeSlash,faXmark,faUpload,faTrash,faCircleExclamation, faQrcode,faCartShopping, faWifi, faFingerprint, faSun);
 
 const connection = new HubConnectionBuilder()
-  .withUrl('https://meta-menu-api.azurewebsites.net/api/orderHub')
-  // .withUrl('https://localhost:44349/api/orderHub')
+  .withUrl('https://meta-menu-edajgfhuhygadkag.northeurope-01.azurewebsites.net/api/orderHub')
+  // .withUrl('https://localhost:7151/api/orderHub')
   .build();
   
 createApp(App)
