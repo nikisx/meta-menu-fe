@@ -33,9 +33,15 @@ import { faSun} from '@fortawesome/free-solid-svg-icons';
 library.add(faPlus, faPenToSquare, faCheck, faMinus, faArrowUp, faArrowDown,faEye, faEyeSlash,faXmark,faUpload,faTrash,faCircleExclamation, faQrcode,faCartShopping, faWifi, faFingerprint, faSun);
 
 const connection = new HubConnectionBuilder()
-  .withUrl('https://meta-menu-edajgfhuhygadkag.northeurope-01.azurewebsites.net/api/orderHub')
+  .withUrl("https://meta-menu-edajgfhuhygadkag.northeurope-01.azurewebsites.net/api/orderHub", {
+        withCredentials: true // важно за cookies/JWT
+    })
   // .withUrl('https://localhost:7151/api/orderHub')
   .build();
+
+  connection.start()
+    .then(() => console.log("SignalR connected"))
+    .catch(err => console.error("SignalR error:", err));
   
 createApp(App)
 .use(store)
