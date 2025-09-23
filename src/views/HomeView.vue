@@ -13,7 +13,7 @@
                               <span :class="[currentIndex == 2 ? 'word-shown' : 'word-hidden', 'word-rotating']">ЕФЕКТИВЕН</span>
                             </span> </h1>
                             <p class="p-large fancy-font">Подобрете преживяването на вашите клиенти с <br> <span style="color: #00c9db; font-weight: bold;"> Meta Menu</span></p>
-                            <a class="btn-solid-lg page-scroll" target="_blanc" href="https://meta-menu.netlify.app/menu/5037bf6e-7e94-46b6-83ae-250ff4f3dd39/7">Демо</a>
+                            <a class="btn-solid-lg page-scroll" target="_blanc" href="https://meta-menu.netlify.app/menu/014d37f7-5f0c-4130-a550-ca9ba49cd5d8/7">Демо</a>
                             <a class="btn-solid-lg page-scroll" style="color: white; cursor: pointer;" @click="scrollTo()">Информация</a>
                         </div>
                     </div> <!-- end of col -->
